@@ -1,5 +1,23 @@
 <script>
-	import Card from '$lib/components/Card.svelte';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import MenuCard from '$lib/components/MenuCard.svelte';
+
+	const currentPath = $page.url.pathname;
+
+	const items = [
+		{ title: 'Button', subtitle: '', page: '/button' },
+		{ title: 'Input Form', subtitle: '', page: '/input' },
+		{ title: 'Text Area', subtitle: '', page: '/textarea' },
+		{ title: 'Select', subtitle: '', page: '/select' },
+		{ title: 'Checkbox', subtitle: '', page: '/checkbox' },
+		{ title: 'Dialog', subtitle: '', page: '/dialog' },
+		{ title: 'Input Auto Load', subtitle: '', page: '/autoload' },
+		{ title: 'Form Enhance', subtitle: '', page: '/formenhance' },
+		{ title: 'Input Validate', subtitle: '', page: '/inputvalidate' },
+		{ title: 'File Upload', subtitle: '', page: '/fileupload' },
+		{ title: 'Simmer', subtitle: '', page: '/simmer' }
+	];
 </script>
 
 <svelte:head>
@@ -8,12 +26,19 @@
 </svelte:head>
 
 <div class="card-wrap">
-	<Card title="Button" />
-	<Card title="Input Text" />
+	{#each items as item}
+		<MenuCard
+			title={item.title}
+			subtitle={item.subtitle}
+			on:onClick={() => goto(`${currentPath}${item.page}`)}
+		/>
+	{/each}
 </div>
 
 <style>
 	.card-wrap {
-		display: flex;
+		display: grid;
+		grid-template-columns: auto auto auto;
+		gap: 16px;
 	}
 </style>
