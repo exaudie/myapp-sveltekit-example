@@ -1,8 +1,13 @@
 <script lang="ts">
+	import NavToBack from '$lib/components/NavToBack.svelte';
+	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
+
 	const column: number = 30;
 	const row: number = 50;
 </script>
 
+<NavToBack label="Table Freeze" linkBack="/exaudie" />
+<VerticalSpace height="8px" />
 <div class="table-wrap">
 	<table>
 		<thead>
@@ -28,7 +33,7 @@
 	.table-wrap {
 		background-color: bisque;
 		width: 100%;
-		height: 70vh;
+		height: 60vh;
 		overflow: auto;
 	}
 
@@ -50,7 +55,7 @@
 		top: 0;
 		position: sticky;
 		z-index: 91;
-    color: white;
+		color: white;
 		background-color: blue;
 	}
 
