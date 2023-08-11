@@ -18,6 +18,7 @@
 		{ title: 'File Upload', subtitle: '', page: '/fileupload' },
 		{ title: 'Simmer', subtitle: '', page: '/simmer' },
 		{ title: 'SneckBar', subtitle: '', page: '/sneckbar' },
+		{ title: 'Table', subtitle: '', page: '/table' },
 		{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' }
 	];
 </script>
