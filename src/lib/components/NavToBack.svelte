@@ -10,7 +10,7 @@
 	const toBack = () => {
 		if (setValue(linkBack) == '') return;
 
-		goto(linkBack);
+		goto(linkBack, { replaceState: true });
 	};
 </script>
 
