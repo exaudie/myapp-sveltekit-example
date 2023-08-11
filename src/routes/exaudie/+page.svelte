@@ -7,7 +7,7 @@
 
 	const items = [
 		{ title: 'Button', subtitle: '', page: '/button' },
-		{ title: 'Input Form', subtitle: '', page: '/input' },
+		{ title: 'Input', subtitle: '', page: '/input' },
 		{ title: 'Text Area', subtitle: '', page: '/textarea' },
 		{ title: 'Select', subtitle: '', page: '/select' },
 		{ title: 'Checkbox', subtitle: '', page: '/checkbox' },
