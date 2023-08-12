@@ -11,15 +11,31 @@
 	};
 </script>
 
-<input use:typeAction {id} {name} {placeholder} bind:value class:error-border={isError} />
+<input
+	use:typeAction
+	{id}
+	{name}
+	{placeholder}
+	bind:value
+	class="customize"
+	class:error-border={isError}
+/>
 
 <style>
 	input {
-		padding: 12px 16px;
+		background-color: white;
 		border-radius: 4px;
 		border: 1px solid #99a0af;
+		color: var(--text-primary);
+		padding: 0.5em 1em;
 		text-overflow: ellipsis;
 	}
+
+	input::placeholder {
+		color: var(--text-scondary);
+		opacity: 1;
+	}
+
 	.error-border {
 		border: 1px solid red;
 	}

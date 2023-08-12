@@ -17,7 +17,7 @@
 
 	/* used on the exaudie page */
 	--text-primary: #343a40;
-	--text-scondary: #6c757d;
+	--text-scondary: #869cae;
 	--danger-state: #dc3545;
 }
 
@@ -109,4 +109,13 @@ button:focus:not(:focus-visible) {
 	position: absolute;
 	width: 1px;
 	white-space: nowrap;
+}
+
+/* used on the exaudie page */
+.text-bold {
+	font-weight: 700;
+}
+
+.text-regular {
+	font-weight: 400;
 }

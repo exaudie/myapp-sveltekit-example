@@ -21,14 +21,14 @@
 <style>
 	select {
 		background-color: white;
-		display: inline-block;
 		border: thin solid #99a0af;
 		border-radius: 4px;
-		text-overflow: ellipsis;
 		color: var(--text-primary);
+		display: inline-block;
 		font: inherit;
 		line-height: 1.5em;
 		padding: 0.5em 3.5em 0.5em 1em;
+		text-overflow: ellipsis;
 	}
 
 	.error-border {
