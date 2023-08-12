@@ -9,7 +9,7 @@ export const menuItems = [
 	{ title: 'Form Enhance', subtitle: '', page: '/formenhance' },
 	{ title: 'Input Validate', subtitle: '', page: '/inputvalidate' },
 	{ title: 'File Upload', subtitle: '', page: '/fileupload' },
-	{ title: 'Simmer', subtitle: '', page: '/simmer' },
+	{ title: 'Simmer / Skeleton', subtitle: '', page: '/simmer' },
 	{ title: 'SneckBar', subtitle: '', page: '/sneckbar' },
 	{ title: 'Table', subtitle: '', page: '/table' },
 	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' }

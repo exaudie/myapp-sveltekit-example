@@ -25,6 +25,12 @@
 		{/each}
 	</Select>
 
+	<Select placeholder="select month">
+		{#each getMonthList() as month}
+			<option value={month}>{month}</option>
+		{/each}
+	</Select>
+
 	<SelectMinimal>
 		<Select placeholder="select month">
 			{#each getMonthList() as month}

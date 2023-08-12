@@ -49,6 +49,11 @@
 		font-weight: 700;
 	}
 
+	nav :global(.clicker:hover) {
+		background-color: rgba(128, 128, 128, 0.1);
+		border-radius: 4px;
+	}
+
 	nav :global(.clicker:active) {
 		background-color: grey;
 		border-radius: 4px;
