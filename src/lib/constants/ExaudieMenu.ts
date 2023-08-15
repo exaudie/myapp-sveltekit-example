@@ -10,7 +10,7 @@ export const menuItems = [
 	{ title: 'Input Validate', subtitle: '', page: '/inputvalidate' },
 	{ title: 'File Upload', subtitle: '', page: '/fileupload' },
 	{ title: 'Simmer / Skeleton', subtitle: '', page: '/simmer' },
-	{ title: 'SneckBar', subtitle: '', page: '/sneckbar' },
+	{ title: 'SnackBar / Toast', subtitle: '', page: '/toast' },
 	{ title: 'Table', subtitle: '', page: '/table' },
 	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' },
 	{ title: 'Store', subtitle: '', page: '/store' }

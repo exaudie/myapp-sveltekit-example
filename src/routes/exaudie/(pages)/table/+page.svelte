@@ -15,6 +15,7 @@
 	linkBack="/exaudie"
 />
 <VerticalSpace height="8px" />
+
 <div class="table-wrap">
 	<table>
 		<thead>
