@@ -12,7 +12,8 @@ export const menuItems = [
 	{ title: 'Simmer / Skeleton', subtitle: '', page: '/simmer' },
 	{ title: 'SneckBar', subtitle: '', page: '/sneckbar' },
 	{ title: 'Table', subtitle: '', page: '/table' },
-	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' }
+	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' },
+	{ title: 'Store', subtitle: '', page: '/store' }
 ];
 
 export const getMenuTitleFromPage = (page: string) => {
