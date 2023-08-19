@@ -5,9 +5,9 @@
 	import NavToBack from '$lib/components/NavToBack.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Select from '$lib/components/select/Select.svelte';
+	import SelectClassic from '$lib/components/select/SelectClassic.svelte';
 	import SelectMinimal from '$lib/components/select/SelectMinimal.svelte';
 	import SelectRound from '$lib/components/select/SelectRound.svelte';
-	import SelectClassic from '$lib/components/select/SelectClassic.svelte';
 
 	const currentPath = $page.url.pathname;
 	const pathSplit = currentPath.split('/');
@@ -18,6 +18,7 @@
 	linkBack="/exaudie"
 />
 <VerticalSpace height="8px" />
+
 <div class="wrap">
 	<Select placeholder="select month">
 		{#each getMonthList() as month}

@@ -3,11 +3,11 @@
 	import { page } from '$app/stores';
 	import NavToBack from '$lib/components/NavToBack.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import Input from '$lib/components/input/input.svelte';
 	import PrefixInput from '$lib/components/input/PrefixInput.svelte';
+	import SuffixInput from '$lib/components/input/SuffixInput.svelte';
+	import Input from '$lib/components/input/input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SvelteIcon from '$lib/images/svelte-logo.svg';
-	import SuffixInput from '$lib/components/input/SuffixInput.svelte';
 
 	const currentPath = $page.url.pathname;
 	const pathSplit = currentPath.split('/');
