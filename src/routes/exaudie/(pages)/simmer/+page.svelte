@@ -3,6 +3,7 @@
 	import { page } from '$app/stores';
 	import NavToBack from '$lib/components/NavToBack.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
+	import SimmerLine from '$lib/components/simmer/SimmerLine.svelte';
 
 	const currentPath = $page.url.pathname;
 	const pathSplit = currentPath.split('/');
@@ -13,6 +14,10 @@
 	linkBack="/exaudie"
 />
 <VerticalSpace height="8px" />
+
+<div class="card" style="padding: 16px;">
+	<SimmerLine><VerticalSpace height="10px" /></SimmerLine>
+</div>
 
 <div class="card">
 	<div class="shimmerBG media" />
