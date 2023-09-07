@@ -1,6 +1,5 @@
 <script>
 	import { menuItems } from '$lib/constants/ExaudieMenu';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import MenuCard from '$lib/components/MenuCard.svelte';
 
