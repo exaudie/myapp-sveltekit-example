@@ -1,4 +1,6 @@
-export const menuItems = [
+import type { MenuItems } from '$lib/types/MenuScheme';
+
+export const menuItems: MenuItems[] = [
 	{ title: 'Button', subtitle: '', page: '/button' },
 	{ title: 'Input', subtitle: '', page: '/input' },
 	{ title: 'Text Area', subtitle: '', page: '/textarea' },
@@ -15,16 +17,5 @@ export const menuItems = [
 	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' },
 	{ title: 'Store', subtitle: '', page: '/store' },
 	{ title: 'Progress', subtitle: '', page: '/progress' },
+	{ title: 'Array', subtitle: '', page: '/array' }
 ];
-
-export const getMenuTitleFromPage = (page: string) => {
-	let title = '';
-	for (const itm of menuItems) {
-		if (itm.page === page) {
-			title = itm.title;
-			break;
-		}
-	}
-
-	return title;
-};

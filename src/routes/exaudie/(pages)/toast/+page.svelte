@@ -1,16 +1,10 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import Toast from '$lib/components/Toast.svelte';
-	import ToastNotif from '$lib/components/ToastNotif.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import Button from '$lib/components/button/Button.svelte';
-	import { getMenuTitleFromPage } from '$lib/constants/ExaudieMenu';
 	import { notifications } from '$lib/stores/NotificationsStore';
 	import { derived, writable } from 'svelte/store';
-
-	const currentPath = $page.url.pathname;
-	const pathSplit = currentPath.split('/');
+	import Toast from '$lib/components/Toast.svelte';
+	import ToastNotif from '$lib/components/ToastNotif.svelte';
+	import Button from '$lib/components/button/Button.svelte';
+	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 
 	const onClick = () => {
 		notifications.success('testing toast', 1000);
@@ -52,15 +46,9 @@
 	console.log('derivedtest', derivedtest);
 </script>
 
-<NavToBack
-	label={getMenuTitleFromPage(`/${pathSplit.at(pathSplit.length - 1) ?? ''}`)}
-	linkBack="/exaudie"
-/>
-<VerticalSpace height="8px" />
-
 <Toast />
 <ToastNotif />
-<div class="wrap">
+<GridLayoutThreeColumn>
 	<Button on:onClick={onClick}>toast1</Button>
 
 	<Button on:onClick={onToast2}>toast2</Button>
@@ -68,12 +56,4 @@
 	<Button on:onClick={onToast3}>toast3</Button>
 
 	<Button on:onClick={() => {}}>toast4</Button>
-</div>
-
-<style>
-	.wrap {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1em;
-	}
-</style>
+</GridLayoutThreeColumn>

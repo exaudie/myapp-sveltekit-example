@@ -1,20 +1,7 @@
 <script lang="ts">
-	import { getMenuTitleFromPage } from '$lib/constants/ExaudieMenu';
-	import { page } from '$app/stores';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-
-	const currentPath = $page.url.pathname;
-	const pathSplit = currentPath.split('/');
 	const column: number = 5;
 	const row: number = 50;
 </script>
-
-<NavToBack
-	label={getMenuTitleFromPage(`/${pathSplit.at(pathSplit.length - 1) ?? ''}`)}
-	linkBack="/exaudie"
-/>
-<VerticalSpace height="8px" />
 
 <div class="table-wrap">
 	<table>
