@@ -1,16 +1,9 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import Toast from '$lib/components/Toast.svelte';
-	import ToastNotif from '$lib/components/ToastNotif.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import Button from '$lib/components/button/Button.svelte';
-	import { getMenuTitleFromPage } from '$lib/constants/ExaudieMenu';
 	import { notifications } from '$lib/stores/NotificationsStore';
 	import { derived, writable } from 'svelte/store';
-
-	const currentPath = $page.url.pathname;
-	const pathSplit = currentPath.split('/');
+	import Toast from '$lib/components/Toast.svelte';
+	import ToastNotif from '$lib/components/ToastNotif.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 
 	const onClick = () => {
 		notifications.success('testing toast', 1000);
@@ -51,12 +44,6 @@
 
 	console.log('derivedtest', derivedtest);
 </script>
-
-<NavToBack
-	label={getMenuTitleFromPage(`/${pathSplit.at(pathSplit.length - 1) ?? ''}`)}
-	linkBack="/exaudie"
-/>
-<VerticalSpace height="8px" />
 
 <Toast />
 <ToastNotif />

@@ -1,8 +1,4 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { getMenuTitleFromPage } from '$lib/constants/ExaudieMenu';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import DialogOutsiteClick from '$lib/components/dialog/DialogOutsiteClick.svelte';
@@ -10,18 +6,9 @@
 	let isShowDialog: boolean = false;
 	let isShowDialogWithOutsite: boolean = false;
 
-	const currentPath = $page.url.pathname;
-	const pathSplit = currentPath.split('/');
-
 	const toggleShowDialog = () => (isShowDialog = !isShowDialog);
 	const toggleShowDialogWithOutsite = () => (isShowDialogWithOutsite = !isShowDialogWithOutsite);
 </script>
-
-<NavToBack
-	label={getMenuTitleFromPage(`/${pathSplit.at(pathSplit.length - 1) ?? ''}`)}
-	linkBack="/exaudie"
-/>
-<VerticalSpace height="8px" />
 
 <div class="wrap">
 	<Button on:onClick={toggleShowDialog}>show</Button>

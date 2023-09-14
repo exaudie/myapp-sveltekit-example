@@ -1,23 +1,10 @@
 <script lang="ts">
-	import { getMenuTitleFromPage } from '$lib/constants/ExaudieMenu';
-	import { page } from '$app/stores';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import PrefixInput from '$lib/components/input/PrefixInput.svelte';
 	import SuffixInput from '$lib/components/input/SuffixInput.svelte';
 	import Input from '$lib/components/input/input.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SvelteIcon from '$lib/images/svelte-logo.svg';
-
-	const currentPath = $page.url.pathname;
-	const pathSplit = currentPath.split('/');
 </script>
-
-<NavToBack
-	label={getMenuTitleFromPage(`/${pathSplit.at(pathSplit.length - 1) ?? ''}`)}
-	linkBack="/exaudie"
-/>
-<VerticalSpace height="8px" />
 
 <div class="wrap">
 	<Input placeholder="enter some text" />

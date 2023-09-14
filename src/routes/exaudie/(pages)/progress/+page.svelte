@@ -1,13 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import { getMenuTitleFromPage } from '$lib/constants/ExaudieMenu';
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-
-	const currentPath = $page.url.pathname;
-	const pathSplit = currentPath.split('/');
 
 	const progress = tweened(0, {
 		duration: 400,
@@ -15,11 +8,6 @@
 	});
 </script>
 
-<NavToBack
-	label={getMenuTitleFromPage(`/${pathSplit.at(pathSplit.length - 1) ?? ''}`)}
-	linkBack="/exaudie"
-/>
-<VerticalSpace height="8px" />
 <main>
 	<progress value={$progress} />
 
@@ -45,7 +33,7 @@
 		gap: 1em;
 	}
 
-  progress{
-    width: 100%;
-  }
+	progress {
+		width: 100%;
+	}
 </style>
