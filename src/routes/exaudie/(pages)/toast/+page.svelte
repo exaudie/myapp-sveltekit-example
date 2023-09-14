@@ -4,6 +4,7 @@
 	import Toast from '$lib/components/Toast.svelte';
 	import ToastNotif from '$lib/components/ToastNotif.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 
 	const onClick = () => {
 		notifications.success('testing toast', 1000);
@@ -47,7 +48,7 @@
 
 <Toast />
 <ToastNotif />
-<div class="wrap">
+<GridLayoutThreeColumn>
 	<Button on:onClick={onClick}>toast1</Button>
 
 	<Button on:onClick={onToast2}>toast2</Button>
@@ -55,12 +56,4 @@
 	<Button on:onClick={onToast3}>toast3</Button>
 
 	<Button on:onClick={() => {}}>toast4</Button>
-</div>
-
-<style>
-	.wrap {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1em;
-	}
-</style>
+</GridLayoutThreeColumn>

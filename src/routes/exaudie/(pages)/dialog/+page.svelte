@@ -1,4 +1,5 @@
 <script lang="ts">
+	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import Dialog from '$lib/components/dialog/Dialog.svelte';
 	import DialogOutsiteClick from '$lib/components/dialog/DialogOutsiteClick.svelte';
@@ -10,13 +11,13 @@
 	const toggleShowDialogWithOutsite = () => (isShowDialogWithOutsite = !isShowDialogWithOutsite);
 </script>
 
-<div class="wrap">
+<GridLayoutThreeColumn>
 	<Button on:onClick={toggleShowDialog}>show</Button>
 
 	<Button on:onClick={toggleShowDialogWithOutsite}>show with outsite</Button>
 
 	<Button on:onClick={toggleShowDialog}>show</Button>
-</div>
+</GridLayoutThreeColumn>
 
 <Dialog isShow={isShowDialog}>
 	<div class="content">
@@ -35,12 +36,6 @@
 </DialogOutsiteClick>
 
 <style>
-	.wrap {
-		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 1em;
-	}
-
 	.content {
 		background-color: blueviolet;
 		width: 300px;

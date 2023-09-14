@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
+	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
 
 	const progress = tweened(0, {
 		duration: 400,
@@ -8,7 +9,7 @@
 	});
 </script>
 
-<main>
+<GridLayoutTwoColumn>
 	<progress value={$progress} />
 
 	<progress value={0.5} />
@@ -24,15 +25,9 @@
 
 		<button on:click={() => progress.set(1)}> 100% </button>
 	</div>
-</main>
+</GridLayoutTwoColumn>
 
 <style>
-	main {
-		display: grid;
-		grid-template-columns: repeat(2, 1fr);
-		gap: 1em;
-	}
-
 	progress {
 		width: 100%;
 	}
