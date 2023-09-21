@@ -1,14 +1,21 @@
 <script lang="ts">
+	import { createEventDispatcher } from 'svelte';
+
 	export let type: string = 'text';
 	export let id: string = '';
 	export let name: string = '';
 	export let placeholder: string = '';
-	export let value: string = '';
+	export let value: string;
 	export let isError: boolean = false;
+
+	const dispatch = createEventDispatcher();
 
 	const typeAction = (node: HTMLInputElement) => {
 		node.type = type;
 	};
+
+	const onFocus = () => dispatch('Focus');
+	const onBlur = () => dispatch('Blur');
 </script>
 
 <input
@@ -19,6 +26,8 @@
 	bind:value
 	class="customize"
 	class:error-border={isError}
+	on:focus={onFocus}
+	on:blur={onBlur}
 />
 
 <style>

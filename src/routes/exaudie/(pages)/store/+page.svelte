@@ -2,7 +2,7 @@
 	import { writable } from 'svelte/store';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import Input from '$lib/components/input/input.svelte';
+	import Input from '$lib/components/input/Input.svelte';
 
 	let inputSetUp: string = '';
 	let valStoreSetUp: any;
