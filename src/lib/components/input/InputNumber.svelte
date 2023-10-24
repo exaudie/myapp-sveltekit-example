@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Input from './Input.svelte';
 
-	export let type: 'date' | 'week' | 'time' | 'month' = 'date';
+	export let type: HTMLInputElement['type'] = 'text';
 	export let value: string;
 </script>
 

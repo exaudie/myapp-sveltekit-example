@@ -49,7 +49,7 @@
 	input {
 		background-color: white;
 		border-radius: 4px;
-		border: 1px solid #99a0af;
+		border: 1px solid rgba(128, 128, 128, 0.5);
 		color: var(--text-primary);
 		padding: 0.7em 1em;
 		text-overflow: ellipsis;
@@ -57,6 +57,11 @@
 		&::placeholder {
 			color: var(--text-scondary);
 			opacity: 1;
+		}
+
+		&:focus {
+			outline: none;
+			border: 1px solid royalblue;
 		}
 	}
 
