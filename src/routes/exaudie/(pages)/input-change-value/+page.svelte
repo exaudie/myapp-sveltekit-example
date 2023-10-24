@@ -1,8 +1,8 @@
 <script lang="ts">
-	import LabelTopLeft from '$lib/components/LabelTopLeft.svelte';
+	import { setValue } from '$lib/helpers/DefaultValue';
+	import LabelTop from '$lib/components/LabelTop.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 	import InputNegativeDisplay from '$lib/components/input/InputNegativeDisplay.svelte';
-	import { setValue } from '$lib/helpers/DefaultValue';
 
 	let value1: string = '';
 	let sum1: string = '';
@@ -10,30 +10,31 @@
 </script>
 
 <GridLayoutThreeColumn>
-	<LabelTopLeft label="Nominal Negative">
+	<LabelTop label="Nominal Negative">
 		<div class="box">
 			<p>Real value : {value1}</p>
 			<InputNegativeDisplay placeholder="0" bind:value={value1} />
 		</div>
-	</LabelTopLeft>
+	</LabelTop>
 
-	<LabelTopLeft label="Always Negative">
+	<LabelTop label="Always Negative">
 		<div class="box">
 			<p>Real value : {value1}</p>
 			<InputNegativeDisplay placeholder="0" alwaysNegative={true} bind:value={value1} />
 		</div>
-	</LabelTopLeft>
+	</LabelTop>
 
-	<LabelTopLeft label="Summation">
+	<LabelTop label="Summation">
 		<div class="box">
 			<p>
-				{setValue(sum1, '0')} + {setValue(sum2, '0')} = {Number(sum1) + Number(sum2)}
+				{setValue(sum1, { defValue: '0' })} + {setValue(sum2, { defValue: '0' })} = {Number(sum1) +
+					Number(sum2)}
 			</p>
 			<InputNegativeDisplay placeholder="0" bind:value={sum1} />
 
 			<InputNegativeDisplay placeholder="0" bind:value={sum2} />
 		</div>
-	</LabelTopLeft>
+	</LabelTop>
 </GridLayoutThreeColumn>
 
 <style>

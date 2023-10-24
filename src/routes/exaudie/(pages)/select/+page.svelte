@@ -5,25 +5,25 @@
 	import SelectClassic from '$lib/components/select/SelectClassic.svelte';
 	import SelectMinimal from '$lib/components/select/SelectMinimal.svelte';
 	import SelectRound from '$lib/components/select/SelectRound.svelte';
-	import LabelTopLeft from '$lib/components/LabelTopLeft.svelte';
+	import LabelTop from '$lib/components/LabelTop.svelte';
 </script>
 
 <GridLayoutTwoColumn>
-	<LabelTopLeft label="getMonthIDList">
+	<LabelTop label="getMonthIDList">
 		<Select placeholder="select month">
 			{#each getMonthIDList() as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>
-	</LabelTopLeft>
+	</LabelTop>
 
-	<LabelTopLeft label="getMonthENList">
+	<LabelTop label="getMonthENList">
 		<Select placeholder="select month">
 			{#each getMonthENList() as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>
-	</LabelTopLeft>
+	</LabelTop>
 
 	<SelectMinimal>
 		<Select placeholder="select month">

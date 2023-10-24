@@ -1,5 +1,5 @@
 <script lang="ts">
-	import LabelTopLeft from '$lib/components/LabelTopLeft.svelte';
+	import LabelTop from '$lib/components/LabelTop.svelte';
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
 
 	type ObjSort = { numb: number; name: string };
@@ -37,37 +37,37 @@
 </script>
 
 <GridLayoutTwoColumn>
-	<LabelTopLeft label="oriSort">
+	<LabelTop label="oriSort">
 		<details>
 			{#each oriSort as itm}
 				<data>{JSON.stringify(itm)}</data>
 			{/each}
 		</details>
-	</LabelTopLeft>
+	</LabelTop>
 
-	<LabelTopLeft label="sort result">
+	<LabelTop label="sort result">
 		<details>
 			{#each sort as itm}
 				<data>{JSON.stringify(itm)}</data>
 			{/each}
 		</details>
-	</LabelTopLeft>
+	</LabelTop>
 
-	<LabelTopLeft label="oriToSort">
+	<LabelTop label="oriToSort">
 		<details>
 			{#each oriToSort as itm}
 				<data>{JSON.stringify(itm)}</data>
 			{/each}
 		</details>
-	</LabelTopLeft>
+	</LabelTop>
 
-	<LabelTopLeft label="toSorted result">
+	<LabelTop label="toSorted result">
 		<details>
 			{#each toSorted as itm}
 				<data>{JSON.stringify(itm)}</data>
 			{/each}
 		</details>
-	</LabelTopLeft>
+	</LabelTop>
 </GridLayoutTwoColumn>
 
 <style>
