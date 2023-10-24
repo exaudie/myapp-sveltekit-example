@@ -22,6 +22,7 @@
 		node.type = type;
 	};
 
+	const onInput = () => dispatch('Input');
 	const onFocus = () => dispatch('Focus');
 	const onBlur = () => dispatch('Blur');
 </script>
@@ -41,6 +42,7 @@
 	bind:value
 	class="customize"
 	class:error-border={isError}
+	on:input={onInput}
 	on:focus={onFocus}
 	on:blur={onBlur}
 />
@@ -62,6 +64,11 @@
 		&:focus {
 			outline: none;
 			border: 1px solid royalblue;
+		}
+
+		&:read-only,
+		&:disabled {
+			background-color: rgba(128, 128, 128, 0.5);
 		}
 	}
 
