@@ -1,11 +1,19 @@
 <script lang="ts">
+	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createEventDispatcher } from 'svelte';
 
-	export let type: string = 'text';
+	export let type: HTMLInputElement['type'] = 'text';
 	export let id: string = '';
 	export let name: string = '';
 	export let placeholder: string = '';
+	export let autocomplete: string = 'off';
 	export let value: string;
+	export let required: boolean = false;
+	export let disabled: boolean = false;
+	export let readonly: boolean = false;
+	export let maxlength: HTMLInputAttributes['maxlength'] = null;
+	export let max: HTMLInputAttributes['max'] = null;
+	export let min: HTMLInputAttributes['min'] = null;
 	export let isError: boolean = false;
 
 	const dispatch = createEventDispatcher();
@@ -23,6 +31,13 @@
 	{id}
 	{name}
 	{placeholder}
+	{autocomplete}
+	{required}
+	{disabled}
+	{readonly}
+	{maxlength}
+	{max}
+	{min}
 	bind:value
 	class="customize"
 	class:error-border={isError}
@@ -36,13 +51,13 @@
 		border-radius: 4px;
 		border: 1px solid #99a0af;
 		color: var(--text-primary);
-		padding: 0.5em 1em;
+		padding: 0.7em 1em;
 		text-overflow: ellipsis;
-	}
 
-	input::placeholder {
-		color: var(--text-scondary);
-		opacity: 1;
+		&::placeholder {
+			color: var(--text-scondary);
+			opacity: 1;
+		}
 	}
 
 	.error-border {

@@ -18,5 +18,6 @@ export const menuItems: MenuItems[] = [
 	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' },
 	{ title: 'Store', subtitle: '', page: '/store' },
 	{ title: 'Progress', subtitle: '', page: '/progress' },
-	{ title: 'Array', subtitle: '', page: '/array' }
+	{ title: 'Array', subtitle: '', page: '/array' },
+	{ title: 'Formatter', subtitle: '', page: '/formatter' }
 ];
