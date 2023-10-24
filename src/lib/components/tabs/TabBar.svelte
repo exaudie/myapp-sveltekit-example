@@ -9,18 +9,32 @@
 	};
 </script>
 
-<div class="tab-button">
-	{#each tabItems as item, idx}
-		<button
-			class:item-selected={(item?.value ?? idx) == tabActive}
-			on:click={() => onTabClick(item?.value ?? idx)}
-		>
-			{item.label}
-		</button>
-	{/each}
+<div class="tab-nav-wrap">
+	<div class="tab-button">
+		{#each tabItems as item, idx}
+			<button
+				class:disabled={!(item?.enabled ?? true)}
+				class:item-selected={(item?.value ?? idx) == tabActive}
+				on:click={() => (item?.enabled ?? true ? onTabClick(item?.value ?? idx) : null)}
+			>
+				{item.label}
+			</button>
+		{/each}
+	</div>
+
+	<div class="tab-page">
+		<slot />
+	</div>
 </div>
 
 <style lang="less">
+	.tab-nav-wrap {
+		height: 100%;
+		display: grid;
+		grid-template-rows: auto 1fr;
+		gap: 1em;
+	}
+
 	.tab-button {
 		display: flex;
 		gap: 4px;
@@ -35,7 +49,7 @@
 		}
 
 		button:hover {
-			background-color: rgba(128, 128, 128, 0.1);
+			background-color: rgba(128, 128, 128, 0.05);
 		}
 
 		.item-selected {
@@ -43,5 +57,16 @@
 			color: var(--text-primary);
 			border-bottom: 2px solid rgba(0, 0, 255, 0.5);
 		}
+
+		.disabled {
+			color: rgba(128, 128, 128, 0.3);
+		}
+	}
+
+	.tab-page {
+		padding: 1em;
+		background-color: white;
+		border-radius: 4px;
+		overflow-y: auto;
 	}
 </style>
