@@ -8,6 +8,7 @@
 	export let placeholder: string = '';
 	export let autocomplete: string = 'off';
 	export let value: string;
+	export let valueAlign: 'start' | 'end' | 'center' = 'start';
 	export let required: boolean = false;
 	export let disabled: boolean = false;
 	export let readonly: boolean = false;
@@ -42,6 +43,7 @@
 	bind:value
 	class="customize"
 	class:error-border={isError}
+	style="--value-align:{valueAlign};"
 	on:input={onInput}
 	on:focus={onFocus}
 	on:blur={onBlur}
@@ -55,6 +57,8 @@
 		color: var(--text-primary);
 		padding: 0.7em 1em;
 		text-overflow: ellipsis;
+		flex-grow: 1;
+		text-align: var(--value-align);
 
 		&::placeholder {
 			color: var(--text-scondary);
@@ -68,7 +72,7 @@
 
 		&:read-only,
 		&:disabled {
-			background-color: rgba(128, 128, 128, 0.5);
+			background-color: rgba(128, 128, 128, 0.3);
 		}
 	}
 
