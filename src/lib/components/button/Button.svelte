@@ -1,14 +1,15 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 
-	export let type: 'button' | 'submit' | 'reset' | null | undefined = 'button';
+	export let type: HTMLButtonElement['type'] = 'button';
+	export let label: string = '';
 
 	let dispatch = createEventDispatcher();
 
-	const onClick = () => dispatch('onClick');
+	const onClick = () => dispatch('Click');
 </script>
 
-<button {type} class="text-bold" on:click={onClick}><slot /></button>
+<button {type} class="text-bold" on:click={onClick}><slot>{label}</slot></button>
 
 <style>
 	button {
