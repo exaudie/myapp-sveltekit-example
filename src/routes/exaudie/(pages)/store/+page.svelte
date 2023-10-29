@@ -2,7 +2,7 @@
 	import { writable } from 'svelte/store';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import Input from '$lib/components/input/Input.svelte';
+	import InputBasic from '$lib/components/input/InputBasic.svelte';
 
 	let inputSetUp: string = '';
 	let valStoreSetUp: any;
@@ -27,7 +27,7 @@
 </script>
 
 <div class="wrap">
-	<Input placeholder="enter a text" bind:value={inputSetUp} />
+	<InputBasic placeholder="enter a text" bind:value={inputSetUp} />
 	<Button on:onClick={onClickSet}>button set</Button>
 	<Button on:onClick={onClickUpdate}>button update</Button>
 </div>

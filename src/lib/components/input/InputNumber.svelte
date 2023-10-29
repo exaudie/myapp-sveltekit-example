@@ -2,7 +2,7 @@
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { removeSeparator, setIntlThousandSeparator } from '$lib/helpers/NumberFormatter';
 	import { createEventDispatcher } from 'svelte';
-	import Input from './Input.svelte';
+	import InputBasic from './InputBasic.svelte';
 
 	export let type: HTMLInputElement['type'] = 'text';
 	export let id: string = '';
@@ -77,7 +77,7 @@
 </script>
 
 <div class="input-customize">
-	<Input
+	<InputBasic
 		{type}
 		{id}
 		{name}
@@ -99,6 +99,14 @@
 </div>
 
 <style>
+	* {
+		margin: 0;
+		padding: 0;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
 	.input-customize {
 		flex-grow: 1;
 		display: grid;
