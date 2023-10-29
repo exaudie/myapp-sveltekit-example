@@ -1,6 +1,7 @@
 <script lang="ts">
 	export let label: string;
-	export let labelColor: string = 'var(--text-primary)';
+	export let labelColor: string = 'var(--text-scondary)';
+	export let labelAlign: 'start' | 'end' | 'center' = 'start';
 	export let forId: string = '';
 	export let isBold: boolean = false;
 </script>
@@ -11,7 +12,7 @@
 		class="label"
 		class:text-bold={isBold}
 		class:text-regular={!isBold}
-		style="--label-color:{labelColor};"
+		style="--label-color:{labelColor}; --label-align:{labelAlign};"
 	>
 		{label}
 	</label>
@@ -29,13 +30,13 @@
 
 	label {
 		color: var(--label-color);
+		text-align: var(--label-align);
 	}
 
 	section {
 		box-sizing: border-box;
 		flex-grow: 1;
-		display: flex;
-		flex-direction: column;
+		display: grid;
 		gap: 2px;
 	}
 </style>
