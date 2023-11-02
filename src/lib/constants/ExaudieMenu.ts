@@ -1,6 +1,8 @@
 import type { MenuItems } from '$lib/types/MenuScheme';
 
 export const menuItems: MenuItems[] = [
+	{ title: 'Curriculum Vitae', subtitle: '', page: '/curriculum-vitae' },
+	{ title: 'Timesheet', subtitle: '', page: '/timesheet' },
 	{ title: 'Button', subtitle: '', page: '/button' },
 	{ title: 'Input', subtitle: '', page: '/input' },
 	{ title: 'Text Area', subtitle: '', page: '/textarea' },
