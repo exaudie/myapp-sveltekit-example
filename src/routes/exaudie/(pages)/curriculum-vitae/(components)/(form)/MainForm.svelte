@@ -28,4 +28,26 @@
 <VerticalSpace height="16px" />
 <Skills />
 
-<Button label="Save" on:Click={onSave} />
+<VerticalSpace height="48px" />
+<div class="button-layout">
+	<div class="button-wrap">
+		<Button label="Cancel" theme="warning" isOutline={true} on:Click={onSave} />
+	</div>
+
+	<div class="button-wrap">
+		<Button label="Save" on:Click={onSave} />
+	</div>
+</div>
+
+<style lang="less">
+	.button-layout {
+		display: flex;
+		justify-content: end;
+		gap: 1em;
+
+		.button-wrap {
+			width: 20%;
+			display: flex;
+		}
+	}
+</style>
