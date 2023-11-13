@@ -30,9 +30,20 @@ export const dateyyyymmddCust = (value: string | Date, params: { defaultValue: s
 	});
 };
 
-export const parseToDate = (value: string | Date) => {
+export const parseToDate = (
+	value: string | number | Date,
+	params?: {
+		fromFormat?: Intl.DateTimeFormatOptions[];
+		fromSeparator?: string;
+		locales?: 'in' | 'en';
+	}
+) => {
 	try {
-		return new Date(value);
+		const newDateFormat = new Date(value);
+
+		if (newDateFormat instanceof Date && !isNaN(newDateFormat.getTime())) return newDateFormat;
+
+		return new Date(2022, 0, 12);
 	} catch (_) {
 		return null;
 	}
@@ -59,21 +70,29 @@ export const dateToFormat = (
 	}
 };
 
-export const getMonthIDList = () => {
+export const getMonthIDList = (monthFormat?: 'long' | 'short') => {
 	const year = new Date().getFullYear();
 	const monthIndex = [...Array(12).keys()];
 
 	return monthIndex.map((idx) =>
-		manualFormatter({ date: new Date(year, idx), formatList: [{ month: 'long' }] })
+		manualFormatter({
+			date: new Date(year, idx),
+			formatList: [{ month: monthFormat ?? 'long' }],
+			locales: 'in'
+		})
 	);
 };
 
-export const getMonthENList = () => {
+export const getMonthENList = (monthFormat?: 'long' | 'short') => {
 	const year = new Date().getFullYear();
 	const monthIndex = [...Array(12).keys()];
 
 	return monthIndex.map((idx) =>
-		manualFormatter({ date: new Date(year, idx), formatList: [{ month: 'long' }], locales: 'en' })
+		manualFormatter({
+			date: new Date(year, idx),
+			formatList: [{ month: monthFormat ?? 'long' }],
+			locales: 'en'
+		})
 	);
 };
 
