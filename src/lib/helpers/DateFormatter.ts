@@ -1,3 +1,5 @@
+import { isDefine } from './DefaultValue';
+
 export const dateddmmmmyyyyCust = (value: string | Date, params: { defaultValue: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: 'long' }, { year: 'numeric' }],
@@ -30,10 +32,17 @@ export const dateyyyymmddCust = (value: string | Date, params: { defaultValue: s
 	});
 };
 
+type DateParse = {
+	year?: 'numeric' | '2-digit';
+	month?: 'numeric' | '2-digit' | 'long' | 'short';
+	day?: 'numeric' | '2-digit';
+};
+type PropKey = { [propKey: string]: number };
+
 export const parseToDate = (
 	value: string | number | Date,
 	params?: {
-		fromFormat?: Intl.DateTimeFormatOptions[];
+		fromFormat: DateParse[];
 		fromSeparator?: string;
 		locales?: 'in' | 'en';
 	}
@@ -43,7 +52,32 @@ export const parseToDate = (
 
 		if (newDateFormat instanceof Date && !isNaN(newDateFormat.getTime())) return newDateFormat;
 
-		return new Date(2022, 0, 12);
+		const tempToParse: PropKey = { day: 0, month: 0, year: 0 };
+
+		if (isDefine(params) && typeof value === 'string') {
+			const valSplit = value.split(params?.fromSeparator ?? ' ');
+
+			(params?.fromFormat ?? []).forEach((elm, idx) => {
+				const keys = Object.keys(elm)[0];
+				const format = Object.values(elm)[0];
+				const val = valSplit[idx];
+				tempToParse[keys] = Number(val);
+
+				if (keys === 'month') {
+					if (!['long', 'short'].includes(format)) {
+						console.log('');
+					}
+
+					tempToParse[keys] = Number(val) - 1;
+				}
+			});
+
+			console.log('tempToParse', tempToParse);
+
+			return new Date(tempToParse.year, tempToParse.month, tempToParse.day);
+		}
+
+		return null;
 	} catch (_) {
 		return null;
 	}
