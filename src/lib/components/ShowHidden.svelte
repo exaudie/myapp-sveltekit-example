@@ -2,12 +2,6 @@
 	export let isShow: boolean = true;
 </script>
 
-<div class="displays" class:display-none={!isShow}>
+{#if isShow}
 	<slot />
-</div>
-
-<style>
-	.display-none {
-		display: none;
-	}
-</style>
+{/if}

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createEventDispatcher } from 'svelte';
-	import Input from './Input.svelte';
+	import InputBasic from './InputBasic.svelte';
 
 	export let type: 'date' | 'week' | 'time' | 'month' = 'date';
 	export let id: string = '';
@@ -25,7 +25,7 @@
 </script>
 
 <div class="input-customize">
-	<Input
+	<InputBasic
 		{type}
 		{id}
 		{name}

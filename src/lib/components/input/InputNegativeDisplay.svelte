@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Input from './Input.svelte';
+	import InputBasic from './InputBasic.svelte';
 
 	export let value: string = '';
 	export let editValue: string | null | undefined = null;
@@ -39,7 +39,7 @@
 
 		for (const elm of value) {
 			tempValue += elm;
-			if (!tempValue.match('^?\-?([1-9]{1}[0-9]*)')) break;
+			if (!tempValue.match('^?-?([1-9]{1}[0-9]*)')) break;
 			newValue = tempValue;
 		}
 
@@ -67,7 +67,7 @@
 </script>
 
 <div class="input-customize">
-	<Input {placeholder} bind:value={fieldValue} on:Blur={onBlur} on:Focus={onFocus} />
+	<InputBasic {placeholder} bind:value={fieldValue} on:Blur={onBlur} on:Focus={onFocus} />
 </div>
 <div>
 	{`replace : ${replaces(fieldValue)}`}

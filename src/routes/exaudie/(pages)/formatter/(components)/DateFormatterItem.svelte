@@ -57,11 +57,21 @@
 <LabelTopLeft label="Parse Date Formatter" labelColor="var(--text-primary)">
 	<GridLayoutThreeColumn>
 		<LabelTopLeft label={dateToFormat.date1}>
-			<span>{parseToDate(dateToFormat.date1)}</span>
+			<span>
+				{parseToDate(dateToFormat.date1, {
+					fromFormat: [{ day: '2-digit' }, { month: '2-digit' }, { year: 'numeric' }],
+					fromSeparator: '-'
+				})}
+			</span>
 		</LabelTopLeft>
 
 		<LabelTopLeft label={dateToFormat.date2}>
-			<span>{parseToDate(dateToFormat.date2)}</span>
+			<span>
+				{parseToDate(dateToFormat.date2, {
+					fromFormat: [{ day: '2-digit' }, { month: '2-digit' }, { year: 'numeric' }],
+					fromSeparator: '/'
+				})}
+			</span>
 		</LabelTopLeft>
 
 		<LabelTopLeft label={dateToFormat.date3}>
@@ -77,7 +87,11 @@
 		</LabelTopLeft>
 
 		<LabelTopLeft label={dateToFormat.date6}>
-			<span>{parseToDate(dateToFormat.date6)}</span>
+			<span>
+				{parseToDate(dateToFormat.date6, {
+					fromFormat: [{ day: '2-digit' }, { month: '2-digit' }, { year: '2-digit' }]
+				})}
+			</span>
 		</LabelTopLeft>
 	</GridLayoutThreeColumn>
 </LabelTopLeft>
