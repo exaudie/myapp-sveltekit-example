@@ -32,19 +32,78 @@ export const dateyyyymmddCust = (value: string | Date, params: { defaultValue: s
 	});
 };
 
-type DateParse = {
+type DateParseOpts = {
 	year?: 'numeric' | '2-digit';
 	month?: 'numeric' | '2-digit' | 'long' | 'short';
 	day?: 'numeric' | '2-digit';
 };
+
 type PropKey = { [propKey: string]: number };
+
+const getMonthNameIdx = (
+	value: string,
+	params: { locales: 'in' | 'en'; formatOpts: 'long' | 'short' }
+) => {
+	let monthIndex = 0;
+
+	const year = new Date().getFullYear();
+
+	for (const key in [...Array(12).keys()]) {
+		const idx = Number(key);
+		const newDate = new Date(year, idx);
+		const monthFormat = Intl.DateTimeFormat(params.locales, { month: params.formatOpts }).format(
+			newDate
+		);
+
+		if (value == monthFormat) {
+			monthIndex = idx;
+			break;
+		}
+	}
+
+	return monthIndex;
+};
+
+const getMonthIdx = (
+	value: string,
+	params: { locales: 'in' | 'en'; formatOpts: 'numeric' | '2-digit' | 'long' | 'short' }
+) => {
+	if (params.formatOpts === '2-digit' || params.formatOpts === 'numeric') return Number(value) - 1;
+
+	return getMonthNameIdx(value, { locales: params.locales, formatOpts: params.formatOpts });
+};
+
+const parseToDateFrom = (
+	value: string,
+	params?: {
+		fromFormatList: DateParseOpts[];
+		fromSeparator: string;
+		fromLocales: 'in' | 'en';
+	}
+) => {
+	const tempToParse: PropKey = { day: 0, month: 0, year: 0 };
+	const valSplit: string[] = value.split(params?.fromSeparator ?? ' ');
+
+	(params?.fromFormatList ?? []).forEach((elm, idx) => {
+		const keys = Object.keys(elm)[0];
+		const formatOpts = Object.values(elm)[0];
+		const val = valSplit[idx];
+
+		tempToParse[keys] =
+			keys === 'month'
+				? getMonthIdx(val, { locales: params?.fromLocales ?? 'in', formatOpts })
+				: Number(val);
+	});
+
+	return new Date(tempToParse.year, tempToParse.month, tempToParse.day);
+};
 
 export const parseToDate = (
 	value: string | number | Date,
 	params?: {
-		fromFormat: DateParse[];
-		fromSeparator?: string;
-		locales?: 'in' | 'en';
+		fromFormatList: DateParseOpts[];
+		fromSeparator: string;
+		fromLocales: 'in' | 'en';
 	}
 ) => {
 	try {
@@ -52,30 +111,7 @@ export const parseToDate = (
 
 		if (newDateFormat instanceof Date && !isNaN(newDateFormat.getTime())) return newDateFormat;
 
-		const tempToParse: PropKey = { day: 0, month: 0, year: 0 };
-
-		if (isDefine(params) && typeof value === 'string') {
-			const valSplit = value.split(params?.fromSeparator ?? ' ');
-
-			(params?.fromFormat ?? []).forEach((elm, idx) => {
-				const keys = Object.keys(elm)[0];
-				const format = Object.values(elm)[0];
-				const val = valSplit[idx];
-				tempToParse[keys] = Number(val);
-
-				if (keys === 'month') {
-					if (!['long', 'short'].includes(format)) {
-						console.log('');
-					}
-
-					tempToParse[keys] = Number(val) - 1;
-				}
-			});
-
-			console.log('tempToParse', tempToParse);
-
-			return new Date(tempToParse.year, tempToParse.month, tempToParse.day);
-		}
+		if (isDefine(params) && typeof value === 'string') return parseToDateFrom(value, params);
 
 		return null;
 	} catch (_) {
