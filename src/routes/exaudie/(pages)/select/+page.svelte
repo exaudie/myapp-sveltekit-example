@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { getMonthENList, getMonthIDList } from '$lib/helpers/DateFormatter';
+	import { getMonthList } from '$lib/helpers/DateFormatter';
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectClassic from '$lib/components/select/SelectClassic.svelte';
@@ -11,7 +11,7 @@
 <GridLayoutTwoColumn>
 	<LabelTop label="getMonthIDList">
 		<Select placeholder="select month">
-			{#each getMonthIDList() as month}
+			{#each getMonthList() as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>
@@ -19,7 +19,7 @@
 
 	<LabelTop label="getMonthENList">
 		<Select placeholder="select month">
-			{#each getMonthENList() as month}
+			{#each getMonthList({ locales: 'en' }) as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>
@@ -27,7 +27,7 @@
 
 	<SelectMinimal>
 		<Select placeholder="select month">
-			{#each getMonthIDList() as month}
+			{#each getMonthList() as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>
@@ -35,7 +35,7 @@
 
 	<SelectRound>
 		<Select placeholder="select month">
-			{#each getMonthIDList() as month}
+			{#each getMonthList() as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>
@@ -43,7 +43,7 @@
 
 	<SelectClassic>
 		<Select placeholder="select month">
-			{#each getMonthIDList() as month}
+			{#each getMonthList() as month}
 				<option value={month}>{month}</option>
 			{/each}
 		</Select>

@@ -73,7 +73,7 @@ const getMonthIdx = (
 	return getMonthNameIdx(value, { locales: params.locales, formatOpts: params.formatOpts });
 };
 
-const parseToDateFrom = (
+export const parseToDateFrom = (
 	value: string,
 	params?: {
 		fromFormatList: DateParseOpts[];
@@ -99,7 +99,7 @@ const parseToDateFrom = (
 };
 
 export const parseToDate = (
-	value: string | number | Date,
+	value: string | number,
 	params?: {
 		fromFormatList: DateParseOpts[];
 		fromSeparator: string;
@@ -140,32 +140,6 @@ export const dateToFormat = (
 	}
 };
 
-export const getMonthIDList = (monthFormat?: 'long' | 'short') => {
-	const year = new Date().getFullYear();
-	const monthIndex = [...Array(12).keys()];
-
-	return monthIndex.map((idx) =>
-		manualFormatter({
-			date: new Date(year, idx),
-			formatList: [{ month: monthFormat ?? 'long' }],
-			locales: 'in'
-		})
-	);
-};
-
-export const getMonthENList = (monthFormat?: 'long' | 'short') => {
-	const year = new Date().getFullYear();
-	const monthIndex = [...Array(12).keys()];
-
-	return monthIndex.map((idx) =>
-		manualFormatter({
-			date: new Date(year, idx),
-			formatList: [{ month: monthFormat ?? 'long' }],
-			locales: 'en'
-		})
-	);
-};
-
 const manualFormatter = (params: {
 	date: Date;
 	formatList: Intl.DateTimeFormatOptions[];
@@ -175,3 +149,19 @@ const manualFormatter = (params: {
 	params.formatList
 		.map((e) => Intl.DateTimeFormat(params?.locales ?? 'in', e).format(params.date))
 		.join(params?.separator ?? '');
+
+export const getMonthList = (params?: {
+	monthFormat?: 'long' | 'short';
+	locales?: 'in' | 'en';
+}) => {
+	const year = new Date().getFullYear();
+	const monthIndex = [...Array(12).keys()];
+
+	return monthIndex.map((idx) =>
+		manualFormatter({
+			date: new Date(year, idx),
+			formatList: [{ month: params?.monthFormat ?? 'long' }],
+			locales: params?.locales ?? 'in'
+		})
+	);
+};
