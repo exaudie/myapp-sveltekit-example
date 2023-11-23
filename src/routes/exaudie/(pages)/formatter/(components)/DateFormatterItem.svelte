@@ -6,6 +6,7 @@
 		dateyyyymmddCust,
 		parseToDate
 	} from '$lib/helpers/DateFormatter';
+	import { isEmptyTo } from '$lib/helpers/DefaultValue';
 	import LabelTopLeft from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
@@ -31,7 +32,7 @@
 
 <GridLayoutThreeColumn>
 	<LabelTopLeft label="parseToDate">
-		<span>{parseToDate(dateValue)}</span>
+		<span>{isEmptyTo(parseToDate(dateValue), { defValue: '-' })}</span>
 	</LabelTopLeft>
 
 	<LabelTopLeft label="dateddmmmyyyyCust">
