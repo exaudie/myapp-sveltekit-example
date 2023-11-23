@@ -5,6 +5,7 @@
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
+	import DialogViewPdf from '$lib/components/dialog/DialogViewPdf.svelte';
 	import DownloadIcon from '$lib/images/cv-icon/download_icon.svg';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
@@ -13,7 +14,6 @@
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
 	import SocialMedia from './SocialMedia.svelte';
-	import DialogShowPdf from '$lib/components/dialog/DialogShowPdf.svelte';
 
 	export let isEdit: boolean;
 
@@ -31,8 +31,6 @@
 	};
 
 	const onGenerate = () => {
-		console.log('onGenerate', isShowPdfDialog);
-
 		isDownload = false;
 		generatePdfForm.requestSubmit();
 	};
@@ -40,6 +38,7 @@
 	const onDownload = () => {
 		if (sourcePdf != '') {
 			downloadPdf({ fileName: fileNamePdf, src: sourcePdf });
+
 			return;
 		}
 
@@ -110,7 +109,7 @@
 	</div>
 </div>
 
-<DialogShowPdf bind:isShow={isShowPdfDialog} {sourcePdf} />
+<DialogViewPdf bind:isShow={isShowPdfDialog} {sourcePdf} />
 
 <style lang="less">
 	* {

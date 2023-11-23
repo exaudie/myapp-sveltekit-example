@@ -16,7 +16,7 @@ export const downloadPdf = (params: { fileName: string; src: string }) => {
 
 	const link: HTMLAnchorElement = document.createElement('a');
 	link.href = params.src;
-	link.download = params.fileName + '.pdf';
+	link.download = `${params.fileName}.pdf`;
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
