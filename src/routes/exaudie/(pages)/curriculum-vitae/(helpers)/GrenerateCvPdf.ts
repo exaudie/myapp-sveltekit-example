@@ -1,6 +1,6 @@
+import type { TDocumentDefinitions, TFontDictionary } from 'pdfmake/interfaces';
 import BlobStream, { type IBlobStream } from 'blob-stream';
 import PdfPrinter from 'pdfmake';
-import type { TDocumentDefinitions, TFontDictionary } from 'pdfmake/interfaces';
 
 const fonts: TFontDictionary = {
 	Roboto: {
@@ -13,7 +13,7 @@ const fonts: TFontDictionary = {
 
 const printer = new PdfPrinter(fonts);
 
-async function genCvPdf(data: string): Promise<Blob> {
+export const genCvPdf = async (data: string): Promise<string> => {
 	const file: TDocumentDefinitions = {
 		content: ['hello word', data],
 		defaultStyle: {
@@ -26,13 +26,14 @@ async function genCvPdf(data: string): Promise<Blob> {
 
 		pdf
 			.pipe(BlobStream())
-			.on('finish', function (this: IBlobStream) {
+			.on('finish', async function (this: IBlobStream) {
 				console.log('finished generate PDF');
-        const url =this.toBlobURL('application/pdf')
-				console.log('finishe',url);
-        
 
-				resolve(this.toBlob('application/pdf'));
+				const blobPdf = this.toBlob('application/pdf');
+				const arrayBuffer = await blobPdf.arrayBuffer();
+				const buffer = Buffer.from(arrayBuffer);
+
+				resolve('data:' + blobPdf.type + ';base64,' + buffer.toString('base64'));
 			})
 			.on('error', (err) => {
 				console.log('err', err);
@@ -42,6 +43,4 @@ async function genCvPdf(data: string): Promise<Blob> {
 
 		pdf.end();
 	});
-}
-
-export default genCvPdf;
+};

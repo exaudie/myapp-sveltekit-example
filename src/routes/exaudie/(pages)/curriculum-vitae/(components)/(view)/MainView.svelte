@@ -1,8 +1,11 @@
 <script lang="ts">
+	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import { downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import type { SubmitFunction } from '@sveltejs/kit';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
 	import Experiance from './Experiance.svelte';
@@ -10,26 +13,34 @@
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
 	import SocialMedia from './SocialMedia.svelte';
-	import { page } from '$app/stores';
-	import { goto } from '$app/navigation';
 
 	export let isEdit: boolean;
 
 	let generatePdfForm: HTMLFormElement;
 
+	let srcIframe: string = '';
+
 	const currentPath = $page.url.pathname;
 
 	const onEdit = () => {
 		isEdit = true;
-		generatePdfForm.requestSubmit();
 	};
 
 	const onDown = () => {
-		goto(`${currentPath}/wew`, { replaceState: true });
+		generatePdfForm.requestSubmit();
 	};
 
-	const generatePdfEnhance: SubmitFunction = () => {
-		return async () => {};
+	const generatePdfEnhance: SubmitFunction = ({ formData }) => {
+		formData.append('cvData', 'eko setiadi');
+
+		return async ({ result }) => {
+			if (result.type == 'success') {
+				srcIframe = result?.data?.data?.genCv ?? '';
+				if (srcIframe != '') {
+					downloadPdf({ fileName: 'cvdownoad', src: srcIframe });
+				}
+			}
+		};
 	};
 </script>
 
@@ -47,6 +58,8 @@
 <Experiance />
 <Education />
 <Skills />
+
+<iframe src={srcIframe} title="cv" frameborder="0" />
 
 <VerticalSpace height="48px" />
 <div class="button-layout">
@@ -76,16 +89,6 @@
 		.button-wrap {
 			width: 20%;
 			display: flex;
-		}
-	}
-
-	@media print {
-		body .app {
-			display: none;
-		}
-
-		.button-layout {
-			display: block;
 		}
 	}
 </style>
