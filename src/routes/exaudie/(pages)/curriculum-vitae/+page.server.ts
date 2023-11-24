@@ -1,17 +1,17 @@
 import type { PageServerLoad } from './$types';
+import { genCvPdf } from './(helpers)/GrenerateCvPdf';
 
 export const load: PageServerLoad = async () => {
 	return { eee: 'tess', ere: 'tetete' };
 };
 
 export const actions = {
-	generatePdf: async () => {
-		generate();
+	generatePdf: async ({ request }) => {
+		const data = await request.formData();
+		const cvData = (data.get('cvData') ?? '') as string;
 
-		return { success: true };
+		const genCv = await genCvPdf(cvData);
+
+		return { success: true, data: { genCv } };
 	}
-};
-
-const generate = async () => {
-	console.log('generate');
 };

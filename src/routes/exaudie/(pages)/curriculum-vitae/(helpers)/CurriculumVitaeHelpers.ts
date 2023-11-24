@@ -1,12 +1,21 @@
 import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
 
 export const setCurriculumVitaeScheme = (params?: {
-	dataCv?: CurrculumVitae;
+	cvData?: CurrculumVitae;
 }): CurrculumVitaeScheme => ({
 	personalInfo: {
-		photo: { value: params?.dataCv?.personalInfo.photo ?? '' },
-		firstName: { value: params?.dataCv?.personalInfo.firstName ?? '' },
-		lastName: { value: params?.dataCv?.personalInfo.lastName ?? '' },
-		currentOccupation: { value: params?.dataCv?.personalInfo.lastName ?? '' }
+		photo: { value: params?.cvData?.personalInfo?.photo ?? '' },
+		firstName: { value: params?.cvData?.personalInfo?.firstName ?? '' },
+		lastName: { value: params?.cvData?.personalInfo?.lastName ?? '' },
+		currentOccupation: { value: params?.cvData?.personalInfo?.lastName ?? '' }
 	}
 });
+
+export const downloadPdf = (params: { fileName: string; src: string }) => {
+	const link: HTMLAnchorElement = document.createElement('a');
+	link.href = params.src;
+	link.download = params.fileName + '.pdf';
+	document.body.appendChild(link);
+	link.click();
+	document.body.removeChild(link);
+};
