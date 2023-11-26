@@ -12,6 +12,8 @@ export const setCurriculumVitaeScheme = (params?: {
 });
 
 export const downloadPdf = (params: { fileName: string; src: string }) => {
+	if (params.src == '') return;
+
 	const link: HTMLAnchorElement = document.createElement('a');
 	link.href = params.src;
 	link.download = params.fileName + '.pdf';
