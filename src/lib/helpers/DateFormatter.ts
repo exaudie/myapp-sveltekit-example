@@ -1,6 +1,6 @@
 import { isDefine } from './DefaultValue';
 
-export const dateddmmmmyyyyCust = (value: string | Date, params: { defaultValue: string }) => {
+export const dateddmmmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: 'long' }, { year: 'numeric' }],
 		separator: ' ',
@@ -8,7 +8,7 @@ export const dateddmmmmyyyyCust = (value: string | Date, params: { defaultValue:
 	});
 };
 
-export const dateddmmmyyyyCust = (value: string | Date, params: { defaultValue: string }) => {
+export const dateddmmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: 'short' }, { year: 'numeric' }],
 		separator: ' ',
@@ -16,7 +16,7 @@ export const dateddmmmyyyyCust = (value: string | Date, params: { defaultValue: 
 	});
 };
 
-export const dateddmmyyyyCust = (value: string | Date, params: { defaultValue: string }) => {
+export const dateddmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: '2-digit' }, { year: 'numeric' }],
 		separator: '/',
@@ -24,7 +24,7 @@ export const dateddmmyyyyCust = (value: string | Date, params: { defaultValue: s
 	});
 };
 
-export const dateyyyymmddCust = (value: string | Date, params: { defaultValue: string }) => {
+export const dateyyyymmddCust = (value: string | Date, params?: { defaultValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ year: 'numeric' }, { month: '2-digit' }, { day: '2-digit' }],
 		separator: '-',
