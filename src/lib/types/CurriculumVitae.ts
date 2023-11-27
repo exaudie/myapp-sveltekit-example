@@ -2,9 +2,20 @@ import type { InputFieldScheme } from './InputField';
 
 export type CurrculumVitae = {
 	personalInfo: PersonalInfo;
+	contactPerson: any;
+	socialMedia: any;
+	verticalSpace: any;
+	education: any;
+	skills: any;
 };
 
-export type PersonalInfo = { photo: string; firstName: string; lastName: string };
+export type PersonalInfo = {
+	photo: string;
+	firstName: string;
+	lastName: string;
+	dayOfBirth: string;
+	currentJob: string;
+};
 
 export type CurrculumVitaeScheme = {
 	personalInfo: PersonalInfoScheme;

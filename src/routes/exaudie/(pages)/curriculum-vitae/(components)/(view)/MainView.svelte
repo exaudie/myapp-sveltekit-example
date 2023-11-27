@@ -1,11 +1,13 @@
 <script lang="ts">
+	import type { CurrculumVitae } from '$lib/types/CurriculumVitae';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import { downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
+	import { currculumVitaeData, downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
 	import DialogViewPdf from '$lib/components/dialog/DialogViewPdf.svelte';
+	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
 	import DownloadIcon from '$lib/images/cv-icon/download_icon.svg';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
@@ -14,17 +16,23 @@
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
 	import SocialMedia from './SocialMedia.svelte';
-	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
 
 	export let isEdit: boolean;
 
+	let cvData: CurrculumVitae = currculumVitaeData;
 	let generatePdfForm: HTMLFormElement;
 	let sourcePdf: string = '';
 	let isLoading: boolean = false;
 	let isDownload: boolean = false;
 	let isShowPdfDialog: boolean = false;
 
-	const fileNamePdf: string = 'cv_downloaded';
+	const personName: string[] = [
+		'exaudiecv',
+		cvData.personalInfo.firstName,
+		cvData.personalInfo.lastName,
+		`${new Date().getTime()}`
+	];
+	const fileNamePdf: string = personName.join('_');
 
 	const togglePdfDialog = () => (isShowPdfDialog = !isShowPdfDialog);
 
@@ -67,7 +75,7 @@
 
 	const generatePdfEnhance: SubmitFunction = ({ formData }) => {
 		isLoading = true;
-		formData.append('cvData', 'eko setiadi');
+		formData.append('cvData', JSON.stringify(cvData));
 
 		return async ({ result }) => {
 			isLoading = false;

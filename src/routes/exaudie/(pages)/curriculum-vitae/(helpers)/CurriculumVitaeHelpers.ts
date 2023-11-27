@@ -1,5 +1,20 @@
 import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
 
+export const currculumVitaeData: CurrculumVitae = {
+	personalInfo: {
+		photo: '',
+		firstName: 'Nama',
+		lastName: 'Lengkap',
+		dayOfBirth: '2023-12-01',
+		currentJob: 'Current Job'
+	},
+	contactPerson: '',
+	socialMedia: '',
+	verticalSpace: '',
+	education: '',
+	skills: ''
+};
+
 export const setCurriculumVitaeScheme = (params?: {
 	cvData?: CurrculumVitae;
 }): CurrculumVitaeScheme => ({
@@ -11,13 +26,18 @@ export const setCurriculumVitaeScheme = (params?: {
 	}
 });
 
-export const downloadPdf = (params: { fileName: string; src: string }) => {
+export const downloadPdf = async (params: { fileName: string; src: string }) => {
 	if (params.src == '') return;
 
+	const blob = await (await fetch(params.src)).blob();
+	const file = new File([blob], params.fileName, { type: blob.type });
+	const dataUrl = URL.createObjectURL(file);
+
 	const link: HTMLAnchorElement = document.createElement('a');
-	link.href = params.src;
-	link.download = `${params.fileName}.pdf`;
+	link.href = dataUrl;
+	link.download = file.name;
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
+	URL.revokeObjectURL(dataUrl);
 };

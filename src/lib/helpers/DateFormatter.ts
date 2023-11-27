@@ -1,5 +1,12 @@
 import { isDefine } from './DefaultValue';
 
+export const dateyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
+	return dateToFormat(value, {
+		formatList: [{ year: 'numeric' }],
+		defValue: params?.defaultValue ?? ''
+	});
+};
+
 export const dateddmmmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: 'long' }, { year: 'numeric' }],
@@ -121,7 +128,7 @@ export const parseToDate = (
 
 export const dateToFormat = (
 	value: string | Date,
-	params: { formatList: Intl.DateTimeFormatOptions[]; separator: string; defValue?: string }
+	params: { formatList: Intl.DateTimeFormatOptions[]; separator?: string; defValue?: string }
 ) => {
 	try {
 		if (value === '') return params?.defValue ?? '';
