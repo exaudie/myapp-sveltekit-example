@@ -14,11 +14,13 @@
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
 	import SocialMedia from './SocialMedia.svelte';
+	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
 
 	export let isEdit: boolean;
 
 	let generatePdfForm: HTMLFormElement;
 	let sourcePdf: string = '';
+	let isLoading: boolean = false;
 	let isDownload: boolean = false;
 	let isShowPdfDialog: boolean = false;
 
@@ -64,9 +66,11 @@
 	};
 
 	const generatePdfEnhance: SubmitFunction = ({ formData }) => {
+		isLoading = true;
 		formData.append('cvData', 'eko setiadi');
 
 		return async ({ result }) => {
+			isLoading = false;
 			switch (result.type) {
 				case 'success':
 					const resultData = result.data;
@@ -109,6 +113,7 @@
 	</div>
 </div>
 
+<LoadingDialog bind:isShow={isLoading} />
 <DialogViewPdf bind:isShow={isShowPdfDialog} {sourcePdf} />
 
 <style lang="less">
