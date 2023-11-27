@@ -1,11 +1,11 @@
 <script lang="ts">
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
 	import { downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
+	import DownloadIcon from '$lib/images/cv-icon/download_icon.svg';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
 	import Experiance from './Experiance.svelte';
@@ -13,32 +13,68 @@
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
 	import SocialMedia from './SocialMedia.svelte';
+	import DialogShowPdf from '$lib/components/dialog/DialogShowPdf.svelte';
 
 	export let isEdit: boolean;
 
 	let generatePdfForm: HTMLFormElement;
+	let sourcePdf: string = '';
+	let isDownload: boolean = false;
+	let isShowPdfDialog: boolean = false;
 
-	let srcIframe: string = '';
+	const fileNamePdf: string = 'cv_downloaded';
 
-	const currentPath = $page.url.pathname;
+	const togglePdfDialog = () => (isShowPdfDialog = !isShowPdfDialog);
 
 	const onEdit = () => {
 		isEdit = true;
 	};
 
-	const onDown = () => {
+	const onGenerate = () => {
+		console.log('onGenerate', isShowPdfDialog);
+
+		isDownload = false;
 		generatePdfForm.requestSubmit();
+	};
+
+	const onDownload = () => {
+		if (sourcePdf != '') {
+			downloadPdf({ fileName: fileNamePdf, src: sourcePdf });
+			return;
+		}
+
+		isDownload = true;
+		generatePdfForm.requestSubmit();
+	};
+
+	const parseGenPdf = (response: any) => {
+		if (!response.success) {
+			return;
+		}
+
+		if (isDownload) {
+			const srcPdf = response?.data?.genCv ?? '';
+			downloadPdf({ fileName: fileNamePdf, src: srcPdf });
+			isDownload = false;
+
+			return;
+		}
+
+		sourcePdf = response?.data?.genCv ?? '';
+		togglePdfDialog();
 	};
 
 	const generatePdfEnhance: SubmitFunction = ({ formData }) => {
 		formData.append('cvData', 'eko setiadi');
 
 		return async ({ result }) => {
-			if (result.type == 'success') {
-				srcIframe = result?.data?.data?.genCv ?? '';
-				if (srcIframe != '') {
-					downloadPdf({ fileName: 'cvdownoad', src: srcIframe });
-				}
+			switch (result.type) {
+				case 'success':
+					const resultData = result.data;
+
+					parseGenPdf(resultData);
+					break;
+				default:
 			}
 		};
 	};
@@ -59,18 +95,22 @@
 <Education />
 <Skills />
 
-<iframe src={srcIframe} title="cv" frameborder="0" />
-
 <VerticalSpace height="48px" />
 <div class="button-layout">
 	<div class="button-wrap">
-		<Button label="Download" isOutline={true} on:Click={onDown} />
+		<Button label="Edit Information" isOutline={true} on:Click={onEdit} />
 	</div>
 
 	<div class="button-wrap">
-		<Button label="Edit Information" isOutline={true} on:Click={onEdit} />
+		<Button label="Generate CV" isOutline={true} on:Click={onGenerate} />
+	</div>
+
+	<div class="button-wrap">
+		<ButtonIcon icon={DownloadIcon} label="Download CV" isOutline={true} on:Click={onDownload} />
 	</div>
 </div>
+
+<DialogShowPdf bind:isShow={isShowPdfDialog} {sourcePdf} />
 
 <style lang="less">
 	* {
