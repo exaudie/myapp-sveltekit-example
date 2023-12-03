@@ -49,11 +49,11 @@
 <Toast />
 <ToastNotif />
 <GridLayoutThreeColumn>
-	<Button on:onClick={onClick}>toast1</Button>
+	<Button on:Click={onClick}>toast1</Button>
 
-	<Button on:onClick={onToast2}>toast2</Button>
+	<Button on:Click={onToast2}>toast2</Button>
 
-	<Button on:onClick={onToast3}>toast3</Button>
+	<Button on:Click={onToast3}>toast3</Button>
 
-	<Button on:onClick={() => {}}>toast4</Button>
+	<Button on:Click={() => {}}>toast4</Button>
 </GridLayoutThreeColumn>

@@ -13,7 +13,7 @@ export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 
 	return {
 		pageSize: 'A4',
-		pageMargins: [20, 20, 20, 20],
+		pageMargins: [20, 20, 20, 30],
 		content: [
 			setPersonName(dt.personalInfo),
 			setPersonInfo(dt.personalInfo),
