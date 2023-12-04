@@ -4,7 +4,6 @@
 	export let value: string = '';
 	export let editValue: string | null | undefined = null;
 	export let placeholder: string = '';
-	export let alwaysNegative: boolean = false;
 
 	let fieldValue: string = '';
 	let isFocus: boolean = false;

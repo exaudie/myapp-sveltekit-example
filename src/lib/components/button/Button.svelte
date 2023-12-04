@@ -2,7 +2,7 @@
 	import { createEventDispatcher } from 'svelte';
 
 	export let type: HTMLButtonElement['type'] = 'button';
-	export let label: string = '';
+	export let label: string = 'button';
 	export let isOutline: boolean = false;
 	export let theme: 'primary' | 'warning' = 'primary';
 
