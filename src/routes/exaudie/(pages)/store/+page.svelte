@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { storeLocalExample } from '$lib/stores/ExampleLocalStore';
+	import { storeSessionExample } from '$lib/stores/ExampleSessonStore';
 	import { storeExample } from '$lib/stores/ExampleStore';
 	import { onDestroy, onMount } from 'svelte';
 	import { writable } from 'svelte/store';
@@ -7,33 +9,16 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
+	import { storeDerivedExample } from '$lib/stores/ExampleStoreDerived';
 
 	let inputSetUp: string = '';
 	let valStoreSetUp: any;
-	let inputValue = { store: '', localStorage: '', sessionStorage: '' };
-	let resultValue = { store: '', localStorage: '', sessionStorage: '' };
+	let inputValue = { store: '', derived: '', localStorage: '', sessionStorage: '' };
+	let resultValue = { store: '', derived: '', localStorage: '', sessionStorage: '' };
 
-	const keyLocalStorage: string = 'localStorage';
-	const keySessionStorage: string = 'sessionStorage';
-
-	const writeStore = writable<string[]>([]);
-
-	writeStore.subscribe((val) => (valStoreSetUp = val));
-
-	const onSeDerived = () => {
-		if (inputSetUp == '') return;
-
-		writeStore.set([inputSetUp]);
-		inputSetUp = '';
-	};
-
-	const onAddDerived = () => {
-		if (inputSetUp == '') return;
-
-		writeStore.update((val) => (val = [...val, inputSetUp]));
-		inputSetUp = '';
-	};
-
+	/**
+	 * Svelte Store basic
+	 */
 	const storeUnsubscribe = storeExample.subscribe((data) => {
 		resultValue.store = JSON.stringify(data);
 	});
@@ -53,47 +38,76 @@
 		inputValue.store = '';
 	};
 
+	/**
+	 * svelte store with derived
+	 */
+	const storeDerivedUnsubscribe = storeDerivedExample.subscribe((data) => {
+		resultValue.derived = JSON.stringify(data);
+	});
+	const onSeDerived = () => {
+		storeDerivedExample.set({ name: inputValue.derived, email: '' });
+		inputValue.derived = '';
+	};
+
+	const onAddDerived = () => {
+		storeDerivedExample.add({ name: inputValue.derived, email: '' });
+		inputValue.derived = '';
+	};
+
+	const onDelDerived = () => {
+		storeDerivedExample.del();
+		inputValue.derived = '';
+	};
+
+	/**
+	 * svelte store with local storage
+	 */
+	const storeLocalUnsubscribe = storeLocalExample.subscribe((data) => {
+		resultValue.localStorage = JSON.stringify(data);
+	});
+
 	const onSetLocalStorage = () => {
-		const dataStore = JSON.stringify({ value: inputValue.localStorage });
-		localStorage.setItem(keyLocalStorage, dataStore);
+		storeLocalExample.set({ name: inputValue.localStorage, email: '' });
+		inputValue.localStorage = '';
 	};
 
 	const onRmLocalStorage = () => {
-		localStorage.removeItem(keyLocalStorage);
+		storeLocalExample.del();
 	};
 
-	const getLocalStorage = () => {
-		let dataStore = localStorage.getItem(keyLocalStorage);
-		if (!dataStore) return null;
-
-		return JSON.parse(dataStore);
-	};
+	/**
+	 * svelte store with session storage
+	 */
+	const storeSessionUnsubscribe = storeSessionExample.subscribe((data) => {
+		resultValue.sessionStorage = JSON.stringify(data);
+	});
 
 	const onSetSessionStorage = () => {
-		const dataStore = JSON.stringify({ value: inputValue.sessionStorage });
-		sessionStorage.setItem(keySessionStorage, dataStore);
+		storeSessionExample.set({ name: inputValue.sessionStorage, email: '' });
+		inputValue.sessionStorage = '';
 	};
 
 	const onRmSessionStorage = () => {
-		sessionStorage.removeItem(keySessionStorage);
+		storeSessionExample.del();
 	};
 
-	const getSessionStorage = () => {
-		let dataStore = sessionStorage.getItem(keySessionStorage);
-		if (!dataStore) return null;
-
-		return JSON.parse(dataStore);
-	};
-
+	/**
+	 * life sycle
+	 */
 	onMount(async () => {
-		resultValue.localStorage = getLocalStorage()?.value ?? '';
-		resultValue.sessionStorage = getSessionStorage()?.value ?? '';
+		storeLocalExample.useLocalStorage();
+		storeSessionExample.useSessionStorage();
 	});
+
 	onDestroy(() => {
 		storeUnsubscribe();
+		storeDerivedUnsubscribe();
+		storeLocalUnsubscribe();
+		storeSessionUnsubscribe();
 	});
 </script>
 
+<!-- svelte store basic -->
 <LabelTop label="Store Example" labelAlign="center">
 	<GridLayoutThreeColumn>
 		<InputBasic placeholder="enter a text" bind:value={inputValue.store} />
@@ -114,18 +128,20 @@
 
 <VerticalSpace height="36px" />
 
+<!-- svelte store with derived -->
 <LabelTop label="Store Derived Example" labelAlign="center">
 	<GridLayoutThreeColumn>
-		<InputBasic placeholder="enter a text" bind:value={inputSetUp} />
+		<InputBasic placeholder="enter a text" bind:value={inputValue.derived} />
 
 		<div class="wrap vertical">
 			<Button label="set store" on:Click={onSeDerived} />
 			<Button label="update store" on:Click={onAddDerived} />
+			<Button label="update store" on:Click={onDelDerived} />
 		</div>
 
 		<LabelTop label="Store Result">
 			<div class="box">
-				{JSON.stringify(valStoreSetUp)}
+				{resultValue.derived}
 			</div>
 		</LabelTop>
 	</GridLayoutThreeColumn>
@@ -133,6 +149,7 @@
 
 <VerticalSpace height="36px" />
 
+<!-- svelte store with local storage -->
 <LabelTop label="localStorage Example" labelAlign="center">
 	<GridLayoutThreeColumn>
 		<InputBasic placeholder="enter a text" bind:value={inputValue.localStorage} />
@@ -152,6 +169,7 @@
 
 <VerticalSpace height="36px" />
 
+<!-- svelte store with session storage -->
 <LabelTop label="sessionStorage Example" labelAlign="center">
 	<GridLayoutThreeColumn>
 		<InputBasic placeholder="enter a text" bind:value={inputValue.sessionStorage} />
