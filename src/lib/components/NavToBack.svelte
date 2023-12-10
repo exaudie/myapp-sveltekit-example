@@ -15,7 +15,7 @@
 </script>
 
 <nav>
-	<Clicker on:onClick={toBack} class="clicker">
+	<Clicker on:Click={toBack} class="clicker">
 		<img src={ArrowLeft} alt="icon" />
 	</Clicker>
 

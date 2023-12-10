@@ -1,64 +1,87 @@
 <script lang="ts">
-	import { notifications } from '$lib/stores/NotificationsStore';
-	import { onDestroy } from 'svelte';
-	import { flip } from 'svelte/animate';
-	import { fly } from 'svelte/transition';
+	import { createEventDispatcher } from 'svelte';
+	import CloseIcon from '../icon-svelte/CloseIcon.svelte';
+	import ErrorIcon from '../icon-svelte/ErrorIcon.svelte';
+	import InfoIcon from '../icon-svelte/InfoIcon.svelte';
+	import SuccessIcon from '../icon-svelte/SuccessIcon.svelte';
+	import ShowHidden from '../ShowHidden.svelte';
 
-	export let themes: any = {
-		danger: '#E26D69',
-		success: '#84C991',
-		warning: '#f0ad4e',
-		info: '#5bc0de',
-		default: '#aaaaaa'
-	};
+	export let type: 'error' | 'success' | 'info' = 'info';
+	export let dismissible: boolean = true;
+	export let message: string = 'Enter a message';
 
-	let toastNotifications: Array<any>;
-	let toastNotificationStoreUnsub = notifications.subscribe(
-		(data: any) => (toastNotifications = data)
-	);
+	const dispatch = createEventDispatcher();
 
-	onDestroy(() => toastNotificationStoreUnsub());
+	const onDismiss = () => dispatch('Dismiss');
 </script>
 
-<div class="notifications">
-	{#each toastNotifications as notification (notification.id)}
-		<div
-			animate:flip
-			class="toast"
-			style="background: {themes[notification.type]};"
-			transition:fly={{ y: 30 }}
-		>
-			<div class="content">{notification.message}</div>
-			{#if notification.icon}<i class={notification.icon} />{/if}
-		</div>
-	{/each}
-</div>
+<article class={type} role="alert">
+	<ShowHidden isShow={type === 'success'}>
+		<SuccessIcon width="1.1em" />
+	</ShowHidden>
 
-<style>
-	.notifications {
-		position: fixed;
-		top: 10px;
-		left: 0;
-		right: 0;
-		margin: 0 auto;
+	<ShowHidden isShow={type === 'error'}>
+		<ErrorIcon width="1.1em" />
+	</ShowHidden>
+
+	<ShowHidden isShow={type === 'info'}>
+		<InfoIcon width="1.1em" />
+	</ShowHidden>
+
+	<p class="message">
+		<slot>{message}</slot>
+	</p>
+
+	<ShowHidden isShow={dismissible}>
+		<button class="close" on:click={onDismiss}>
+			<CloseIcon width="0.8em" />
+		</button>
+	</ShowHidden>
+</article>
+
+<style lang="postcss">
+	* {
+		margin: 0;
 		padding: 0;
-		z-index: 9999;
-		display: flex;
-		flex-direction: column;
-		justify-content: flex-start;
-		align-items: center;
-		pointer-events: none;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
 	}
 
-	.toast {
-		flex: 0 0 auto;
-		margin-bottom: 10px;
-	}
-
-	.content {
-		padding: 10px;
-		display: block;
+	article {
 		color: white;
-		font-weight: 500;
+		padding: 0.75rem 1.5rem;
+		border-radius: 0.2rem;
+		display: flex;
+		align-items: center;
+		margin: 0 auto 0.5rem auto;
+		width: 25rem;
+	}
+
+	.error {
+		background: IndianRed;
+	}
+
+	.success {
+		background: MediumSeaGreen;
+	}
+
+	.info {
+		background: SkyBlue;
+	}
+
+	.message {
+		margin-left: 1rem;
+	}
+
+	button {
+		cursor: pointer;
+		color: white;
+		background: transparent;
+		border: 0 none;
+		padding: 0;
+		margin: 0 0 0 auto;
+		line-height: 1;
+		font-size: 1rem;
 	}
 </style>

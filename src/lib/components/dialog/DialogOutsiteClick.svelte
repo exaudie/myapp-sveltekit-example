@@ -2,18 +2,21 @@
 	import { createEventDispatcher } from 'svelte';
 	import OutsiteClicker from '../clicker/OutsiteClicker.svelte';
 	import Dialog from './Dialog.svelte';
+	import Backdrop from '../Backdrop.svelte';
 
 	export let isShow: boolean;
 
 	const dispatch = createEventDispatcher();
 
 	const onClickOutsite = () => {
-		if (isShow) dispatch('onClickOutsite');
+		if (isShow) dispatch('ClickOutsite');
 	};
 </script>
 
-<Dialog {isShow}>
-	<OutsiteClicker on:onClickOutsite={onClickOutsite}>
-		<slot />
-	</OutsiteClicker>
-</Dialog>
+<Backdrop {isShow}>
+	<Dialog isShow={true}>
+		<OutsiteClicker on:ClickOutsite={onClickOutsite}>
+			<slot />
+		</OutsiteClicker>
+	</Dialog>
+</Backdrop>

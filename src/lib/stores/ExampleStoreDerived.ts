@@ -1,10 +1,10 @@
 import { derived, writable } from 'svelte/store';
 
-interface StoreData {
+type StoreData = {
 	id?: string;
 	name: string;
 	email: string;
-}
+};
 
 const createStore = () => {
 	const storeData = writable<StoreData[] | null>(null);
