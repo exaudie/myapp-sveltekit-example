@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { notifications } from '$lib/stores/NotificationsStore';
 	import { derived, writable } from 'svelte/store';
-	import Toast from '$lib/components/Toast.svelte';
-	import ToastNotif from '$lib/components/ToastNotif.svelte';
+	import Toast from '$lib/components/toast-snackbar/Toast.svelte';
+	import ToastNotif from '$lib/components/toast-snackbar/ToastNotif.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 

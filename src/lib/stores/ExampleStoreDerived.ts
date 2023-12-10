@@ -26,7 +26,7 @@ const createStore = () => {
 	const del = () => storeData.set(null);
 
 	const storeDerived = derived(storeData, ($storeData, set) => {
-		const timer = setTimeout(() => {
+		setTimeout(() => {
 			set($storeData);
 		}, 1000);
 	});

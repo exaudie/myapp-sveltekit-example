@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Clicker from '../Clicker.svelte';
+	import Clicker from '../clicker/Clicker.svelte';
 	import ShowHidden from '../ShowHidden.svelte';
 
 	export let opacity: string = '1';

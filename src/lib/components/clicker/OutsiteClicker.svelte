@@ -9,7 +9,7 @@
 			const target = event.target as HTMLElement;
 
 			if (elm && !elm.contains(target) && !event.defaultPrevented) {
-				dispatch('onClickOutsite');
+				dispatch('ClickOutsite');
 			}
 		};
 

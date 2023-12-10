@@ -4,7 +4,7 @@
 	export let replaceClick: boolean = true;
 
 	const dispatch = createEventDispatcher();
-	const onClick = () => dispatch('onClick');
+	const onClick = () => dispatch('Click');
 </script>
 
 <button class="{$$restProps.class || ''} button-clicker" on:click={onClick}>

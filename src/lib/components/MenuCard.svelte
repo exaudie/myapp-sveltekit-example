@@ -1,5 +1,4 @@
 <script lang="ts">
-	import Card from './card/Card.svelte';
 	import CardWithHover from './card/CardWithHover.svelte';
 
 	export let title: string;

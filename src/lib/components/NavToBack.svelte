@@ -2,7 +2,7 @@
 	import { goto } from '$app/navigation';
 	import { setValue } from '$lib/helpers/DefaultValue';
 	import ArrowLeft from '$lib/images/arrow-left.svg';
-	import Clicker from './Clicker.svelte';
+	import Clicker from './clicker/Clicker.svelte';
 
 	export let label: String = '';
 	export let linkBack = '';

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import OutsiteClicker from '../OutsiteClicker.svelte';
+	import OutsiteClicker from '../clicker/OutsiteClicker.svelte';
 	import Dialog from './Dialog.svelte';
 
 	export let isShow: boolean;

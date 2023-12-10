@@ -13,14 +13,3 @@
 <ShowHidden isShow={true}>
 	<FloatButton icon={ArrowTopLine} />
 </ShowHidden>
-
-<style lang="less">
-	.box100px {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100px;
-		height: 100px;
-		background-color: white;
-	}
-</style>

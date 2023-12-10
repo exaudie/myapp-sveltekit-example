@@ -1,4 +1,4 @@
-import type { InputFieldScheme } from './InputField';
+import type { InputFieldScheme } from './InputFieldScheme';
 
 export type CurrculumVitae = {
 	personalInfo: PersonalInfo;

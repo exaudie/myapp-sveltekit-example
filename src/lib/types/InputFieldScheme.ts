@@ -1,6 +1,6 @@
 export type InputFieldScheme = {
 	value: string;
-	valuePriv?: string;
+	value2?: string;
 	label?: string;
 	placeholder?: string;
 	isError?: boolean;
