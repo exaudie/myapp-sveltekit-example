@@ -1,4 +1,6 @@
 <script lang="ts">
+	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
+	import { setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import ContactPerson from './ContactPerson.svelte';
@@ -10,6 +12,8 @@
 	import SocialMedia from './SocialMedia.svelte';
 
 	export let isEdit: boolean;
+
+	let cv: CurrculumVitaeScheme = setCurriculumVitaeScheme();
 
 	const onSave = () => (isEdit = false);
 </script>
