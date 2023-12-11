@@ -1,10 +1,10 @@
 import { writable } from 'svelte/store';
 
-interface StoreData {
+type StoreData = {
 	id?: string;
 	name: string;
 	email: string;
-}
+};
 
 const createStore = (params: { key: string; dataInit?: StoreData }) => {
 	const dataInit = params?.dataInit == undefined ? null : [params.dataInit];

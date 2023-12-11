@@ -20,7 +20,7 @@
 	<LabelTop label="Always Negative">
 		<div class="box">
 			<p>Real value : {value1}</p>
-			<InputNegativeDisplay placeholder="0" alwaysNegative={true} bind:value={value1} />
+			<InputNegativeDisplay placeholder="0" bind:value={value1} />
 		</div>
 	</LabelTop>
 

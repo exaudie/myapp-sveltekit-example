@@ -12,26 +12,23 @@
 </script>
 
 <GridLayoutThreeColumn>
-	<Button on:onClick={toggleShowDialog}>show</Button>
+	<Button on:Click={toggleShowDialog}>show</Button>
 
-	<Button on:onClick={toggleShowDialogWithOutsite}>show with outsite</Button>
+	<Button on:Click={toggleShowDialogWithOutsite}>show with outsite</Button>
 
-	<Button on:onClick={toggleShowDialog}>show</Button>
+	<Button on:Click={toggleShowDialog}>show</Button>
 </GridLayoutThreeColumn>
 
 <Dialog isShow={isShowDialog}>
 	<div class="content">
-		tanpilan testing bindDialog!=undefined<Button on:onClick={toggleShowDialog}>close</Button>
+		tanpilan testing bindDialog!=undefined<Button on:Click={toggleShowDialog}>close</Button>
 	</div>
 </Dialog>
 
-<DialogOutsiteClick
-	isShow={isShowDialogWithOutsite}
-	on:onClickOutsite={toggleShowDialogWithOutsite}
->
+<DialogOutsiteClick isShow={isShowDialogWithOutsite} on:ClickOutsite={toggleShowDialogWithOutsite}>
 	<div class="content">
 		tanpilan testing DialogWithOutsite
-		<Button on:onClick={toggleShowDialogWithOutsite}>close</Button>
+		<Button on:Click={toggleShowDialogWithOutsite}>close</Button>
 	</div>
 </DialogOutsiteClick>
 

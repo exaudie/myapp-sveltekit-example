@@ -2,17 +2,14 @@
 	import { storeLocalExample } from '$lib/stores/ExampleLocalStore';
 	import { storeSessionExample } from '$lib/stores/ExampleSessonStore';
 	import { storeExample } from '$lib/stores/ExampleStore';
+	import { storeDerivedExample } from '$lib/stores/ExampleStoreDerived';
 	import { onDestroy, onMount } from 'svelte';
-	import { writable } from 'svelte/store';
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
-	import { storeDerivedExample } from '$lib/stores/ExampleStoreDerived';
 
-	let inputSetUp: string = '';
-	let valStoreSetUp: any;
 	let inputValue = { store: '', derived: '', localStorage: '', sessionStorage: '' };
 	let resultValue = { store: '', derived: '', localStorage: '', sessionStorage: '' };
 
