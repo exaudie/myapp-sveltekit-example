@@ -1,23 +1,17 @@
 <script lang="ts">
 	import { notifications } from '$lib/stores/NotificationsStore';
+	import { toastNotify } from '$lib/stores/ToastNotifyStore';
 	import { derived, writable } from 'svelte/store';
 	import Button from '$lib/components/button/Button.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
-	import Toast from '$lib/components/toast-snackbar/Toast.svelte';
 	import ToastNofication from '$lib/components/toast-snackbar/ToastNofication.svelte';
 	import ToastNotify from '$lib/components/toast-snackbar/ToastNotify.svelte';
 
-	let toast: any[] = [];
-	let counter: number = 0;
-	const onError = () => {
-		toast = [...toast, counter];
-		counter++;
-	};
+	const onSuccess = () => toastNotify.success({ message: 'Toast success' });
 
-	const onInfo = () => {
-		toast.shift();
-		toast = toast;
-	};
+	const onError = () => toastNotify.error({ message: 'Toast error' });
+
+	const onInfo = () => toastNotify.info({ message: 'Toast info' });
 
 	const onClick = () => {
 		notifications.success('testing toast', 1000);
@@ -42,11 +36,6 @@
 		count++;
 	};
 
-	const onToast3 = () => {
-		tesStore.update((e) => `toast3 ${e}${count}`);
-		count++;
-	};
-
 	const derivedtest = derived(tesStore, (val, set, update) => {
 		set(val);
 		update((val) => (val += ' upderiv'));
@@ -67,7 +56,7 @@
 
 	<Button on:Click={onToast2}>toast2</Button>
 
-	<Button on:Click={onToast3}>toast3</Button>
+	<Button on:Click={onSuccess}>Toast Success</Button>
 
 	<Button on:Click={onError}>Toast Error</Button>
 

@@ -56,6 +56,7 @@
 		align-items: center;
 		margin: 0 auto 0.5rem auto;
 		width: 25rem;
+		pointer-events: auto;
 	}
 
 	.error {

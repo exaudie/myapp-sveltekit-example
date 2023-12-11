@@ -15,9 +15,7 @@ export type PushNotifyData = {
 const createStore = () => {
 	const storeData = writable<PushNotifyData[]>([]);
 
-	const push = (params: PushNotifyData) => {
-		console.log('push notification', params.message);
-	};
+	const push = (params: PushNotifyData) => storeData.update((data) => [...data, params]);
 
 	const success = (params: NotifyData) => {
 		push({
@@ -48,12 +46,14 @@ const createStore = () => {
 
 	const dimiss = (id: string) => {
 		if (id === '') return;
+
+		storeData.update((data) => data.filter((val) => val.id !== id));
 	};
 
 	const storeDerived = derived(storeData, ($storeData, set) => {
-		setTimeout(() => {
-			set($storeData);
-		}, 1000);
+		set($storeData);
+
+		setTimeout(() => dimiss($storeData[0].id), 3000);
 	});
 
 	const { subscribe } = storeDerived;
