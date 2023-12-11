@@ -1,14 +1,19 @@
 <script lang="ts">
-	import { page } from '$app/stores';
-	import Card from '$lib/components/card/Card.svelte';
-	import NavToBack from '$lib/components/NavToBack.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import { menuItems } from '$lib/constants/ExaudieMenu';
 	import { getMenuTitleFromPage } from '$lib/helpers/ExaudieMenuGetter';
+	import { page } from '$app/stores';
+	import NavToBack from '$lib/components/NavToBack.svelte';
+	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
+	import Card from '$lib/components/card/Card.svelte';
+	import ToastNotify from '$lib/components/toast-snackbar/ToastNotify.svelte';
 </script>
 
+<ToastNotify />
+
 <NavToBack label={getMenuTitleFromPage(menuItems, $page.url.pathname)} linkBack="/exaudie" />
+
 <VerticalSpace height="8px" />
+
 <Card>
 	<main>
 		<slot />

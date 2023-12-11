@@ -4,7 +4,6 @@
 	import { flip } from 'svelte/animate';
 	import { fly } from 'svelte/transition';
 	import Toast from './Toast.svelte';
-	import { backOut, quadInOut, quintOut } from 'svelte/easing';
 
 	let notifyList: PushNotifyData[] = [];
 
@@ -19,7 +18,7 @@
 
 <section class="notify">
 	{#each notifyList as notify (notify.id)}
-		<div animate:flip={{ easing: backOut }} transition:fly={{ y: 30 }}>
+		<div animate:flip transition:fly={{ y: 40 }}>
 			<Toast
 				type={notify.type}
 				message={notify.message}

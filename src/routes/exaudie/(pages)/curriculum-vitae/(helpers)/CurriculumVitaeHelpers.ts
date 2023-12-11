@@ -1,3 +1,4 @@
+import { toastNotify } from '$lib/stores/ToastNotifyStore';
 import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
 
 export const currculumVitaeData: CurrculumVitae = {
@@ -40,4 +41,6 @@ export const downloadPdf = async (params: { fileName: string; src: string }) => 
 	link.click();
 	document.body.removeChild(link);
 	URL.revokeObjectURL(dataUrl);
+
+	toastNotify.success({ message: 'Download cv berhasil' });
 };
