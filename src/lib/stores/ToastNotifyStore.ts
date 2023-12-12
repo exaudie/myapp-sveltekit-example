@@ -3,6 +3,7 @@ import { derived, writable } from 'svelte/store';
 export type NotifyData = {
 	message: string;
 	dimissable?: boolean;
+	timeout?: number;
 };
 
 export type PushNotifyData = {
@@ -10,6 +11,7 @@ export type PushNotifyData = {
 	message: string;
 	type: 'error' | 'success' | 'info';
 	dimissable: boolean;
+	timeout?: number;
 };
 
 const createStore = () => {
@@ -22,7 +24,8 @@ const createStore = () => {
 			id: id(),
 			message: params.message,
 			type: 'success',
-			dimissable: params?.dimissable ?? true
+			dimissable: params?.dimissable ?? true,
+			timeout: params?.timeout
 		});
 	};
 
@@ -31,7 +34,8 @@ const createStore = () => {
 			id: id(),
 			message: params.message,
 			type: 'error',
-			dimissable: params?.dimissable ?? true
+			dimissable: params?.dimissable ?? true,
+			timeout: params?.timeout
 		});
 	};
 
@@ -40,7 +44,8 @@ const createStore = () => {
 			id: id(),
 			message: params.message,
 			type: 'info',
-			dimissable: params?.dimissable ?? true
+			dimissable: params?.dimissable ?? true,
+			timeout: params?.timeout
 		});
 	};
 
@@ -53,7 +58,11 @@ const createStore = () => {
 	const storeDerived = derived(storeData, ($storeData, set) => {
 		set($storeData);
 
-		setTimeout(() => dimiss($storeData[0].id), 3000);
+		if ($storeData.length > 0) {
+			setTimeout(() => {
+				dimiss($storeData[0]?.id);
+			}, $storeData[0]?.timeout ?? 4000);
+		}
 	});
 
 	const { subscribe } = storeDerived;
