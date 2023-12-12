@@ -7,4 +7,10 @@
 		gap: 1em;
 		align-items: start;
 	}
+
+	@media only screen and (max-width: 640px) {
+		main {
+			grid-template-columns: 1fr;
+		}
+	}
 </style>
