@@ -19,8 +19,17 @@
 
 <style>
 	.card-wrap {
+		padding: 16px;
+		overflow: auto;
+		max-height: 75vh;
 		display: grid;
-		grid-template-columns: auto auto auto;
+		grid-template-columns: repeat(3, 1fr);
 		gap: 16px;
+	}
+
+	@media only screen and (max-width: 640px) {
+		.card-wrap {
+			grid-template-columns: repeat(2, 1fr);
+		}
 	}
 </style>

@@ -1,4 +1,5 @@
 <script>
+	import ToastNotify from '$lib/components/toast-snackbar/ToastNotify.svelte';
 	import Header from './Header.svelte';
 	import './styles.css';
 </script>
@@ -6,6 +7,8 @@
 <div class="app">
 	<Header />
 
+	<ToastNotify />
+	
 	<main>
 		<slot />
 	</main>

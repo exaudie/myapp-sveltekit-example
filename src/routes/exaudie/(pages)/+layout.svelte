@@ -5,10 +5,7 @@
 	import NavToBack from '$lib/components/NavToBack.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Card from '$lib/components/card/Card.svelte';
-	import ToastNotify from '$lib/components/toast-snackbar/ToastNotify.svelte';
 </script>
-
-<ToastNotify />
 
 <NavToBack label={getMenuTitleFromPage(menuItems, $page.url.pathname)} linkBack="/exaudie" />
 

@@ -1,4 +1,9 @@
+import type { PageServerLoad } from './$types';
 import { genCvPdf } from './(helpers)/GrenerateCvPdf';
+
+export const load: PageServerLoad = async () => {
+	return;
+};
 
 export const actions = {
 	generatePdf: async ({ request }) => {
