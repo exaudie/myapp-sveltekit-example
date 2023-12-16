@@ -8,7 +8,7 @@ export const load: PageServerLoad = async () => {
 export const actions = {
 	generatePdf: async ({ request }) => {
 		const data = await request.formData();
-		const cvData = (data.get('cvData') ?? '') as string;
+		const cvData = atob((data.get('cvData') ?? '') as string);
 
 		const genCv = await genCvPdf(cvData);
 
