@@ -31,16 +31,16 @@
 			<InputBasic placeholder="Enter Last Name" bind:value={scheme.role.value} />
 		</LabelTop>
 
-		<div class="space" />
-
 		<LabelTop label="Company Name">
 			<InputBasic placeholder="Enter First Name" bind:value={scheme.companyName.value} />
 		</LabelTop>
+	</GridLayoutTwoColumn>
+	
+	<LabelTop label="Location">
+		<InputBasic placeholder="Enter First Name" bind:value={scheme.location.value} />
+	</LabelTop>
 
-		<LabelTop label="Location">
-			<InputBasic placeholder="Enter First Name" bind:value={scheme.location.value} />
-		</LabelTop>
-
+	<GridLayoutTwoColumn>
 		<LabelTop label="Start Date">
 			<InputDate placeholder="Enter First Name" bind:value={scheme.startDate.value} />
 		</LabelTop>

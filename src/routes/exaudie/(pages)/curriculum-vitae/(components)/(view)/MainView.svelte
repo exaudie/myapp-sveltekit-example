@@ -39,7 +39,7 @@
 
 	const unsubscribeCv = CvStore.subscribe((data) => {
 		isLoading = false;
-		
+
 		if (data) cvData = data;
 	});
 
@@ -112,12 +112,24 @@
 />
 
 <SelfPhoto photo={cvData.personalInfo.photo} />
+
+<VerticalSpace height="1em" />
 <PersonalInfo data={cvData.personalInfo} />
-<ContactPerson data={cvData.contactPerson}/>
-<SocialMedia data={cvData.socialMedia}/>
-<Experiance data={cvData.experience}/>
-<Education data={cvData.education}/>
-<Skills data={cvData.skills}/>
+
+<VerticalSpace height="36px" />
+<ContactPerson data={cvData.contactPerson} />
+
+<VerticalSpace height="36px" />
+<SocialMedia datas={cvData.socialMedia} />
+
+<VerticalSpace height="36px" />
+<Experiance datas={cvData.experience} />
+
+<VerticalSpace height="36px" />
+<Education datas={cvData.education} />
+
+<VerticalSpace height="36px" />
+<Skills datas={cvData.skills} />
 
 <VerticalSpace height="48px" />
 <div class="button-layout">

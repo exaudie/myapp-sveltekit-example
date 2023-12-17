@@ -4,36 +4,46 @@
 	import { dateddmmmmyyyyCust } from '$lib/helpers/DateFormatter';
 	import HeaderAction from '$lib/components/HeaderAction.svelte';
 	import { isEmptyTo } from '$lib/helpers/DefaultValue';
+	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 
 	export let data: PersonalInfo;
 </script>
 
 <HeaderAction title="Personal Info" titleSize="1.2em" />
 
-<LabelTop label="First Name">
-	<span>{isEmptyTo(data.firstName, { defValue: '-' })}</span>
-</LabelTop>
+<VerticalSpace height="1em" />
+<GridLayoutTwoColumn>
+	<LabelTop label="First Name">
+		<span>{isEmptyTo(data.firstName, { defValue: '-' })}</span>
+	</LabelTop>
 
-<LabelTop label="Last Name">
-	<span>{isEmptyTo(data.lastName, { defValue: '-' })}</span>
-</LabelTop>
+	<LabelTop label="Last Name">
+		<span>{isEmptyTo(data.lastName, { defValue: '-' })}</span>
+	</LabelTop>
 
-<LabelTop label="Current Occupation">
-	<span>{isEmptyTo(data.currentJob, { defValue: '-' })}</span>
-</LabelTop>
+	<LabelTop label="Current Occupation">
+		<span>{isEmptyTo(data.currentJob, { defValue: '-' })}</span>
+	</LabelTop>
+</GridLayoutTwoColumn>
 
-<LabelTop label="Place Of Birth">
-	<span>{isEmptyTo(data.placeOfBirth, { defValue: '-' })}</span>
-</LabelTop>
+<VerticalSpace height="1em" />
+<GridLayoutTwoColumn>
+	<LabelTop label="Place Of Birth">
+		<span>{isEmptyTo(data.placeOfBirth, { defValue: '-' })}</span>
+	</LabelTop>
 
-<LabelTop label="Day Of Birth">
-	<span>{dateddmmmmyyyyCust(data.dayOfBirth, { defValue: '-' })}</span>
-</LabelTop>
+	<LabelTop label="Day Of Birth">
+		<span>{dateddmmmmyyyyCust(data.dayOfBirth, { defValue: '-' })}</span>
+	</LabelTop>
+</GridLayoutTwoColumn>
 
+<VerticalSpace height="1em" />
 <LabelTop label="Address">
 	<span>{isEmptyTo(data.address, { defValue: '-' })}</span>
 </LabelTop>
 
+<VerticalSpace height="1em" />
 <LabelTop label="About Me">
 	<span>{isEmptyTo(data.aboutMe, { defValue: '-' })}</span>
 </LabelTop>
