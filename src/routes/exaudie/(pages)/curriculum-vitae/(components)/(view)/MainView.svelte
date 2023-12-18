@@ -75,7 +75,7 @@
 
 	const generatePdfEnhance: SubmitFunction = ({ formData }) => {
 		isLoading = true;
-		formData.append('cvData', JSON.stringify(cvData));
+		formData.append('cvData', btoa(JSON.stringify(cvData)));
 
 		return async ({ result }) => {
 			isLoading = false;
@@ -141,6 +141,17 @@
 		.button-wrap {
 			width: 20%;
 			display: flex;
+		}
+	}
+
+	@media only screen and (max-width: 640px) {
+		.button-layout {
+			justify-content: center;
+			flex-direction: column;
+
+			.button-wrap {
+				width: 100%;
+			}
 		}
 	}
 </style>

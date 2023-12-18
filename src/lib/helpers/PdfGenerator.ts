@@ -15,11 +15,11 @@ export const generatePdfDataUrl = async (params: {
 		pdf
 			.pipe(BlobStream())
 			.on('finish', async function (this: IBlobStream) {
-				console.log('finished generate PDF');
-
 				const blobPdf = this.toBlob('application/pdf');
 				const arrayBuffer = await blobPdf.arrayBuffer();
 				const buffer = Buffer.from(arrayBuffer);
+
+				console.log('finished generate ', blobPdf.type);
 
 				resolve(`data:${blobPdf.type};base64,${buffer.toString('base64')}`);
 			})

@@ -1,5 +1,6 @@
-import { toastNotify } from '$lib/stores/ToastNotifyStore';
 import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
+import { getPersent } from '$lib/helpers/CommonHelpers';
+import { toastNotify } from '$lib/stores/ToastNotifyStore';
 
 const today = new Date().toString();
 
@@ -28,6 +29,13 @@ export const currculumVitaeData: CurrculumVitae = {
 			companyName: 'PT. Company',
 			role: 'Software Developer',
 			desc: 'Fullstack development internal application'
+		},
+		{
+			startDate: today,
+			endDate: today,
+			companyName: 'PT. Company',
+			role: 'Software Developer',
+			desc: 'Fullstack development internal application'
 		}
 	],
 	education: [
@@ -40,10 +48,10 @@ export const currculumVitaeData: CurrculumVitae = {
 		}
 	],
 	skills: [
-		{ skillName: 'Android Native Developer', skillLevel: 8 },
-		{ skillName: 'Flutter Mobile', skillLevel: 8 },
-		{ skillName: 'Sveltekit', skillLevel: 8 },
-		{ skillName: 'Analysis', skillLevel: 8 }
+		{ skillName: 'Android Native Developer', skillLevel: getPersent(5, { from: 10 }) },
+		{ skillName: 'Flutter Mobile', skillLevel: getPersent(8, { from: 10 }) },
+		{ skillName: 'Sveltekit', skillLevel: getPersent(9, { from: 10 }) },
+		{ skillName: 'Analysis', skillLevel: getPersent(10, { from: 10 }) }
 	]
 };
 
@@ -61,17 +69,12 @@ export const setCurriculumVitaeScheme = (params?: {
 export const downloadPdf = async (params: { fileName: string; src: string }) => {
 	if (params.src == '') return;
 
-	const blob = await (await fetch(params.src)).blob();
-	const file = new File([blob], params.fileName, { type: blob.type });
-	const dataUrl = URL.createObjectURL(file);
-
 	const link: HTMLAnchorElement = document.createElement('a');
-	link.href = dataUrl;
-	link.download = file.name;
+	link.href = params.src;
+	link.download = params.fileName;
 	document.body.appendChild(link);
 	link.click();
 	document.body.removeChild(link);
-	URL.revokeObjectURL(dataUrl);
 
 	toastNotify.success({ message: 'Download cv berhasil' });
 };

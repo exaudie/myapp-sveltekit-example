@@ -14,7 +14,10 @@ import type {
 	TDocumentDefinitions
 } from 'pdfmake/interfaces';
 import { dateddmmmmyyyyCust, dateyyyyCust } from '$lib/helpers/DateFormatter';
-import { setColon, setHLine } from './TemplateHelper';
+import { setColon, setHLine, setProgress } from './TemplateHelper';
+
+const colorPrimary = '#03183b';
+const colorSecondary = '#7188ad';
 
 export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 	const dt: CurrculumVitae = JSON.parse(data);
@@ -50,9 +53,10 @@ export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 			fontSize: 10
 		},
 		styles: {
-			textBold: { bold: true },
-			textSecond: { color: '#7188ad' },
-			textBig: { fontSize: 14, bold: true }
+			textPrimary: { color: colorPrimary, lineHeight: 1.3 },
+			textSecond: { color: colorSecondary, lineHeight: 1.3 },
+			textBold: { color: colorPrimary, bold: true, lineHeight: 1.3 },
+			textBig: { fontSize: 14, color: colorPrimary, bold: true, lineHeight: 1.3 }
 		}
 	};
 };
@@ -67,7 +71,7 @@ const setPersonName = (dt: PersonalInfo): ContentColumns => ({
 				text: `${dt.firstName} ${dt.lastName}`,
 				style: 'textBig'
 			},
-			{ text: dt.currentJob }
+			{ text: dt.currentJob, style: 'textPrimary' }
 		]
 	]
 });
@@ -77,11 +81,11 @@ const setPersonInfo = (dt: PersonalInfo): ContentColumns => ({
 	columnGap: 3,
 	columns: [
 		{ text: 'Date Of Birth', width: 70, style: 'textBold' },
-		setColon(),
-		{ text: dateddmmmmyyyyCust(dt.dayOfBirth), width: 130 },
+		setColon({ style: 'textPrimary' }),
+		{ text: dateddmmmmyyyyCust(dt.dayOfBirth), width: 130, style: 'textPrimary' },
 		{ text: 'Address', width: 60, style: 'textBold' },
-		setColon(),
-		{ text: dt.address }
+		setColon({ style: 'textPrimary' }),
+		{ text: dt.address, style: 'textPrimary' }
 	]
 });
 
@@ -107,58 +111,78 @@ const setContactPerson = (dt: {
 const setContactPersonItem = (dt: ContactPerson): Content => [
 	{ text: 'Contact Person', style: 'textSecond' },
 	{
-		columns: [{ text: 'Phone', width: 55, style: 'textBold' }, setColon(), { text: dt.phone }]
+		columns: [
+			{ text: 'Phone', width: 55, style: 'textBold' },
+			setColon({ style: 'textPrimary' }),
+			{ text: dt.phone, style: 'textPrimary' }
+		]
 	},
 	{
-		columns: [{ text: 'Email', width: 55, style: 'textBold' }, setColon(), { text: dt.email }]
+		columns: [
+			{ text: 'Email', width: 55, style: 'textBold' },
+			setColon({ style: 'textPrimary' }),
+			{ text: dt.email, style: 'textPrimary' }
+		]
 	}
 ];
 
 const setSocialMediaItem = (dt: SocialMedia[]): Content => [
 	{ text: 'Social Media', style: 'textSecond' },
-	Array.from(Array(dt.length).keys()).map((i) => ({
+	Array.from(Array(maxShow5(dt.length)).keys()).map((i) => ({
 		columns: [
 			{ text: dt[i].sosmedName, width: 60, style: 'textBold' },
-			setColon(),
-			{ text: dt[i].sosmedLink }
+			setColon({ style: 'textPrimary' }),
+			{ text: dt[i].sosmedLink, style: 'textPrimary' }
 		]
 	}))
 ];
 
 const setAboutMe = (dt: PersonalInfo): ContentText => ({
 	marginTop: 15,
-	text: dt.aboutMe
+	text: dt.aboutMe,
+	style: 'textPrimary'
 });
 
 const setExperiences = (dt: Experience[]): Content[] => {
-	return Array.from(Array(dt.length).keys()).map((i) => [
+	return Array.from(Array(maxShow5(dt.length)).keys()).map((i) => [
 		{
+			marginTop: i > 0 ? 10 : 0,
 			text: [
-				`${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].endDate)}`,
+				{
+					text: `${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].endDate)}`,
+					style: 'textPrimary'
+				},
 				{ text: ` - ${dt[i].companyName} - `, style: 'textBold' },
-				dt[i].role
+				{ text: dt[i].role, style: 'textPrimary' }
 			]
 		},
-		{ marginLeft: 20, text: dt[i].desc }
+		{ marginLeft: 20, text: dt[i].desc, style: 'textPrimary' }
 	]);
 };
 
 const setEducations = (dt: Education[]): Content[] => {
-	return Array.from(Array(dt.length).keys()).map((i) => [
+	return Array.from(Array(maxShow5(dt.length)).keys()).map((i) => [
 		{
+			marginTop: i > 0 ? 10 : 0,
 			text: [
-				`${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].endDate)}`,
+				{
+					text: `${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].endDate)}`,
+					style: 'textPrimary'
+				},
 				{ text: ` - ${dt[i].campusName} - `, style: 'textBold' },
-				dt[i].studyProgram
+				{ text: dt[i].studyProgram, style: 'textPrimary' }
 			]
 		},
-		{ marginLeft: 20, text: dt[i].desc }
+		{ marginLeft: 20, text: dt[i].desc, style: 'textPrimary' }
 	]);
 };
 
 const setSkills = (dt: Skills[]): ContentColumns[] => {
-	return Array.from(Array(dt.length).keys()).map((i) => ({
-		columns: [{ text: dt[i].skillName, width: 400, style: 'textBold' }, { text: dt[i].skillLevel }]
+	return Array.from(Array(maxShow5(dt.length)).keys()).map((i) => ({
+		columns: [
+			{ text: dt[i].skillName, width: 400, style: 'textBold' },
+			setProgress(dt[i].skillLevel)
+		]
 	}));
 };
 
@@ -167,3 +191,5 @@ const setTitleBig = (title: string): ContentText => ({
 	text: title,
 	style: 'textBig'
 });
+
+const maxShow5 = (value: number) => (value <= 5 ? value : 5);

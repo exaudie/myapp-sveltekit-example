@@ -28,12 +28,13 @@
 	article {
 		display: flex;
 		align-items: center;
+		justify-content: center;
 		gap: 0.5em;
 	}
 
 	img {
 		display: block;
-		width: 1.5em;
-		height: 1.5em;
+		width: 1.2em;
+		height: 1.2em;
 	}
 </style>
