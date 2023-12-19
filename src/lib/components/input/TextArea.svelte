@@ -1,8 +1,7 @@
 <script lang="ts">
-	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createEventDispatcher } from 'svelte';
+	import type { HTMLInputAttributes } from 'svelte/elements';
 
-	export let type: HTMLInputElement['type'] = 'text';
 	export let id: string = '';
 	export let name: string = '';
 	export let placeholder: string = '';
@@ -13,23 +12,18 @@
 	export let disabled: boolean = false;
 	export let readonly: boolean = false;
 	export let maxlength: HTMLInputAttributes['maxlength'] = null;
-	export let max: HTMLInputAttributes['max'] = null;
-	export let min: HTMLInputAttributes['min'] = null;
 	export let isError: boolean = false;
 
 	const dispatch = createEventDispatcher();
 
-	const typeAction = (node: HTMLInputElement) => {
-		node.type = type;
-	};
+	let heightArea: number;
 
 	const onInput = () => dispatch('Input');
 	const onFocus = () => dispatch('Focus');
 	const onBlur = () => dispatch('Blur');
 </script>
 
-<input
-	use:typeAction
+<textarea
 	{id}
 	{name}
 	{placeholder}
@@ -38,8 +32,7 @@
 	{disabled}
 	{readonly}
 	{maxlength}
-	{max}
-	{min}
+	autocorrect="off"
 	bind:value
 	class="customize"
 	class:error-border={isError}
@@ -47,9 +40,12 @@
 	on:input={onInput}
 	on:focus={onFocus}
 	on:blur={onBlur}
+	on:resize={(e) => {
+		console.log('e', e);
+	}}
 />
 
-<style lang="less">
+<style>
 	* {
 		margin: 0;
 		padding: 0;
@@ -59,15 +55,18 @@
 		font-family: var(--font-body);
 	}
 
-	input {
+	textarea {
 		background-color: white;
+		display: grid;
+		flex-grow: 1;
 		border-radius: 4px;
 		border: 1px solid rgba(128, 128, 128, 0.5);
 		color: var(--text-primary);
 		padding: 0.7em 1em;
 		text-overflow: ellipsis;
-		flex-grow: 1;
 		text-align: var(--value-align);
+		resize: none;
+		/* height: calc(var(--height-area) * 1px) !important; */
 
 		&::placeholder {
 			color: var(--text-scondary);
