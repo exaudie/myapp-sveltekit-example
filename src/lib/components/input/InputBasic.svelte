@@ -68,9 +68,10 @@
 		text-overflow: ellipsis;
 		flex-grow: 1;
 		text-align: var(--value-align);
+		font-size: 1em;
 
 		&::placeholder {
-			color: var(--text-scondary);
+			color: var(--text-secondary);
 			opacity: 1;
 		}
 

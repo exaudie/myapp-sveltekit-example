@@ -57,7 +57,6 @@
 
 	textarea {
 		background-color: white;
-		display: grid;
 		flex-grow: 1;
 		border-radius: 4px;
 		border: 1px solid rgba(128, 128, 128, 0.5);
@@ -66,10 +65,11 @@
 		text-overflow: ellipsis;
 		text-align: var(--value-align);
 		resize: none;
+		font-size: 1em;
 		/* height: calc(var(--height-area) * 1px) !important; */
 
 		&::placeholder {
-			color: var(--text-scondary);
+			color: var(--text-secondary);
 			opacity: 1;
 		}
 

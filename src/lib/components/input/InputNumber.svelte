@@ -109,6 +109,6 @@
 
 	.input-customize {
 		flex-grow: 1;
-		display: grid;
+		display: flex;
 	}
 </style>

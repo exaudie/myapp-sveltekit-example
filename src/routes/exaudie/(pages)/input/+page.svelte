@@ -1,10 +1,11 @@
 <script lang="ts">
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
-	import PrefixInput from '$lib/components/input/PrefixInput.svelte';
-	import SuffixInput from '$lib/components/input/SuffixInput.svelte';
+
 	import Select from '$lib/components/select/Select.svelte';
 	import SvelteIcon from '$lib/images/svelte-logo.svg';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
+	import PrefixField from '$lib/components/input/PrefixField.svelte';
+	import SuffixField from '$lib/components/input/SuffixField.svelte';
 </script>
 
 <GridLayoutTwoColumn>
@@ -12,41 +13,41 @@
 
 	<InputBasic value="" placeholder="enter some text" />
 
-	<PrefixInput prefixText="Rp" textBold={true}>
+	<PrefixField prefixText="Rp" prefixBold={true}>
 		<InputBasic value="" placeholder="enter some text" />
-	</PrefixInput>
+	</PrefixField>
 
-	<PrefixInput prefixIcon={SvelteIcon}>
+	<PrefixField prefixIcon={SvelteIcon}>
 		<InputBasic value="" placeholder="enter some text" />
-	</PrefixInput>
+	</PrefixField>
 
-	<PrefixInput>
+	<PrefixField>
 		<InputBasic value="" placeholder="enter some text" />
-	</PrefixInput>
+	</PrefixField>
 
-	<SuffixInput suffixIcon={SvelteIcon}>
+	<SuffixField suffixIcon={SvelteIcon}>
 		<InputBasic value="" placeholder="enter some text" />
-	</SuffixInput>
+	</SuffixField>
 
-	<SuffixInput suffixText="Bulan">
+	<SuffixField suffixText="Bulan">
 		<InputBasic value="" placeholder="enter some text" />
-	</SuffixInput>
+	</SuffixField>
 
-	<PrefixInput prefixIcon={SvelteIcon}>
-		<SuffixInput suffixIcon={SvelteIcon}>
+	<PrefixField prefixIcon={SvelteIcon}>
+		<SuffixField suffixIcon={SvelteIcon}>
 			<InputBasic value="" placeholder="enter some text" />
-		</SuffixInput>
-	</PrefixInput>
+		</SuffixField>
+	</PrefixField>
 
-	<SuffixInput suffixText="Bulan" textBold={true}>
-		<PrefixInput prefixIcon={SvelteIcon}>
+	<SuffixField suffixText="Bulan" suffixBold={true}>
+		<PrefixField prefixIcon={SvelteIcon}>
 			<InputBasic value="" placeholder="enter some text" />
-		</PrefixInput>
-	</SuffixInput>
+		</PrefixField>
+	</SuffixField>
 
 	<Select placeholder="pilih" />
 
-	<PrefixInput>
+	<PrefixField>
 		<InputBasic value="" placeholder="enter some text" />
-	</PrefixInput>
+	</PrefixField>
 </GridLayoutTwoColumn>

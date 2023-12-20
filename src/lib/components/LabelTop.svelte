@@ -1,6 +1,6 @@
 <script lang="ts">
 	export let label: string;
-	export let labelColor: string = 'var(--text-scondary)';
+	export let labelColor: string = 'var(--text-secondary)';
 	export let labelAlign: 'start' | 'end' | 'center' = 'start';
 	export let labelSize: string = '1em';
 	export let forId: string = '';

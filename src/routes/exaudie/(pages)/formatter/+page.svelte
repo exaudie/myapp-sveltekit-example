@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TabItem } from '$lib/types/TabItem';
+	import type { TabItem } from '$lib/types/TabItemType';
 	import TabBar from '$lib/components/tabs/TabBar.svelte';
 	import DateFormatterItem from './(components)/DateFormatterItem.svelte';
 	import NumberFormatterItem from './(components)/NumberFormatterItem.svelte';

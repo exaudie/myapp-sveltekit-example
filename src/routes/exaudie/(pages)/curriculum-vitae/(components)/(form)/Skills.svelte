@@ -1,23 +1,54 @@
 <script lang="ts">
-	import LabelTop from '$lib/components/LabelTop.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
-	import InputBasic from '$lib/components/input/InputBasic.svelte';
-	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
-	import { setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
+	import type { SkillsScheme } from '$lib/types/CurriculumVitaeType';
+	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
+	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
+	import AddIcon from '$lib/images/icon/add_icon.svg';
+	import SkillItem from './SkillItem.svelte';
 
-	let cv: CurrculumVitaeScheme = setCurriculumVitaeScheme();
+	export let schemes: SkillsScheme[];
+
+	const initSkill = (): SkillsScheme => ({ skillName: { value: '' }, skillLevel: { value: '' } });
+
+	const onAddSkill = () => {
+		schemes = [...schemes, initSkill()];
+	};
+
+	const onDelSkill = (scheme: SkillsScheme) => {
+		schemes = schemes.filter((val) => val !== scheme);
+	};
 </script>
 
-<LabelTop label="Skills" isBold={true} labelColor="--text-primary">
-	<VerticalSpace height="8px" />
-	<GridLayoutTwoColumn>
-		<LabelTop label="Phone">
-			<InputBasic placeholder="Enter First Name" bind:value={cv.personalInfo.firstName.value} />
-		</LabelTop>
+<HeaderExpand title="Skills" titleSize="1.2em" titleColor="--text-primary">
+	<article>
+		{#each schemes as scheme}
+			<SkillItem bind:scheme on:Delete={() => onDelSkill(scheme)} />
+		{/each}
 
-		<LabelTop label="Email">
-			<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
-		</LabelTop>
-	</GridLayoutTwoColumn>
-</LabelTop>
+		<div class="btn-wrap">
+			<ButtonIcon theme="primary" isOutline={true} icon={AddIcon} on:Click={onAddSkill} />
+		</div>
+	</article>
+</HeaderExpand>
+
+<style>
+	* {
+		margin: 0;
+		padding: 0;
+		-webkit-box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		box-sizing: border-box;
+	}
+
+	article {
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		gap: 1em;
+	}
+
+	@media only screen and (max-width: 640px) {
+		.btn-wrap {
+			text-align: end;
+		}
+	}
+</style>

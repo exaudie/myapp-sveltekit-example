@@ -36,6 +36,6 @@
 	}
 
 	.text-empty {
-		color: var(--text-scondary);
+		color: var(--text-secondary);
 	}
 </style>

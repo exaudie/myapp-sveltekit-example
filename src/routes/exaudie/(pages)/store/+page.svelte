@@ -198,6 +198,6 @@
 		padding: 1em;
 		border-radius: 0.3em;
 		background-color: white;
-		border: 1px solid var(--text-scondary);
+		border: 1px solid var(--text-secondary);
 	}
 </style>

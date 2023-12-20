@@ -1,14 +1,14 @@
 <script lang="ts">
-	import type { CurrculumVitae } from '$lib/types/CurriculumVitae';
+	import type { CurrculumVitae } from '$lib/types/CurriculumVitaeType';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import { currculumVitaeData, downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
+	import { initCvData, downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
 	import DialogViewPdf from '$lib/components/dialog/DialogViewPdf.svelte';
 	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
-	import DownloadIcon from '$lib/images/cv-icon/download_icon.svg';
+	import DownloadIcon from '$lib/images/icon/download_icon.svg';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
 	import Experiance from './Experiance.svelte';
@@ -19,7 +19,7 @@
 
 	export let isEdit: boolean;
 
-	let cvData: CurrculumVitae = currculumVitaeData;
+	let cvData: CurrculumVitae = initCvData;
 	let generatePdfForm: HTMLFormElement;
 	let sourcePdf: string = '';
 	let isLoading: boolean = false;

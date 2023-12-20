@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
-	import { setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
+	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitaeType';
+	import { initCvData, setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
 	import Button from '$lib/components/button/Button.svelte';
+	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
 	import Experiance from './Experiance.svelte';
@@ -13,24 +13,23 @@
 
 	export let isEdit: boolean;
 
-	let cv: CurrculumVitaeScheme = setCurriculumVitaeScheme();
+	let cvSheme: CurrculumVitaeScheme = setCurriculumVitaeScheme({ cvData: initCvData });
 
 	const onSave = () => (isEdit = false);
 </script>
 
-<SelfPhoto />
-<VerticalSpace height="16px" />
-<PersonalInfo />
-<VerticalSpace height="16px" />
-<ContactPerson />
-<VerticalSpace height="16px" />
-<SocialMedia />
-<VerticalSpace height="16px" />
-<Experiance />
-<VerticalSpace height="16px" />
-<Education />
-<VerticalSpace height="16px" />
-<Skills />
+<SelfPhoto bind:photo={cvSheme.personalInfo.photo} />
+<PersonalInfo bind:scheme={cvSheme.personalInfo} />
+<VerticalSpace height="36px" />
+<ContactPerson bind:scheme={cvSheme.contactPerson} />
+<VerticalSpace height="36px" />
+<SocialMedia bind:schemes={cvSheme.socialMedia} />
+<VerticalSpace height="36px" />
+<Experiance bind:schemes={cvSheme.experience} />
+<VerticalSpace height="36px" />
+<Education bind:schemes={cvSheme.education} />
+<VerticalSpace height="36px" />
+<Skills bind:schemes={cvSheme.skills} />
 
 <VerticalSpace height="48px" />
 <div class="button-layout">
@@ -52,6 +51,12 @@
 		.button-wrap {
 			width: 20%;
 			display: flex;
+		}
+	}
+
+	@media only screen and (max-width: 640px) {
+		.button-layout > .button-wrap {
+			width: 100%;
 		}
 	}
 </style>

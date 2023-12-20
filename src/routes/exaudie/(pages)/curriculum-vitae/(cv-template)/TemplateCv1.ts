@@ -6,7 +6,7 @@ import type {
 	PersonalInfo,
 	Skills,
 	SocialMedia
-} from '$lib/types/CurriculumVitae';
+} from '$lib/types/CurriculumVitaeType';
 import type {
 	Content,
 	ContentColumns,
@@ -17,7 +17,7 @@ import { dateddmmmmyyyyCust, dateyyyyCust } from '$lib/helpers/DateFormatter';
 import { setColon, setHLine, setProgress } from './TemplateHelper';
 
 const colorPrimary = '#03183b';
-const colorSecondary = '#7188ad';
+const colorSecondary = '#264d8c';
 
 export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 	const dt: CurrculumVitae = JSON.parse(data);
@@ -46,7 +46,11 @@ export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 		footer: {
 			alignment: 'right',
 			marginRight: 20,
-			text: ['created using', { text: ' exaudie-cv', style: 'textBig' }]
+			text: [
+				{ text: 'created using', style: 'textPrimary' },
+				{ text: ' exaudie', style: 'textBig' },
+				{ text: ' CV', style: 'textSecond' }
+			]
 		},
 		defaultStyle: {
 			font: 'Roboto',
@@ -166,11 +170,11 @@ const setEducations = (dt: Education[]): Content[] => {
 			marginTop: i > 0 ? 10 : 0,
 			text: [
 				{
-					text: `${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].endDate)}`,
+					text: `${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].graduateDate)}`,
 					style: 'textPrimary'
 				},
-				{ text: ` - ${dt[i].campusName} - `, style: 'textBold' },
-				{ text: dt[i].studyProgram, style: 'textPrimary' }
+				{ text: ` - ${dt[i].schoolName} - `, style: 'textBold' },
+				{ text: dt[i].degree, style: 'textPrimary' }
 			]
 		},
 		{ marginLeft: 20, text: dt[i].desc, style: 'textPrimary' }

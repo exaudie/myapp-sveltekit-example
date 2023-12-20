@@ -1,28 +1,36 @@
 <script lang="ts">
+	import type { PersonalInfoScheme } from '$lib/types/CurriculumVitaeType';
+	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
-	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
-	import { setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
+	import PrefixField from '$lib/components/input/PrefixField.svelte';
+	import TextArea from '$lib/components/input/TextArea.svelte';
+	import SvelteIcon from '$lib/images/svelte-logo.svg';
 
-	let cv: CurrculumVitaeScheme  = setCurriculumVitaeScheme();
+	export let scheme: PersonalInfoScheme;
 </script>
 
-<LabelTop label="Personal Info" isBold={true} labelColor="--text-primary">
-	<VerticalSpace height="8px" />
+<HeaderExpand title="Personal Info" titleSize="1.2em" titleColor="--text-primary">
 	<GridLayoutTwoColumn>
 		<LabelTop label="First Name">
-			<InputBasic placeholder="Enter First Name" bind:value={cv.personalInfo.firstName.value} />
+			<PrefixField prefixIcon={SvelteIcon}>
+				<InputBasic placeholder="Enter First Name" bind:value={scheme.firstName.value} />
+			</PrefixField>
 		</LabelTop>
 
 		<LabelTop label="Last Name">
-			<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+			<PrefixField prefixText="Last">
+				<InputBasic placeholder="Enter Last Name" bind:value={scheme.lastName.value} />
+			</PrefixField>
 		</LabelTop>
 
 		<LabelTop label="Current Occupation">
-			<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+			<PrefixField prefixIcon={SvelteIcon}>
+				<InputBasic placeholder="Enter Current Occupation" bind:value={scheme.currentJob.value} />
+			</PrefixField>
 		</LabelTop>
 	</GridLayoutTwoColumn>
 
@@ -30,21 +38,29 @@
 
 	<GridLayoutTwoColumn>
 		<LabelTop label="Place Of Bird">
-			<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+			<PrefixField prefixIcon={SvelteIcon}>
+				<InputBasic placeholder="Enter Place Of Bird" bind:value={scheme.placeOfBirth.value} />
+			</PrefixField>
 		</LabelTop>
 
 		<LabelTop label="Date Of Bird">
-			<InputDate placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+			<PrefixField prefixIcon={SvelteIcon}>
+				<InputDate placeholder="Enter Date Of Bird" bind:value={scheme.dayOfBirth.value} />
+			</PrefixField>
 		</LabelTop>
 	</GridLayoutTwoColumn>
 
 	<VerticalSpace height="8px" />
 	<LabelTop label="Address">
-		<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+		<PrefixField prefixIcon={SvelteIcon}>
+			<InputBasic placeholder="Enter Address" bind:value={scheme.address.value} />
+		</PrefixField>
 	</LabelTop>
 
 	<VerticalSpace height="8px" />
 	<LabelTop label="About Me">
-		<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+		<PrefixField prefixIcon={SvelteIcon}>
+			<TextArea placeholder="Enter About Me" bind:value={scheme.aboutMe.value} />
+		</PrefixField>
 	</LabelTop>
-</LabelTop>
+</HeaderExpand>
