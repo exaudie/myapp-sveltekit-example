@@ -1,16 +1,17 @@
 <script lang="ts">
+	import type { ThemeButton, ThemeButtonType } from '$lib/types/ThemeButtonType';
 	import { createEventDispatcher } from 'svelte';
 
 	export let type: HTMLButtonElement['type'] = 'button';
 	export let label: string = 'button';
 	export let isOutline: boolean = false;
-	export let theme: 'primary' | 'warning' = 'primary';
+	export let theme: ThemeButtonType = 'primary';
 
 	let dispatch = createEventDispatcher();
 
-	const textPrimary = '#343a40';
+	const textPrimary: string = '#343a40';
 
-	const themes = {
+	const themes: ThemeButton = {
 		primary: {
 			bgColor: '#0d6efd',
 			borderColor: '#0d6efd',
@@ -26,6 +27,22 @@
 			borderColorHov: '#ffc107',
 			bgColorAct: '#ffc107',
 			borderColorAct: '#ffc107'
+		},
+		danger: {
+			bgColor: '#de4351',
+			borderColor: '#de4351',
+			bgColorHov: '#dc3545',
+			borderColorHov: '#dc3545',
+			bgColorAct: '#c93644',
+			borderColorAct: '#c93644'
+		},
+		light: {
+			bgColor: '#f2f3fc',
+			borderColor: '#f2f3fc',
+			bgColorHov: '#ebecfc',
+			borderColorHov: '#ebecfc',
+			bgColorAct: '#d1d2eb',
+			borderColorAct: '#d1d2eb'
 		}
 	};
 
@@ -65,7 +82,7 @@
 		background-color: var(--bg-color);
 		border: 1px solid var(--border-color);
 		border-radius: 4px;
-		padding: 0.5em 1em;
+		padding: 0.7em 1em;
 		font-size: 1em;
 
 		&:hover {

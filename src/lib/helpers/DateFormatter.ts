@@ -71,6 +71,12 @@ const getMonthNameIdx = (
 	return monthIndex;
 };
 
+/**
+ * Mendapatkan index bualan dalam tahun
+ * @param value 
+ * @param params 
+ * @returns 
+ */
 const getMonthIdx = (
 	value: string,
 	params: { locales: 'in' | 'en'; formatOpts: 'numeric' | '2-digit' | 'long' | 'short' }
@@ -80,6 +86,12 @@ const getMonthIdx = (
 	return getMonthNameIdx(value, { locales: params.locales, formatOpts: params.formatOpts });
 };
 
+/**
+ * Menguraikan tanggal dari format tanggal tertentu menjadi date
+ * @param value 
+ * @param params 
+ * @returns 
+ */
 export const parseToDateFrom = (
 	value: string,
 	params?: {

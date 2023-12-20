@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TabItem } from '$lib/types/TabItem';
+	import type { TabItem } from '$lib/types/TabItemType';
 
 	export let tabActive: number;
 	export let tabItems: TabItem[];

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
 	import { setValue } from '$lib/helpers/DefaultValue';
-	import ArrowLeft from '$lib/images/arrow-left.svg';
+	import ArrowLeft from '$lib/images/icon/arrow_left.svg';
 	import Clicker from './clicker/Clicker.svelte';
 
 	export let label: String = '';

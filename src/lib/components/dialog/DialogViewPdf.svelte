@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import CloseIcon from '$lib/images/close_icon.svg';
+	import CloseIcon from '$lib/images/icon/close_icon.svg';
 	import Backdrop from '../Backdrop.svelte';
 	import Dialog from './Dialog.svelte';
 
