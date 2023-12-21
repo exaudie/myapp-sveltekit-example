@@ -1,8 +1,14 @@
 <script lang="ts">
 	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitaeType';
-	import { initCvData, setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
-	import Button from '$lib/components/button/Button.svelte';
+	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
+	import { onDestroy, onMount } from 'svelte';
+	import {
+		initCvData,
+		setCurriculumVitaeData,
+		setCurriculumVitaeScheme
+	} from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
+	import Button from '$lib/components/button/Button.svelte';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
 	import Experiance from './Experiance.svelte';
@@ -13,23 +19,39 @@
 
 	export let isEdit: boolean;
 
-	let cvSheme: CurrculumVitaeScheme = setCurriculumVitaeScheme({ cvData: initCvData });
+	let cvScheme: CurrculumVitaeScheme = setCurriculumVitaeScheme({ cvData: initCvData });
 
-	const onSave = () => (isEdit = false);
+	const unsubscribeCv = CvStore.subscribe((data) => {
+		if (data) cvScheme = setCurriculumVitaeScheme({ cvData: data });
+	});
+
+	const onSave = () => {
+		CvStore.set(setCurriculumVitaeData({ cvScheme: cvScheme }));
+		isEdit = false;
+	};
+
+	onMount(() => CvStore.useLocalStorage());
+
+	onDestroy(() => unsubscribeCv());
 </script>
 
-<SelfPhoto bind:photo={cvSheme.personalInfo.photo} />
-<PersonalInfo bind:scheme={cvSheme.personalInfo} />
+<SelfPhoto bind:photo={cvScheme.personalInfo.photo} />
+<PersonalInfo bind:scheme={cvScheme.personalInfo} />
+
 <VerticalSpace height="36px" />
-<ContactPerson bind:scheme={cvSheme.contactPerson} />
+<ContactPerson bind:scheme={cvScheme.contactPerson} />
+
 <VerticalSpace height="36px" />
-<SocialMedia bind:schemes={cvSheme.socialMedia} />
+<SocialMedia bind:schemes={cvScheme.socialMedia} />
+
 <VerticalSpace height="36px" />
-<Experiance bind:schemes={cvSheme.experience} />
+<Experiance bind:schemes={cvScheme.experience} />
+
 <VerticalSpace height="36px" />
-<Education bind:schemes={cvSheme.education} />
+<Education bind:schemes={cvScheme.education} />
+
 <VerticalSpace height="36px" />
-<Skills bind:schemes={cvSheme.skills} />
+<Skills bind:schemes={cvScheme.skills} />
 
 <VerticalSpace height="48px" />
 <div class="button-layout">

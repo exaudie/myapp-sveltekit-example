@@ -16,6 +16,8 @@
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
 	import SocialMedia from './SocialMedia.svelte';
+	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
+	import { onDestroy } from 'svelte';
 
 	export let isEdit: boolean;
 
@@ -32,7 +34,12 @@
 		cvData.personalInfo.lastName,
 		`${new Date().getTime()}`
 	];
+
 	const fileNamePdf: string = personName.join('_');
+
+	const unsubscribeCv = CvStore.subscribe((data) => {
+		if (data) cvData = data;
+	});
 
 	const togglePdfDialog = () => (isShowPdfDialog = !isShowPdfDialog);
 
@@ -89,6 +96,8 @@
 			}
 		};
 	};
+
+	onDestroy(() => unsubscribeCv());
 </script>
 
 <form

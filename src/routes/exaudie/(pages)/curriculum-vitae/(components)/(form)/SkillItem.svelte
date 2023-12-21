@@ -6,6 +6,7 @@
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 	import DeleteIcon from '$lib/images/icon/delete_icon.svg';
+	import InputNumber from '$lib/components/input/InputNumber.svelte';
 
 	export let scheme: SkillsScheme;
 
@@ -20,8 +21,14 @@
 			<InputBasic placeholder="Enter Skill Name" bind:value={scheme.skillName.value} />
 		</LabelTop>
 
-		<LabelTop label="Skill Level">
-			<InputBasic placeholder="Enter Skill Level" bind:value={scheme.skillLevel.value} />
+		<LabelTop label="Skill Level 1-10">
+			<InputNumber
+				type="number"
+				max={10}
+				maxlength={2}
+				placeholder="Enter Skill Level"
+				bind:value={scheme.skillLevel.value}
+			/>
 		</LabelTop>
 	</GridLayoutTwoColumn>
 

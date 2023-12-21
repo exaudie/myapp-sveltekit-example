@@ -1,16 +1,8 @@
 <script lang="ts">
 	import type { EducationScheme } from '$lib/types/CurriculumVitaeType';
-	import HeaderAction from '$lib/components/HeaderAction.svelte';
 	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
-	import LabelTop from '$lib/components/LabelTop.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
-	import InputBasic from '$lib/components/input/InputBasic.svelte';
-	import InputDate from '$lib/components/input/InputDate.svelte';
-	import TextArea from '$lib/components/input/TextArea.svelte';
 	import AddIcon from '$lib/images/icon/add_icon.svg';
-	import DeleteIcon from '$lib/images/icon/delete_icon.svg';
 	import EducationItem from './EducationItem.svelte';
 
 	export let schemes: EducationScheme[];

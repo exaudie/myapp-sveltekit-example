@@ -32,7 +32,7 @@ export const setZeroTo = (value: any, params?: { defValue?: string }) => {
 export const isEmptyTo = (value: any, params?: { defValue?: string }) => {
 	if (value === '' || value === null || value === undefined) return params?.defValue ?? '';
 
-	return value;
+	return `${value}`;
 };
 
 export const isDefine = (value: any) => {

@@ -15,6 +15,8 @@ import type {
 } from 'pdfmake/interfaces';
 import { dateddmmmmyyyyCust, dateyyyyCust } from '$lib/helpers/DateFormatter';
 import { setColon, setHLine, setProgress } from './TemplateHelper';
+import { getPersent } from '$lib/helpers/CommonHelpers';
+import { isEmptyTo } from '$lib/helpers/DefaultValue';
 
 const colorPrimary = '#03183b';
 const colorSecondary = '#264d8c';
@@ -68,7 +70,11 @@ export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 const setPersonName = (dt: PersonalInfo): ContentColumns => ({
 	columnGap: 10,
 	columns: [
-		{ image: dt.photo, width: 50, height: 50 },
+		{
+			image: isEmptyTo(dt.photo, { defValue: 'src/assets/person_account.png' }),
+			width: 50,
+			height: 50
+		},
 		[
 			{
 				marginTop: 8,
@@ -185,7 +191,7 @@ const setSkills = (dt: Skills[]): ContentColumns[] => {
 	return Array.from(Array(maxShow5(dt.length)).keys()).map((i) => ({
 		columns: [
 			{ text: dt[i].skillName, width: 400, style: 'textBold' },
-			setProgress(dt[i].skillLevel)
+			setProgress(getPersent(dt[i].skillLevel, { from: 10 }))
 		]
 	}));
 };
