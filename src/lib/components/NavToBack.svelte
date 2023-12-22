@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { setValue } from '$lib/helpers/DefaultValue';
+	import { isEmptyTo } from '$lib/helpers/DefaultValue';
 	import ArrowLeft from '$lib/images/icon/arrow_left.svg';
 	import Clicker from './clicker/Clicker.svelte';
 
@@ -8,7 +8,7 @@
 	export let linkBack = '';
 
 	const toBack = () => {
-		if (setValue(linkBack) == '') return;
+		if (isEmptyTo(linkBack) == '') return;
 
 		goto(linkBack, { replaceState: true });
 	};

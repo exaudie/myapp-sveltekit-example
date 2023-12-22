@@ -1,7 +1,7 @@
 import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitaeType';
-import { getPersent } from '$lib/helpers/CommonHelpers';
-import { toastNotify } from '$lib/stores/ToastNotifyStore';
 import { dateyyyymmddCust } from '$lib/helpers/DateFormatter';
+import { toastNotify } from '$lib/stores/ToastNotifyStore';
+import { setZeroTo } from '$lib/helpers/DefaultValue';
 
 export const initCvData: CurrculumVitae = {
 	personalInfo: {
@@ -50,8 +50,8 @@ export const setCurriculumVitaeScheme = (params?: {
 		firstName: { value: params?.cvData?.personalInfo?.firstName ?? '' },
 		lastName: { value: params?.cvData?.personalInfo?.lastName ?? '' },
 		currentJob: { value: params?.cvData?.personalInfo?.currentJob ?? '' },
-		placeOfBirth: { value: dateyyyymmddCust(params?.cvData?.personalInfo?.placeOfBirth ?? '') },
-		dayOfBirth: { value: params?.cvData?.personalInfo?.dayOfBirth ?? '' },
+		placeOfBirth: { value: params?.cvData?.personalInfo?.placeOfBirth ?? '' },
+		dayOfBirth: { value: dateyyyymmddCust(params?.cvData?.personalInfo?.dayOfBirth ?? '') },
 		address: { value: params?.cvData?.personalInfo?.address ?? '' },
 		aboutMe: { value: params?.cvData?.personalInfo?.aboutMe ?? '' }
 	},
@@ -84,7 +84,7 @@ export const setCurriculumVitaeScheme = (params?: {
 	})),
 	skills: (params?.cvData?.skills ?? []).map((elm) => ({
 		skillName: { value: elm.skillName },
-		skillLevel: { value: `${elm.skillLevel}` }
+		skillLevel: { value: setZeroTo(elm.skillLevel) }
 	}))
 });
 

@@ -1,7 +1,8 @@
 <script lang="ts">
 	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitaeType';
-	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
 	import { onDestroy, onMount } from 'svelte';
+	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
+	import { toastNotify } from '$lib/stores/ToastNotifyStore';
 	import {
 		initCvData,
 		setCurriculumVitaeData,
@@ -28,6 +29,7 @@
 	const onSave = () => {
 		CvStore.set(setCurriculumVitaeData({ cvScheme: cvScheme }));
 		isEdit = false;
+		toastNotify.success({ message: 'Save success' });
 	};
 
 	onMount(() => CvStore.useLocalStorage());

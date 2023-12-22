@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { setValue } from '$lib/helpers/DefaultValue';
+	import { isEmptyTo } from '$lib/helpers/DefaultValue';
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
 	import InputNegativeDisplay from '$lib/components/input/InputNegativeDisplay.svelte';
@@ -27,8 +27,9 @@
 	<LabelTop label="Summation">
 		<div class="box">
 			<p>
-				{setValue(sum1, { defValue: '0' })} + {setValue(sum2, { defValue: '0' })} = {Number(sum1) +
-					Number(sum2)}
+				{isEmptyTo(sum1, { defValue: '0' })} + {isEmptyTo(sum2, { defValue: '0' })} = {Number(
+					sum1
+				) + Number(sum2)}
 			</p>
 			<InputNegativeDisplay placeholder="0" bind:value={sum1} />
 

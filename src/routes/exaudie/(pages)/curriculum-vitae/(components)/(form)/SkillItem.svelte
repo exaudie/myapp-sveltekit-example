@@ -25,7 +25,6 @@
 			<InputNumber
 				type="number"
 				max={10}
-				maxlength={2}
 				placeholder="Enter Skill Level"
 				bind:value={scheme.skillLevel.value}
 			/>

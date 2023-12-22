@@ -26,9 +26,10 @@
 	const decimal = separator == '.' ? ',' : '.';
 	const patternNeg = new RegExp(`^[-]`);
 	const prefNeg = allowNegative ? '[-]{1}[\\d]*|' : '';
-	const pattern = new RegExp(
+	const regNominal = new RegExp(
 		`^(${prefNeg}[1-9]{1}[${separator}\\d]*)[${decimal}]?\\d{0,${toFixed}}$`
 	);
+	const regNumOnly = new RegExp(`^[\\d]*$`);
 
 	const dispatch = createEventDispatcher();
 
@@ -39,8 +40,26 @@
 		for (const elm of Array.from(value)) {
 			tempValue += elm;
 
-			const isMatch = pattern.test(tempValue);
+			const isMatch = regNominal.test(tempValue);
 			if (!isMatch) tempValue = tempValue.substring(0, tempValue.length - 1);
+
+			newValue = tempValue;
+		}
+
+		return newValue;
+	};
+
+	const setIsMaxNum = (value: string) => {
+		if (type !== 'number' || max === null) return value;
+
+		let newValue: string = '';
+		let tempValue: string = '';
+
+		for (const elm of Array.from(value)) {
+			tempValue += elm;
+
+			const isMax = Number(tempValue);
+			if (isMax > Number(max)) tempValue = tempValue.substring(0, tempValue.length - 1);
 
 			newValue = tempValue;
 		}
@@ -61,10 +80,11 @@
 	};
 
 	const onInput = () => {
-		dispatch('Input');
-
 		value = setNominalOnly(value);
+		value = setIsMaxNum(value);
 		value = withSeparator ? setToSpar(value) : value;
+
+		dispatch('Input');
 	};
 
 	const onFocus = () => {
@@ -72,6 +92,13 @@
 	};
 
 	const onBlur = () => dispatch('Blur');
+
+	const onKeypress = (evn: CustomEvent) => {
+		/// to ensure users can only enter numbers
+		if (type === 'number' && !regNumOnly.test(evn.detail.key)) evn.detail.preventDefault();
+
+		dispatch('Keypress', evn);
+	};
 
 	value = withSeparator ? setToSpar(value) : value;
 </script>
@@ -95,6 +122,7 @@
 		on:Input={onInput}
 		on:focus={onFocus}
 		on:blur={onBlur}
+		on:Keypress={(evn) => onKeypress(evn)}
 	/>
 </div>
 

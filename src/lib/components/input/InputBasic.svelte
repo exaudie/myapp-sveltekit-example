@@ -26,6 +26,7 @@
 	const onInput = () => dispatch('Input');
 	const onFocus = () => dispatch('Focus');
 	const onBlur = () => dispatch('Blur');
+	const onKeypress = (evn: KeyboardEvent) => dispatch('Keypress', evn);
 </script>
 
 <input
@@ -47,6 +48,7 @@
 	on:input={onInput}
 	on:focus={onFocus}
 	on:blur={onBlur}
+	on:keypress={onKeypress}
 />
 
 <style lang="less">
