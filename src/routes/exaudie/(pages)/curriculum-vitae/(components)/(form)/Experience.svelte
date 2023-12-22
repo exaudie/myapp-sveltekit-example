@@ -3,7 +3,7 @@
 	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
 	import AddIcon from '$lib/images/icon/add_icon.svg';
-	import ExperianceItem from './ExperianceItem.svelte';
+	import ExperianceItem from './ExperienceItem.svelte';
 
 	export let schemes: ExperienceScheme[];
 

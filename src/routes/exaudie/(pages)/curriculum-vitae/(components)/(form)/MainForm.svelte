@@ -12,7 +12,7 @@
 	import Button from '$lib/components/button/Button.svelte';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
-	import Experiance from './Experiance.svelte';
+	import Experiance from './Experience.svelte';
 	import PersonalInfo from './PersonalInfo.svelte';
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
@@ -31,6 +31,8 @@
 		isEdit = false;
 		toastNotify.success({ message: 'Save success' });
 	};
+
+	const onCancel = () => (isEdit = false);
 
 	onMount(() => CvStore.useLocalStorage());
 
@@ -58,7 +60,7 @@
 <VerticalSpace height="48px" />
 <div class="button-layout">
 	<div class="button-wrap">
-		<Button label="Cancel" theme="warning" isOutline={true} on:Click={onSave} />
+		<Button label="Cancel" theme="warning" isOutline={true} on:Click={onCancel} />
 	</div>
 
 	<div class="button-wrap">
