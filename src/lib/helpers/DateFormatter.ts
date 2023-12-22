@@ -1,41 +1,41 @@
 import { isDefine } from './DefaultValue';
 
-export const dateyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
+export const dateyyyyCust = (value: string | Date, params?: { defValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ year: 'numeric' }],
-		defValue: params?.defaultValue ?? ''
+		defValue: params?.defValue ?? ''
 	});
 };
 
-export const dateddmmmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
+export const dateddmmmmyyyyCust = (value: string | Date, params?: { defValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: 'long' }, { year: 'numeric' }],
 		separator: ' ',
-		defValue: params?.defaultValue ?? ''
+		defValue: params?.defValue ?? ''
 	});
 };
 
-export const dateddmmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
+export const dateddmmmyyyyCust = (value: string | Date, params?: { defValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: 'short' }, { year: 'numeric' }],
 		separator: ' ',
-		defValue: params?.defaultValue ?? ''
+		defValue: params?.defValue ?? ''
 	});
 };
 
-export const dateddmmyyyyCust = (value: string | Date, params?: { defaultValue?: string }) => {
+export const dateddmmyyyyCust = (value: string | Date, params?: { defValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ day: '2-digit' }, { month: '2-digit' }, { year: 'numeric' }],
 		separator: '/',
-		defValue: params?.defaultValue ?? ''
+		defValue: params?.defValue ?? ''
 	});
 };
 
-export const dateyyyymmddCust = (value: string | Date, params?: { defaultValue?: string }) => {
+export const dateyyyymmddCust = (value: string | Date, params?: { defValue?: string }) => {
 	return dateToFormat(value, {
 		formatList: [{ year: 'numeric' }, { month: '2-digit' }, { day: '2-digit' }],
 		separator: '-',
-		defValue: params?.defaultValue ?? ''
+		defValue: params?.defValue ?? ''
 	});
 };
 
@@ -71,6 +71,12 @@ const getMonthNameIdx = (
 	return monthIndex;
 };
 
+/**
+ * Mendapatkan index bualan dalam tahun
+ * @param value
+ * @param params
+ * @returns
+ */
 const getMonthIdx = (
 	value: string,
 	params: { locales: 'in' | 'en'; formatOpts: 'numeric' | '2-digit' | 'long' | 'short' }
@@ -80,6 +86,12 @@ const getMonthIdx = (
 	return getMonthNameIdx(value, { locales: params.locales, formatOpts: params.formatOpts });
 };
 
+/**
+ * Menguraikan tanggal dari format tanggal tertentu menjadi date
+ * @param value
+ * @param params
+ * @returns
+ */
 export const parseToDateFrom = (
 	value: string,
 	params?: {

@@ -1,4 +1,4 @@
-import type { MenuItems } from '$lib/types/MenuScheme';
+import type { MenuItems } from '$lib/types/MenuSchemeType';
 
 export const menuItems: MenuItems[] = [
 	{ title: 'Curriculum Vitae', subtitle: '', page: '/curriculum-vitae' },

@@ -1,40 +1,39 @@
 <script lang="ts">
-	import type { EducationScheme } from '$lib/types/CurriculumVitaeType';
+	import type { ExperienceScheme } from '$lib/types/CurriculumVitaeType';
 	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
 	import AddIcon from '$lib/images/icon/add_icon.svg';
-	import EducationItem from './EducationItem.svelte';
+	import ExperianceItem from './ExperienceItem.svelte';
 
-	export let schemes: EducationScheme[];
+	export let schemes: ExperienceScheme[];
 
-	const initEducation = (): EducationScheme => ({
-		schoolName: { value: '' },
-		degree: { value: '' },
-		major: { value: '' },
-		grade: { value: '' },
+	const initExperience = (): ExperienceScheme => ({
+		role: { value: '' },
+		companyName: { value: '' },
+		location: { value: '' },
 		startDate: { value: '' },
-		graduateDate: { value: '' },
-		isStudyHere: { value: '' },
+		endDate: { value: '' },
+		isWorkHere: { value: '' },
 		desc: { value: '' }
 	});
 
-	const onAddEducation = () => {
-		schemes = [...schemes, initEducation()];
+	const onAddExperience = () => {
+		schemes = [...schemes, initExperience()];
 	};
 
-	const onDelEducation = (scheme: EducationScheme) => {
+	const onDelExperience = (scheme: ExperienceScheme) => {
 		schemes = schemes.filter((val) => val !== scheme);
 	};
 </script>
 
-<HeaderExpand title="Education" titleSize="1.2em" titleColor="--text-primary">
+<HeaderExpand title="Experience" titleSize="1.2em">
 	<article>
 		{#each schemes as scheme, index}
-			<EducationItem bind:scheme indexScheme={index} on:Delete={() => onDelEducation(scheme)} />
+			<ExperianceItem bind:scheme indexScheme={index} on:Delete={() => onDelExperience(scheme)} />
 		{/each}
 
 		<div class="btn-wrap">
-			<ButtonIcon theme="primary" isOutline={true} icon={AddIcon} on:Click={onAddEducation} />
+			<ButtonIcon theme="primary" isOutline={true} icon={AddIcon} on:Click={onAddExperience} />
 		</div>
 	</article>
 </HeaderExpand>

@@ -1,69 +1,137 @@
-import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
-import { getPersent } from '$lib/helpers/CommonHelpers';
+import type { CurrculumVitae, CurrculumVitaeScheme } from '$lib/types/CurriculumVitaeType';
+import { dateyyyymmddCust } from '$lib/helpers/DateFormatter';
 import { toastNotify } from '$lib/stores/ToastNotifyStore';
+import { setZeroTo } from '$lib/helpers/DefaultValue';
 
-const today = new Date().toString();
-
-export const currculumVitaeData: CurrculumVitae = {
+export const initCvData: CurrculumVitae = {
 	personalInfo: {
-		photo: 'src/assets/person_account.png',
-		firstName: 'Nama',
-		lastName: 'Lengkap',
-		dayOfBirth: '2023-12-01',
-		currentJob: 'Current Job',
-		address:
-			'Jl. Jend. Sudirman No.99-101, Terban, Kec. Gondokusuman, Kota Yogyakarta, Daerah Istimewa Yogyakarta 55223',
-		aboutMe:
-			'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+		photo: '',
+		firstName: '',
+		lastName: '',
+		placeOfBirth: '',
+		dayOfBirth: '',
+		currentJob: '',
+		address: '',
+		aboutMe: ''
 	},
-	contactPerson: { phone: '+6281234567890', email: 'exaudie@gmail.com' },
-	socialMedia: [
-		{ sosmedName: 'Github', sosmedLink: 'github.com/exaudie' },
-		{ sosmedName: 'Facebook', sosmedLink: 'facebook.com/exaudie' },
-		{ sosmedName: 'Linkedin', sosmedLink: 'linkedin.com/exaudie' }
-	],
+	contactPerson: { phone: '', email: '' },
+	socialMedia: [{ sosmedName: '', sosmedLink: '' }],
 	experience: [
 		{
-			startDate: today,
-			endDate: today,
-			companyName: 'PT. Company',
-			role: 'Software Developer',
-			desc: 'Fullstack development internal application'
-		},
-		{
-			startDate: today,
-			endDate: today,
-			companyName: 'PT. Company',
-			role: 'Software Developer',
-			desc: 'Fullstack development internal application'
+			companyName: '',
+			role: '',
+			location: '',
+			startDate: '',
+			endDate: '',
+			isWorkHere: false,
+			desc: ''
 		}
 	],
 	education: [
 		{
-			startDate: today,
-			endDate: today,
-			campusName: 'Universitas',
-			studyProgram: 'Bachelor in Computer science',
-			desc: 'Visualisasi produk pada katalog pemasaran meubel berbasis augmented reality'
+			schoolName: '',
+			degree: '',
+			major: '',
+			grade: '',
+			startDate: '',
+			graduateDate: '',
+			isStudyHere: false,
+			desc: ''
 		}
 	],
-	skills: [
-		{ skillName: 'Android Native Developer', skillLevel: getPersent(5, { from: 10 }) },
-		{ skillName: 'Flutter Mobile', skillLevel: getPersent(8, { from: 10 }) },
-		{ skillName: 'Sveltekit', skillLevel: getPersent(9, { from: 10 }) },
-		{ skillName: 'Analysis', skillLevel: getPersent(10, { from: 10 }) }
-	]
+	skills: [{ skillName: '', skillLevel: 0 }]
 };
 
 export const setCurriculumVitaeScheme = (params?: {
-	cvData?: CurrculumVitae;
+	cvData?: CurrculumVitae | null;
 }): CurrculumVitaeScheme => ({
 	personalInfo: {
 		photo: { value: params?.cvData?.personalInfo?.photo ?? '' },
 		firstName: { value: params?.cvData?.personalInfo?.firstName ?? '' },
 		lastName: { value: params?.cvData?.personalInfo?.lastName ?? '' },
-		currentOccupation: { value: params?.cvData?.personalInfo?.lastName ?? '' }
-	}
+		currentJob: { value: params?.cvData?.personalInfo?.currentJob ?? '' },
+		placeOfBirth: { value: params?.cvData?.personalInfo?.placeOfBirth ?? '' },
+		dayOfBirth: { value: dateyyyymmddCust(params?.cvData?.personalInfo?.dayOfBirth ?? '') },
+		address: { value: params?.cvData?.personalInfo?.address ?? '' },
+		aboutMe: { value: params?.cvData?.personalInfo?.aboutMe ?? '' }
+	},
+	contactPerson: {
+		phone: { value: params?.cvData?.contactPerson?.phone ?? '' },
+		email: { value: params?.cvData?.contactPerson?.email ?? '' }
+	},
+	socialMedia: (params?.cvData?.socialMedia ?? []).map((elm) => ({
+		sosmedName: { value: elm.sosmedName },
+		sosmedLink: { value: elm.sosmedLink }
+	})),
+	experience: (params?.cvData?.experience ?? []).map((elm) => ({
+		role: { value: elm.role },
+		companyName: { value: elm.companyName },
+		location: { value: elm.location },
+		startDate: { value: dateyyyymmddCust(elm.startDate) },
+		endDate: { value: dateyyyymmddCust(elm.endDate) },
+		isWorkHere: { value: '', checked: elm.isWorkHere },
+		desc: { value: elm.desc }
+	})),
+	education: (params?.cvData?.education ?? []).map((elm) => ({
+		schoolName: { value: elm.schoolName },
+		degree: { value: elm.degree },
+		major: { value: elm.major },
+		grade: { value: elm.grade },
+		startDate: { value: dateyyyymmddCust(elm.startDate) },
+		graduateDate: { value: dateyyyymmddCust(elm.graduateDate) },
+		isStudyHere: { value: '', checked: elm.isStudyHere },
+		desc: { value: elm.desc }
+	})),
+	skills: (params?.cvData?.skills ?? []).map((elm) => ({
+		skillName: { value: elm.skillName },
+		skillLevel: { value: setZeroTo(elm.skillLevel) }
+	}))
+});
+
+export const setCurriculumVitaeData = (params?: {
+	cvScheme?: CurrculumVitaeScheme | null;
+}): CurrculumVitae => ({
+	personalInfo: {
+		photo: params?.cvScheme?.personalInfo?.photo?.value ?? '',
+		firstName: params?.cvScheme?.personalInfo?.firstName?.value ?? '',
+		lastName: params?.cvScheme?.personalInfo?.lastName?.value ?? '',
+		currentJob: params?.cvScheme?.personalInfo?.currentJob?.value ?? '',
+		placeOfBirth: params?.cvScheme?.personalInfo?.placeOfBirth?.value ?? '',
+		dayOfBirth: params?.cvScheme?.personalInfo?.dayOfBirth?.value ?? '',
+		address: params?.cvScheme?.personalInfo?.address?.value ?? '',
+		aboutMe: params?.cvScheme?.personalInfo?.aboutMe?.value ?? ''
+	},
+	contactPerson: {
+		phone: params?.cvScheme?.contactPerson?.phone?.value ?? '',
+		email: params?.cvScheme?.contactPerson?.email?.value ?? ''
+	},
+	socialMedia: (params?.cvScheme?.socialMedia ?? []).map((elm) => ({
+		sosmedName: elm.sosmedName.value,
+		sosmedLink: elm.sosmedLink.value
+	})),
+	experience: (params?.cvScheme?.experience ?? []).map((elm) => ({
+		role: elm.role.value,
+		companyName: elm.companyName.value,
+		location: elm.location.value,
+		startDate: elm.startDate.value,
+		endDate: elm.endDate.value,
+		isWorkHere: elm.isWorkHere.checked ?? false,
+		desc: elm.desc.value
+	})),
+	education: (params?.cvScheme?.education ?? []).map((elm) => ({
+		schoolName: elm.schoolName.value,
+		degree: elm.degree.value,
+		major: elm.major.value,
+		grade: elm.grade.value,
+		startDate: elm.startDate.value,
+		graduateDate: elm.graduateDate.value,
+		isStudyHere: elm.isStudyHere.checked ?? false,
+		desc: elm.desc.value
+	})),
+	skills: (params?.cvScheme?.skills ?? []).map((elm) => ({
+		skillName: elm.skillName.value,
+		skillLevel: Number(elm.skillLevel.value)
+	}))
 });
 
 export const downloadPdf = async (params: { fileName: string; src: string }) => {

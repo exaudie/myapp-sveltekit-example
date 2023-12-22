@@ -1,17 +1,19 @@
 <script lang="ts">
-	import type { CurrculumVitae } from '$lib/types/CurriculumVitae';
+	import type { CurrculumVitae } from '$lib/types/CurriculumVitaeType';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import { currculumVitaeData, downloadPdf } from '../../(helpers)/CurriculumVitaeHelpers';
+	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
+	import { onDestroy, onMount } from 'svelte';
+	import { downloadPdf, initCvData } from '../../(helpers)/CurriculumVitaeHelpers';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
 	import DialogViewPdf from '$lib/components/dialog/DialogViewPdf.svelte';
 	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
-	import DownloadIcon from '$lib/images/cv-icon/download_icon.svg';
+	import DownloadIcon from '$lib/images/icon/download_icon.svg';
 	import ContactPerson from './ContactPerson.svelte';
 	import Education from './Education.svelte';
-	import Experiance from './Experiance.svelte';
+	import Experiance from './Experience.svelte';
 	import PersonalInfo from './PersonalInfo.svelte';
 	import SelfPhoto from './SelfPhoto.svelte';
 	import Skills from './Skills.svelte';
@@ -19,10 +21,10 @@
 
 	export let isEdit: boolean;
 
-	let cvData: CurrculumVitae = currculumVitaeData;
+	let cvData: CurrculumVitae = initCvData;
 	let generatePdfForm: HTMLFormElement;
 	let sourcePdf: string = '';
-	let isLoading: boolean = false;
+	let isLoading: boolean = true;
 	let isDownload: boolean = false;
 	let isShowPdfDialog: boolean = false;
 
@@ -32,7 +34,14 @@
 		cvData.personalInfo.lastName,
 		`${new Date().getTime()}`
 	];
+
 	const fileNamePdf: string = personName.join('_');
+
+	const unsubscribeCv = CvStore.subscribe((data) => {
+		isLoading = false;
+		
+		if (data) cvData = data;
+	});
 
 	const togglePdfDialog = () => (isShowPdfDialog = !isShowPdfDialog);
 
@@ -89,6 +98,10 @@
 			}
 		};
 	};
+
+	onMount(() => CvStore.useLocalStorage());
+
+	onDestroy(() => unsubscribeCv());
 </script>
 
 <form
@@ -98,13 +111,13 @@
 	use:enhance={generatePdfEnhance}
 />
 
-<SelfPhoto />
-<PersonalInfo />
-<ContactPerson />
-<SocialMedia />
-<Experiance />
-<Education />
-<Skills />
+<SelfPhoto photo={cvData.personalInfo.photo} />
+<PersonalInfo data={cvData.personalInfo} />
+<ContactPerson data={cvData.contactPerson}/>
+<SocialMedia data={cvData.socialMedia}/>
+<Experiance data={cvData.experience}/>
+<Education data={cvData.education}/>
+<Skills data={cvData.skills}/>
 
 <VerticalSpace height="48px" />
 <div class="button-layout">

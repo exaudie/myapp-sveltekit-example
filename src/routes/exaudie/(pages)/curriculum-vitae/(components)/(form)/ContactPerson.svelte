@@ -1,23 +1,26 @@
 <script lang="ts">
+	import type { ContactPersonScheme } from '$lib/types/CurriculumVitaeType';
+	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
-	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
-	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitae';
-	import { setCurriculumVitaeScheme } from '../../(helpers)/CurriculumVitaeHelpers';
+	import PrefixField from '$lib/components/input/PrefixField.svelte';
 
-	let cv: CurrculumVitaeScheme = setCurriculumVitaeScheme();
+	export let scheme: ContactPersonScheme;
 </script>
 
-<LabelTop label="Contact Person" isBold={true} labelColor="--text-primary">
-	<VerticalSpace height="8px" />
+<HeaderExpand title="Contact Person" titleSize="1.2em" titleColor="--text-primary">
 	<GridLayoutTwoColumn>
 		<LabelTop label="Phone">
-			<InputBasic placeholder="Enter First Name" bind:value={cv.personalInfo.firstName.value} />
+			<PrefixField>
+				<InputBasic placeholder="Enter Phone Number" bind:value={scheme.phone.value} />
+			</PrefixField>
 		</LabelTop>
 
 		<LabelTop label="Email">
-			<InputBasic placeholder="Enter Last Name" bind:value={cv.personalInfo.lastName.value} />
+			<PrefixField>
+				<InputBasic placeholder="Enter Email" bind:value={scheme.email.value} />
+			</PrefixField>
 		</LabelTop>
 	</GridLayoutTwoColumn>
-</LabelTop>
+</HeaderExpand>

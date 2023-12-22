@@ -6,7 +6,7 @@ import type {
 	PersonalInfo,
 	Skills,
 	SocialMedia
-} from '$lib/types/CurriculumVitae';
+} from '$lib/types/CurriculumVitaeType';
 import type {
 	Content,
 	ContentColumns,
@@ -15,9 +15,11 @@ import type {
 } from 'pdfmake/interfaces';
 import { dateddmmmmyyyyCust, dateyyyyCust } from '$lib/helpers/DateFormatter';
 import { setColon, setHLine, setProgress } from './TemplateHelper';
+import { getPersent } from '$lib/helpers/CommonHelpers';
+import { isEmptyTo } from '$lib/helpers/DefaultValue';
 
 const colorPrimary = '#03183b';
-const colorSecondary = '#7188ad';
+const colorSecondary = '#264d8c';
 
 export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 	const dt: CurrculumVitae = JSON.parse(data);
@@ -46,7 +48,11 @@ export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 		footer: {
 			alignment: 'right',
 			marginRight: 20,
-			text: ['created using', { text: ' exaudie-cv', style: 'textBig' }]
+			text: [
+				{ text: 'created using', style: 'textPrimary' },
+				{ text: ' exaudie', style: 'textBig' },
+				{ text: ' CV', style: 'textSecond' }
+			]
 		},
 		defaultStyle: {
 			font: 'Roboto',
@@ -64,7 +70,11 @@ export const setToTemplate1 = (data: string): TDocumentDefinitions => {
 const setPersonName = (dt: PersonalInfo): ContentColumns => ({
 	columnGap: 10,
 	columns: [
-		{ image: dt.photo, width: 50, height: 50 },
+		{
+			image: isEmptyTo(dt.photo, { defValue: 'src/assets/person_account.png' }),
+			width: 50,
+			height: 50
+		},
 		[
 			{
 				marginTop: 8,
@@ -166,11 +176,11 @@ const setEducations = (dt: Education[]): Content[] => {
 			marginTop: i > 0 ? 10 : 0,
 			text: [
 				{
-					text: `${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].endDate)}`,
+					text: `${dateyyyyCust(dt[i].startDate)} - ${dateyyyyCust(dt[i].graduateDate)}`,
 					style: 'textPrimary'
 				},
-				{ text: ` - ${dt[i].campusName} - `, style: 'textBold' },
-				{ text: dt[i].studyProgram, style: 'textPrimary' }
+				{ text: ` - ${dt[i].schoolName} - `, style: 'textBold' },
+				{ text: dt[i].degree, style: 'textPrimary' }
 			]
 		},
 		{ marginLeft: 20, text: dt[i].desc, style: 'textPrimary' }
@@ -181,7 +191,7 @@ const setSkills = (dt: Skills[]): ContentColumns[] => {
 	return Array.from(Array(maxShow5(dt.length)).keys()).map((i) => ({
 		columns: [
 			{ text: dt[i].skillName, width: 400, style: 'textBold' },
-			setProgress(dt[i].skillLevel)
+			setProgress(getPersent(dt[i].skillLevel, { from: 10 }))
 		]
 	}));
 };

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import CloseIcon from '$lib/images/close_icon.svg';
+	import CloseIcon from '$lib/images/icon/close_icon.svg';
 
 	export let isShow: boolean;
 	export let withClose: boolean = false;

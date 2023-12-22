@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { TabItem } from '$lib/types/TabItem';
+	import type { TabItem } from '$lib/types/TabItemType';
 
 	export let tabActive: number;
 	export let tabItems: TabItem[];
@@ -44,7 +44,7 @@
 			flex-grow: 1;
 			text-align: center;
 			padding: 12px 16px;
-			color: var(--text-scondary);
+			color: var(--text-secondary);
 			border-bottom: 1px solid rgba(128, 128, 128, 0.5);
 		}
 
