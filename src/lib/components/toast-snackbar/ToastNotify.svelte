@@ -18,7 +18,7 @@
 
 <section class="notify">
 	{#each notifyList as notify (notify.id)}
-		<div animate:flip transition:fly={{ y: 40 }}>
+		<div animate:flip transition:fly|global={{ y: 40 }}>
 			<Toast
 				type={notify.type}
 				message={notify.message}
