@@ -36,19 +36,19 @@
 	</LabelTopLeft>
 
 	<LabelTopLeft label="dateddmmmyyyyCust">
-		<span>{dateddmmmyyyyCust(dateValue, { defaultValue: '-' })}</span>
+		<span>{dateddmmmyyyyCust(dateValue, { defValue: '-' })}</span>
 	</LabelTopLeft>
 
 	<LabelTopLeft label="dateddmmmmyyyyCust">
-		<span>{dateddmmmmyyyyCust(dateValue, { defaultValue: '-' })}</span>
+		<span>{dateddmmmmyyyyCust(dateValue, { defValue: '-' })}</span>
 	</LabelTopLeft>
 
 	<LabelTopLeft label="dateddmmyyyyCust">
-		<span>{dateddmmyyyyCust(dateValue, { defaultValue: '-' })}</span>
+		<span>{dateddmmyyyyCust(dateValue, { defValue: '-' })}</span>
 	</LabelTopLeft>
 
 	<LabelTopLeft label="dateyyyymmddCust">
-		<span>{dateyyyymmddCust(dateValue, { defaultValue: '-' })}</span>
+		<span>{dateyyyymmddCust(dateValue, { defValue: '-' })}</span>
 	</LabelTopLeft>
 </GridLayoutThreeColumn>
 
