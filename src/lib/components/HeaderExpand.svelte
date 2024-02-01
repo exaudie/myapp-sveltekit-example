@@ -23,7 +23,7 @@
 	</section>
 
 	<ShowHidden isShow={isExpand}>
-		<div transition:slide>
+		<div transition:slide|global>
 			<slot />
 		</div>
 	</ShowHidden>
