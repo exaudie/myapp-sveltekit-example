@@ -2,6 +2,7 @@
 	import type { CurrculumVitae } from '$lib/types/CurriculumVitaeType';
 	import type { SubmitFunction } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
+	import { scrollTopElement } from '$lib/helpers/CommonHelpers';
 	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
 	import { onDestroy, onMount } from 'svelte';
 	import { downloadPdf, initCvData } from '../../(helpers)/CurriculumVitaeHelpers';
@@ -99,7 +100,11 @@
 		};
 	};
 
-	onMount(() => CvStore.useLocalStorage());
+	onMount(() => {
+		CvStore.useLocalStorage();
+
+		scrollTopElement({ elementId: 'main#main_content' });
+	});
 
 	onDestroy(() => unsubscribeCv());
 </script>

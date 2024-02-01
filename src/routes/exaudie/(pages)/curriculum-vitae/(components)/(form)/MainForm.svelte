@@ -2,6 +2,7 @@
 	import type { CurrculumVitaeScheme } from '$lib/types/CurriculumVitaeType';
 	import { onDestroy, onMount } from 'svelte';
 	import { CvStore } from '$lib/stores/CurriculumVitaeStore';
+	import { scrollTopElement } from '$lib/helpers/CommonHelpers';
 	import { toastNotify } from '$lib/stores/ToastNotifyStore';
 	import {
 		initCvData,
@@ -34,7 +35,11 @@
 
 	const onCancel = () => (isEdit = false);
 
-	onMount(() => CvStore.useLocalStorage());
+	onMount(() => {
+		CvStore.useLocalStorage();
+
+		scrollTopElement({ elementId: 'main#main_content' });
+	});
 
 	onDestroy(() => unsubscribeCv());
 </script>
