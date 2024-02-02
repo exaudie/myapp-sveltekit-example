@@ -12,7 +12,7 @@
 <VerticalSpace height="8px" />
 
 <Card>
-	<main>
+	<main id="main_content">
 		<slot />
 	</main>
 </Card>
