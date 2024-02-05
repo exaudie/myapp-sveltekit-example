@@ -1,9 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import Backdrop from '../Backdrop.svelte';
-	import ShowHidden from '../ShowHidden.svelte';
 	import TakePhotoCamera from '../TakePhotoCamera.svelte';
-	import Dialog from './Dialog.svelte';
+	import DialogConfirm from './DialogConfirm.svelte';
 
 	export let isShow: boolean = false;
 
@@ -16,27 +14,14 @@
 	};
 </script>
 
-<ShowHidden bind:isShow>
-	<Backdrop bind:isShow withCloseEsc={true}>
-		<div class="customize">
-			<Dialog bind:isShow>
-				<TakePhotoCamera on:Close={onClose}></TakePhotoCamera>
-			</Dialog>
-		</div>
-	</Backdrop>
-</ShowHidden>
+<DialogConfirm bind:isShow title="Camera">
+	<div class="take-photo-customize">
+		<TakePhotoCamera on:Close={onClose}></TakePhotoCamera>
+	</div>
+</DialogConfirm>
 
-<style lang="less">
-	* {
-		margin: 0;
-		padding: 0;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-	}
-
-	.customize :global(dialog) {
-		border-radius: 0.4em;
-		overflow: hidden;
+<style>
+	.take-photo-customize {background-color: aqua;
+		padding-bottom: 1em;
 	}
 </style>

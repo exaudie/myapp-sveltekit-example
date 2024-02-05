@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { createEventDispatcher, onDestroy, onMount } from 'svelte';
-	import CloseIcon from '$lib/images/icon/close_icon.svg';
 
 	let video: HTMLVideoElement;
 	let click_button = document.querySelector('#click-photo');
@@ -8,14 +7,10 @@
 
 	const dispatch = createEventDispatcher();
 
-	const onClose = () => dispatch('Close');
-
 	const cameraAccess = async () => {
 		try {
 			let stream = await navigator.mediaDevices.getUserMedia({
-				video: {
-					width: 300
-				},
+				video: true,
 				audio: false
 			});
 			video.srcObject = stream;
@@ -51,15 +46,7 @@
 	});
 </script>
 
-<article>
-	<div class="header-camera">
-		<h3>Camera</h3>
-
-		<button class="close" on:click={onClose}>
-			<img src={CloseIcon} alt="close" />
-		</button>
-	</div>
-
+<section>
 	<video bind:this={video} autoplay playsinline>
 		<track kind="captions" />
 	</video>
@@ -67,7 +54,7 @@
 	<div class="footer-camera">
 		<button on:click={() => {}}></button>
 	</div>
-</article>
+</section>
 
 <style lang="less">
 	* {
@@ -78,7 +65,7 @@
 		box-sizing: border-box;
 	}
 
-	article {
+	section {
 		width: 50vw;
 		display: flex;
 		flex-direction: column;
@@ -86,38 +73,6 @@
 
 	video {
 		height: 55vh;
-	}
-
-	.header-camera {
-		height: 48px;
-		display: flex;
-		align-items: center;
-		border-bottom: 1px solid grey;
-
-		h3 {
-			flex-grow: 1;
-			text-align: center;
-		}
-
-		button {
-			all: unset;
-			cursor: pointer;
-			display: flex;
-			justify-content: center;
-			align-items: center;
-			width: 48px;
-			height: 48px;
-
-			&:hover {
-				background-color: rgba(237, 240, 243, 0.5);
-			}
-
-			img {
-				display: block;
-				width: 24px;
-				height: 24px;
-			}
-		}
 	}
 
 	.footer-camera {
@@ -133,6 +88,12 @@
 			border-radius: 50%;
 			border: 1px solid gray;
 			background-color: rgba(237, 240, 243, 0.5);
+		}
+	}
+
+	@media only screen and (max-width: 640px) {
+		section {
+			width: 100%;
 		}
 	}
 </style>
