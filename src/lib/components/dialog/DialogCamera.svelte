@@ -1,9 +1,13 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
-	import TakePhotoCamera from '../TakePhotoCamera.svelte';
+	import ShowHidden from '../ShowHidden.svelte';
+	import TakePhotoCamera from '../camera/TakePhotoCamera.svelte';
+	import TakePhotoPreview from '../camera/TakePhotoPreview.svelte';
 	import DialogConfirm from './DialogConfirm.svelte';
 
 	export let isShow: boolean = false;
+
+	let imageSrc: string = '';
 
 	const dispatch = createEventDispatcher();
 
@@ -12,16 +16,27 @@
 
 		isShow = false;
 	};
+
+	const onCapture = (val: CustomEvent) => (imageSrc = val.detail.image);
+
+	const onSave = () => {
+		dispatch('Save', { image: imageSrc });
+
+		clearImageSrc();
+		isShow = false;
+	};
+
+	const clearImageSrc = () => (imageSrc = '');
+
+	$: if (!isShow) clearImageSrc();
 </script>
 
 <DialogConfirm bind:isShow title="Camera">
-	<div class="take-photo-customize">
-		<TakePhotoCamera on:Close={onClose}></TakePhotoCamera>
-	</div>
-</DialogConfirm>
+	<ShowHidden isShow={imageSrc == ''}>
+		<TakePhotoCamera on:Close={onClose} on:Capture={onCapture} />
+	</ShowHidden>
 
-<style>
-	.take-photo-customize {background-color: aqua;
-		padding-bottom: 1em;
-	}
-</style>
+	<ShowHidden isShow={imageSrc !== ''}>
+		<TakePhotoPreview bind:imageSrc on:Save={onSave} />
+	</ShowHidden>
+</DialogConfirm>

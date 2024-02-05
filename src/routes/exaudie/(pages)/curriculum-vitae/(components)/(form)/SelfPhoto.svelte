@@ -35,10 +35,12 @@
 		}
 	};
 
+	const onSavePhoto = (val: CustomEvent) => (photo.value = val?.detail?.image ?? '');
+
 	const onConfirmDelete = () => (photo.value = '');
 </script>
 
-<DialogCamera bind:isShow={isShowCamera} />
+<DialogCamera bind:isShow={isShowCamera} on:Save={onSavePhoto} />
 
 <DialogUploadFile bind:isShow={isShowUpload} />
 
