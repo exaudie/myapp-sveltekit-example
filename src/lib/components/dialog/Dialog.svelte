@@ -21,4 +21,10 @@
 		left: 50%;
 		transform: translate(-50%, -50%);
 	}
+
+	@media only screen and (max-width: 640px) {
+		dialog {
+			width: 90vw;
+		}
+	}
 </style>

@@ -5,11 +5,15 @@
 	import ButtonIcon from '$lib/components/button/ButtonIcon.svelte';
 	import DialogMenu from '$lib/components/dialog/DialogMenu.svelte';
 	import DialogCamera from '$lib/components/dialog/DialogCamera.svelte';
+	import DialogConfirm from '$lib/components/dialog/DialogConfirm.svelte';
+	import DialogUploadFile from '$lib/components/dialog/DialogUploadFile.svelte';
 
 	export let photo: InputFieldScheme;
 
 	let isShowMenu: boolean = false;
 	let isShowCamera: boolean = false;
+	let isShowUpload: boolean = false;
+	let isShowDeleteConfirm: boolean = false;
 
 	const menuList = ['Capture', 'Upload File', 'Remove'];
 
@@ -22,17 +26,34 @@
 				break;
 
 			case 1:
-				console.log('evn', evn.detail.index);
+				isShowUpload = true;
 				break;
 
 			case 2:
-				console.log('evn', evn.detail.index);
+				isShowDeleteConfirm = true;
 				break;
 		}
 	};
+
+	const onSavePhoto = (val: CustomEvent) => (photo.value = val?.detail?.image ?? '');
+
+	const onConfirmDelete = () => (photo.value = '');
 </script>
 
-<DialogCamera bind:isShow={isShowCamera}></DialogCamera>
+<DialogCamera bind:isShow={isShowCamera} on:Save={onSavePhoto} />
+
+<DialogUploadFile bind:isShow={isShowUpload} />
+
+<DialogConfirm
+	bind:isShow={isShowDeleteConfirm}
+	title="Delete"
+	titleColor="var(--danger-state)"
+	desc="Are you sure you want to delete this file?"
+	primaryText="Yes"
+	primaryBgColor="var(--danger-state)"
+	secondaryText="No"
+	on:Confirm={onConfirmDelete}
+/>
 
 <section>
 	<img
