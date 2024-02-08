@@ -59,7 +59,8 @@
 		}
 
 		.disabled {
-			color: rgba(128, 128, 128, 0.3);
+			cursor: default;
+			color: rgba(128, 128, 128, 0.3) !important;
 		}
 	}
 
