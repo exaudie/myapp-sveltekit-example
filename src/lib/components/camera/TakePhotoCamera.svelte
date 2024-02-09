@@ -59,6 +59,7 @@
 		p {
 			margin: 3em 2em;
 			text-align: center;
+			min-height: 15em;
 		}
 	}
 

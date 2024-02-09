@@ -132,6 +132,8 @@
 
 	.content-dialog {
 		color: var(--text-secondary);
+		max-height: 75vh;
+		overflow: auto;
 
 		p {
 			padding: 1em;
