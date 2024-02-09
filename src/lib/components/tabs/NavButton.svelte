@@ -1,21 +1,36 @@
 <script lang="ts">
 	import type NavButtonHelper from '$lib/helpers/NavButtonHelper';
+	import { createEventDispatcher } from 'svelte';
 
 	export let navHelper: NavButtonHelper;
+	export let isAutoNav: boolean = true;
 	export let isBold: boolean = true;
-	export let fontSize: string = '16px';
-	export let gap: string = '';
+	export let fontSize: string | '16px' = '16px';
+	export let paddingBtn: string | '8px 16px' = '0.5em 1em';
+	export let gap: string | '16px' = '';
 
-	const onSelect = (tabValue: number) => (navHelper.setActive = tabValue);
+	const dispatch = createEventDispatcher();
+
+	const onNavClick = (value: number) => {
+		dispatch('NavClick', { value });
+
+		if (isAutoNav) navHelper.setActive = value;
+	};
 </script>
 
-<nav class:bg-neutral20={gap === ''} style="--gap:{gap}; --font-size:{fontSize};">
+<nav
+	class:bg-neutral20={gap === ''}
+	style="--gap:{gap}; 
+				--font-size:{fontSize};
+				--padding-btn:{paddingBtn};"
+>
 	{#each navHelper.getItems as item}
+		{@const isEnabled = item?.enabled ?? true}
 		<button
-			class:disabled={!(item?.enabled ?? true)}
-			class:active={navHelper.getActive === item.value}
+			class:disabled={!isEnabled}
+			class:active={item.value === navHelper.getActive}
 			class:bold={isBold}
-			on:click={item.enabled ?? true ? () => onSelect(item.value) : null}
+			on:click={isEnabled ? () => onNavClick(item.value) : null}
 		>
 			{item.label}
 		</button>
@@ -52,7 +67,7 @@
 		all: unset;
 		cursor: pointer;
 		background-color: #f8f9fa;
-		padding: 0.5em 1em;
+		padding: var(--padding-btn) !important;
 		min-width: fit-content;
 		width: 100%;
 		border-radius: 8px;
@@ -60,9 +75,7 @@
 
 		color: var(--text-secondary);
 		text-align: center;
-		font-family: Nunito;
 		font-size: var(--font-size) !important;
-		font-style: normal;
 		font-weight: 400;
 		line-height: 24px;
 	}
@@ -79,6 +92,6 @@
 	nav button.disabled {
 		cursor: default;
 		background-color: #f8f9fa;
-		color: #869cae65;
+		color: #869cae53;
 	}
 </style>

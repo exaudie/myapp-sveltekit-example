@@ -1,21 +1,27 @@
 <script lang="ts">
-	import type { TabItem } from '$lib/types/TabItemType';
+	import type TabBarHelper from '$lib/helpers/TabBarHelper';
+	import { createEventDispatcher } from 'svelte';
 
-	export let tabActive: number;
-	export let tabItems: TabItem[];
+	export let navHelper: TabBarHelper;
+	export let isAutoNav: boolean = true;
+
+	const dispatch = createEventDispatcher();
 
 	const onTabClick = (value: number) => {
-		tabActive = value;
+		dispatch('TabClick', { value });
+
+		if (isAutoNav) navHelper.setActive = value;
 	};
 </script>
 
 <div class="tab-nav-wrap">
 	<div class="tab-button">
-		{#each tabItems as item, idx}
+		{#each navHelper.getItems as item}
+			{@const isEnabled = item?.enabled ?? true}
 			<button
-				class:disabled={!(item?.enabled ?? true)}
-				class:item-selected={(item?.value ?? idx) == tabActive}
-				on:click={() => (item?.enabled ?? true ? onTabClick(item?.value ?? idx) : null)}
+				class:disabled={!isEnabled}
+				class:item-selected={item.value == navHelper.getActive}
+				on:click={() => (isEnabled ? onTabClick(item.value) : null)}
 			>
 				{item.label}
 			</button>
@@ -41,6 +47,7 @@
 
 		button {
 			all: unset;
+			cursor: pointer;
 			flex-grow: 1;
 			text-align: center;
 			padding: 12px 16px;
