@@ -34,6 +34,14 @@
 </div>
 
 <style lang="less">
+	* {
+		margin: 0;
+		padding: 0;
+		box-sizing: border-box;
+		-moz-box-sizing: border-box;
+		-webkit-box-sizing: border-box;
+	}
+
 	.tab-nav-wrap {
 		height: 100%;
 		display: grid;
@@ -65,7 +73,8 @@
 			border-bottom: 2px solid rgba(0, 0, 255, 0.5);
 		}
 
-		.disabled {
+		.disabled,
+		.disabled :hover {
 			cursor: default;
 			color: rgba(128, 128, 128, 0.3) !important;
 		}

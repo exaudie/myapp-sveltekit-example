@@ -7,6 +7,7 @@
 	export let isBold: boolean = true;
 	export let fontSize: string | '16px' = '16px';
 	export let paddingBtn: string | '8px 16px' = '0.5em 1em';
+	export let colorBtn: string | '#0d6efd' | '#dc3545' = 'var(--color-primary)';
 	export let gap: string | '16px' = '';
 
 	const dispatch = createEventDispatcher();
@@ -22,7 +23,8 @@
 	class:bg-neutral20={gap === ''}
 	style="--gap:{gap}; 
 				--font-size:{fontSize};
-				--padding-btn:{paddingBtn};"
+				--padding-btn:{paddingBtn};
+				--color-btn:{colorBtn};"
 >
 	{#each navHelper.getItems as item}
 		{@const isEnabled = item?.enabled ?? true}
@@ -85,7 +87,7 @@
 	}
 
 	nav button.active {
-		background-color: var(--color-primary);
+		background-color: var(--color-btn);
 		color: #fff;
 	}
 
