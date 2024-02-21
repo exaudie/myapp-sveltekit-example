@@ -1,15 +1,15 @@
 <script lang="ts">
+	import type { NavButtonType } from '$lib/types/NavButtonType';
 	import type { TabItem } from '$lib/types/TabItemType';
-	import TabBar from '$lib/components/tabs/TabBar.svelte';
-	import DateFormatterItem from './(components)/DateFormatterItem.svelte';
-	import NumberFormatterItem from './(components)/NumberFormatterItem.svelte';
 	import ShowHidden from '$lib/components/ShowHidden.svelte';
 	import NavButton from '$lib/components/tabs/NavButton.svelte';
+	import TabBar from '$lib/components/tabs/TabBar.svelte';
 	import NavButtonHelper from '$lib/helpers/NavButtonHelper';
-	import type { NavButtonType } from '$lib/types/NavButtonType';
+	import DateFormatterItem from './(components)/DateFormatterItem.svelte';
+	import NumberFormatterItem from './(components)/NumberFormatterItem.svelte';
+	import TabBarHelper from '$lib/helpers/TabBarHelper';
 
-	let tabActive: number = 1;
-	let tabItems: TabItem[] = [
+	let tabItems = [
 		{ label: 'Date Formatter', value: 1 },
 		{ label: 'Number Formatter', value: 2 },
 		{ label: 'Disabled', value: 3, enabled: false }
@@ -19,16 +19,25 @@
 	navHelper.setItems = {
 		navItems: tabItems as NavButtonType[]
 	};
+
+	const onNavClick = (val: CustomEvent) => (tabHelper.setActive = val.detail.value);
+
+	let tabHelper = TabBarHelper.getInstance();
+	tabHelper.setItems = {
+		navItems: tabItems as TabItem[]
+	};
+
+	const onTabClick = (val: CustomEvent) => (navHelper.setActive = val.detail.value);
 </script>
 
-<NavButton bind:navHelper />
+<NavButton bind:navHelper paddingBtn="4px 8px" on:NavClick={onNavClick} />
 
-<TabBar bind:tabActive {tabItems}>
-	<ShowHidden isShow={tabActive === 1}>
+<TabBar bind:navHelper={tabHelper} on:TabClick={onTabClick}>
+	<ShowHidden isShow={tabHelper.getActive === 1}>
 		<DateFormatterItem />
 	</ShowHidden>
 
-	<ShowHidden isShow={tabActive === 2}>
+	<ShowHidden isShow={tabHelper.getActive === 2}>
 		<NumberFormatterItem />
 	</ShowHidden>
 </TabBar>

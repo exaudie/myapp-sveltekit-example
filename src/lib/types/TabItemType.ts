@@ -1,1 +1,1 @@
-export type TabItem = { label: string; value?: number; enabled?: boolean };
+export type TabItem = { label: string; value: number; enabled?: boolean };

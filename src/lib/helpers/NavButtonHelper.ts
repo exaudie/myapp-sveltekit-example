@@ -22,4 +22,18 @@ export default class NavButtonHelper {
 	public get getActive(): number {
 		return this.active;
 	}
+
+	public isAvailableValue(value: number): boolean {
+		let isAvailable: boolean = false;
+
+		for (const elm of this.navItems) {
+			if (elm.value === value) {
+				isAvailable = true;
+
+				break;
+			}
+		}
+
+		return isAvailable;
+	}
 }
