@@ -8,7 +8,7 @@
 	<Header />
 
 	<ToastNotify />
-	
+
 	<main>
 		<slot />
 	</main>
