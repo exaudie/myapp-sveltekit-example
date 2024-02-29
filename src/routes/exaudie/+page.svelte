@@ -21,7 +21,7 @@
 	.card-wrap {
 		padding: 16px;
 		overflow: auto;
-		max-height: 75vh;
+		max-height: 68vh;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		gap: 16px;

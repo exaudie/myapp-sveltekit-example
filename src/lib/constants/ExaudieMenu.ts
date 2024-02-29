@@ -22,5 +22,6 @@ export const menuItems: MenuItems[] = [
 	{ title: 'Progress', subtitle: '', page: '/progress' },
 	{ title: 'Array', subtitle: '', page: '/array' },
 	{ title: 'Formatter', subtitle: '', page: '/formatter' },
-	{ title: 'Base Navigation', subtitle: '', page: '/nav-menu' }
+	{ title: 'Base Navigation', subtitle: '', page: '/nav-menu' },
+	{ title: 'Zzzz', subtitle: '', page: '/zzz' }
 ];
