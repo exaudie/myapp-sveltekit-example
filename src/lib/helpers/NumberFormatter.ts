@@ -1,8 +1,9 @@
 import { isEmptyTo } from './DefaultValue';
+export type SeparatorValue = ',' | '.';
 
 export const setIntlThousandSeparator = (
 	value: string,
-	prm?: { separator?: '.' | ','; defValue?: string; toFixed?: number }
+	prm?: { separator?: SeparatorValue; defValue?: string; toFixed?: number }
 ) => {
 	if (isEmptyTo(value) === '') return prm?.defValue ?? '';
 
@@ -20,7 +21,7 @@ export const setIntlThousandSeparator = (
 
 export const setCustThousandSeparator = (
 	value: string,
-	prm?: { separator?: '.' | ','; defValue?: string }
+	prm?: { separator?: SeparatorValue; defValue?: string }
 ) => {
 	if (isEmptyTo(value) === '') return prm?.defValue ?? '';
 
@@ -35,7 +36,7 @@ export const setCustThousandSeparator = (
 
 export const setCust2ThousandSeparator = (
 	value: string,
-	prm?: { separator?: '.' | ','; defValue?: string }
+	prm?: { separator?: SeparatorValue; defValue?: string }
 ) => {
 	if (isEmptyTo(value) === '') return prm?.defValue ?? '';
 
@@ -48,14 +49,14 @@ export const setCust2ThousandSeparator = (
 	return newValue.join(comma);
 };
 
-export const removeSeparator = (value: string, prm?: { separator?: '.' | ',' }) => {
+export const removeSeparator = (value: string, prm?: { separator?: SeparatorValue }) => {
 	return value.split(prm?.separator ?? '.').join('');
 };
 
-export const switchSeparator = (value: string, separator?: { to?: '.' | ',' }) => {
+export const switchSeparator = (value: string, prm?: { to?: SeparatorValue }) => {
 	if (isEmptyTo(value) === '') return '';
 
-	const newSeparator: string = separator?.to ?? '.';
+	const newSeparator: string = prm?.to ?? '.';
 	const newComma: string = newSeparator === '.' ? ',' : '.';
 	const oldSeparator: string = newComma;
 	const oldComma: string = newSeparator;
