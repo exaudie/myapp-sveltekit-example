@@ -23,5 +23,6 @@ export const menuItems: MenuItems[] = [
 	{ title: 'Array', subtitle: '', page: '/array' },
 	{ title: 'Formatter', subtitle: '', page: '/formatter' },
 	{ title: 'Base Navigation', subtitle: '', page: '/nav-menu' },
-	{ title: 'Zzzz', subtitle: '', page: '/zzz' }
+	{ title: 'Zzzz', subtitle: '', page: '/zzz' },
+	{ title: 'Variable Generator', subtitle: '', page: '/var-gen' }
 ];
