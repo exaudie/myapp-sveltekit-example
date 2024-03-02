@@ -32,6 +32,11 @@ describe('NominalExpand : used to display nominal', () => {
 		expect(nominal.toSparator().addPrefix({ prefix: 'Rp' }).value).toBe('Rp11.333.777,88');
 	});
 
+	it(`Input 11333777.88 result "Rp11,333,777.88" | prefix:Rp`, () => {
+		const nominal = new NominalExpand('11333777.88');
+		expect(nominal.toSparator({separator:','}).addPrefix({ prefix: 'Rp' }).value).toBe('Rp11,333,777.88');
+	});
+
 	it(`Input Rp11.333.777,885 result "Rp11.333.777,88" | prefix:Rp | toFixed:2`, () => {
 		const nominal = new NominalExpand('Rp11.333.777,884');
 		expect(
