@@ -1,7 +1,7 @@
-export const getPersent = (value: number, params: { from: number }) => (value / params.from) * 100;
+export const getPersent = (value: number, prm: { from: number }) => (value / prm.from) * 100;
 
-export const scrollTopElement = (params: { elementId: string }) => {
-	const elm = document.querySelector(params.elementId);
+export const scrollTopElement = (prm: { elementId: string }) => {
+	const elm = document.querySelector(prm.elementId);
 
 	if (!elm) return;
 
