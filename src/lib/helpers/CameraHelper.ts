@@ -4,8 +4,8 @@ export default class CameraHelper {
 	private stream!: MediaStream;
 	private video: HTMLVideoElement;
 
-	constructor(params: { video: HTMLVideoElement }) {
-		this.video = params.video;
+	constructor(prm: { video: HTMLVideoElement }) {
+		this.video = prm.video;
 	}
 
 	public cameraAccess = async () => {

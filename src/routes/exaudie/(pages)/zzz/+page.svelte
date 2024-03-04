@@ -5,4 +5,4 @@
 </script>
 
 <p>Nilai awal : {initValue}</p>
-<p>toSparator() : {new NominalExpand(`${initValue}`).toSparator().value}</p>
+<p>toSparator() : {new NominalExpand(`${initValue}`).addSeparator().value}</p>

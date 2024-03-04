@@ -9,32 +9,36 @@ export default class NominalExpand {
 	private nominal: string;
 	private separatorTo: SeparatorValue;
 
-	constructor(value: string, p?: { currentSeparator?: SeparatorValue }) {
+	public constructor(value: string, p?: { currentSeparator?: SeparatorValue }) {
 		this.nominal = value;
 		this.separatorTo = p?.currentSeparator ?? '.';
 	}
 
-	get value(): string {
+	public get value(): string {
 		return this.nominal;
 	}
 
-	get valueNum(): number {
+	public get valueNum(): number {
 		return +this.nominal;
 	}
 
-	removeSparator(p?: { separator?: SeparatorValue }): this {
-		this.nominal = removeSeparator(this.nominal, { separator: p?.separator ?? this.separatorTo });
+	public removeSeparator(prm?: { separator?: SeparatorValue }): this {
+		this.nominal = removeSeparator(this.nominal, { separator: prm?.separator ?? this.separatorTo });
 
 		return this;
 	}
 
-	switchSeparator(p?: { to?: SeparatorValue }): this {
-		this.nominal = switchSeparator(this.nominal, { to: p?.to ?? this.separatorTo });
+	public switchSeparator(prm?: { to?: SeparatorValue }): this {
+		this.nominal = switchSeparator(this.nominal, { to: prm?.to ?? this.separatorTo });
 
 		return this;
 	}
 
-	toSparator(prm?: { separator?: SeparatorValue; defValue?: string; toFixed?: number }): this {
+	public addSeparator(prm?: {
+		separator?: SeparatorValue;
+		defValue?: string;
+		toFixed?: number;
+	}): this {
 		this.nominal = setIntlThousandSeparator(this.nominal, {
 			separator: prm?.separator ?? this.separatorTo,
 			defValue: prm?.defValue,
@@ -44,20 +48,20 @@ export default class NominalExpand {
 		return this;
 	}
 
-	addPrefix(p?: { prefix?: string }): this {
-		this.nominal = (p?.prefix ?? '') + this.nominal;
+	public addPrefix(prm?: { prefix?: string }): this {
+		this.nominal = (prm?.prefix ?? '') + this.nominal;
 
 		return this;
 	}
 
-	addSuffix(p?: { suffix?: string }): this {
-		this.nominal = this.nominal + (p?.suffix ?? '');
+	public addSuffix(prm?: { suffix?: string }): this {
+		this.nominal = this.nominal + (prm?.suffix ?? '');
 
 		return this;
 	}
 
-	cleanFrom(p?: { search?: string }): this {
-		this.nominal = this.nominal.replaceAll(p?.search ?? '', '');
+	public cleanFrom(prm?: { search?: string }): this {
+		this.nominal = this.nominal.replaceAll(prm?.search ?? '', '');
 
 		return this;
 	}

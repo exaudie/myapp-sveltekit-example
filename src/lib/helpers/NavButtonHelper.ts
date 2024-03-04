@@ -7,8 +7,8 @@ export default class NavButtonHelper {
 
 	public static getInstance = () => this.instance || (this.instance = new this());
 
-	public set setItems(params: { navItems: NavButtonType[] }) {
-		this.navItems = params.navItems;
+	public set setItems(prm: { navItems: NavButtonType[] }) {
+		this.navItems = prm.navItems;
 	}
 
 	public get getItems(): NavButtonType[] {

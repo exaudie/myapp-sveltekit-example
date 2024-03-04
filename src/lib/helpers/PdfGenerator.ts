@@ -33,14 +33,14 @@ export const generatePdfDataUrl = async (params: {
 	});
 };
 
-export const generatePdfFile = async (params: {
+export const generatePdfFile = async (prm: {
 	fonts: TFontDictionary;
 	template: TDocumentDefinitions;
 }): Promise<string> => {
-	const printer = new PdfPrinter(params.fonts);
+	const printer = new PdfPrinter(prm.fonts);
 
 	return new Promise((resolve, reject) => {
-		const pdf = printer.createPdfKitDocument(params.template);
+		const pdf = printer.createPdfKitDocument(prm.template);
 
 		pdf
 			.pipe(fs.createWriteStream('src/assets/document.pdf'))
