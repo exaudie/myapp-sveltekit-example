@@ -18,6 +18,7 @@ export const menuItems: MenuItems[] = [
 	{ title: 'Simmer / Skeleton', subtitle: '', page: '/simmer' },
 	{ title: 'Table', subtitle: '', page: '/table' },
 	{ title: 'Table Freeze', subtitle: '', page: '/table-freeze' },
+	{ title: 'Table Paging', subtitle: '', page: '/table-paging' },
 	{ title: 'Store', subtitle: '', page: '/store' },
 	{ title: 'Progress', subtitle: '', page: '/progress' },
 	{ title: 'Array', subtitle: '', page: '/array' },

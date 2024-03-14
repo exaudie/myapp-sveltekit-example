@@ -33,30 +33,31 @@ describe('NominalExpand : used to display nominal', () => {
 	});
 
 	it(`Input 11333777.88 result "Rp11,333,777.88" | prefix:Rp`, () => {
-		const nominal = new NominalExpand('11333777.88');
-		expect(nominal.addSeparator({separator:','}).addPrefix({ prefix: 'Rp' }).value).toBe('Rp11,333,777.88');
+		const nominal = new NominalExpand('11333777.88')
+			.addSeparator({ separator: ',' })
+			.addPrefix({ prefix: 'Rp' });
+
+		expect(nominal.value).toBe('Rp11,333,777.88');
 	});
 
 	it(`Input Rp11.333.777,885 result "Rp11.333.777,88" | prefix:Rp | toFixed:2`, () => {
-		const nominal = new NominalExpand('Rp11.333.777,884');
-		expect(
-			nominal
-				.cleanFrom({ search: 'Rp' })
-				.removeSeparator({ separator: '.' })
-				.switchSeparator({ to: ',' })
-				.addSeparator({ toFixed: 2 })
-				.addPrefix({ prefix: 'Rp' }).value
-		).toBe('Rp11.333.777,88');
+		const nominal = new NominalExpand('Rp11.333.777,884')
+			.cleanFrom({ search: 'Rp' })
+			.removeSeparator({ separator: '.' })
+			.switchSeparator({ to: ',' })
+			.addSeparator({ toFixed: 2 })
+			.addPrefix({ prefix: 'Rp' });
+
+		expect(nominal.value).toBe('Rp11.333.777,88');
 	});
 
 	it(`Input Rp11.333.777,88 result number 1333777.88`, () => {
-		const nominal = new NominalExpand('Rp11.333.777,88');
-		expect(
-			nominal
-				.cleanFrom({ search: 'Rp' })
-				.removeSeparator({ separator: '.' })
-				.switchSeparator({ to: ',' }).valueNum
-		).toBe(11333777.88);
+		const nominal = new NominalExpand('Rp11.333.777,88')
+			.cleanFrom({ search: 'Rp' })
+			.removeSeparator({ separator: '.' })
+			.switchSeparator({ to: ',' });
+
+		expect(nominal.valueNum).toBe(11333777.88);
 	});
 
 	it(`Input 88 result "88%" | suffix:%`, () => {
