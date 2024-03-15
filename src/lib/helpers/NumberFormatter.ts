@@ -1,4 +1,5 @@
 import { isEmptyTo } from './DefaultValue';
+
 export type SeparatorValue = ',' | '.';
 
 export const setIntlThousandSeparator = (
