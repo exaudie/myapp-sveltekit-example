@@ -7,8 +7,10 @@ export default class TabBarHelper {
 
 	public static getInstance = () => this.instance || (this.instance = new this());
 
-	public set setItems(prm: { navItems: TabItem[] }) {
+	public setItems(prm: { navItems: TabItem[] }): this {
 		this.navItems = prm.navItems;
+
+		return this;
 	}
 
 	public get getItems(): TabItem[] {

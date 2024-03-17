@@ -7,6 +7,26 @@
 	import NavButtonHelper from '$lib/helpers/NavButtonHelper';
 	import TabBarHelper from '$lib/helpers/TabBarHelper';
 	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import LabelTop from '$lib/components/LabelTop.svelte';
+	import NavPaging from '$lib/components/paging/NavPaging.svelte';
+	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
+	import NavPaging1 from '$lib/components/paging/NavPaging1.svelte';
+	import NavPaging2 from '$lib/components/paging/NavPaging2.svelte';
+
+	const dataList = Array.from({ length: 53 }, (_, idx) => {
+		const page = idx + 1;
+
+		return { id: page, name: `page ${page}` };
+	});
+
+	let pagingHelper1 = new NavPagingHelper()
+		.setDataList({ dataList })
+		.setLengthNavigate(7)
+		.withToEnd()
+		.buildNavPage();
+
+	let pagingHelper2 = new NavPagingHelper().setTotalPage(14).setLengthNavigate(7).buildNavPage();
+	let pagingHelper3 = new NavPagingHelper().setTotalPage(14).setLengthNavigate(5).buildNavPage();
 
 	let tabItems = [
 		{ label: 'Nav 1', value: 1 },
@@ -15,34 +35,53 @@
 		{ label: 'Nav 4', value: 4, enabled: false }
 	];
 
-	let navHelper1 = new NavButtonHelper();
-	navHelper1.setItems = {
+	let navHelper1 = new NavButtonHelper().setItems({
 		navItems: tabItems as NavButtonType[]
-	};
+	});
 
-	let navHelper2 = new NavButtonHelper();
-	navHelper2.setItems = {
+	let navHelper2 = new NavButtonHelper().setItems({
 		navItems: tabItems as NavButtonType[]
-	};
+	});
 
-	let navResonance1 = new NavButtonHelper();
-	navResonance1.setItems = {
+	let navResonance1 = new NavButtonHelper().setItems({
 		navItems: tabItems as NavButtonType[]
-	};
+	});
 
-	let navResonance2 = new NavButtonHelper();
-	navResonance2.setItems = {
+	let navResonance2 = new NavButtonHelper().setItems({
 		navItems: [
 			{ label: 'Nav 1', value: 1 },
 			{ label: 'Nav 2', value: 2 }
 		]
-	};
+	});
 
-	let tabHelper = new TabBarHelper();
-	tabHelper.setItems = {
+	let tabHelper = new TabBarHelper().setItems({
 		navItems: tabItems as TabItem[]
-	};
+	});
 </script>
+
+<LabelTop label="Paging Navigation" />
+
+<NavPaging bind:navHelper={pagingHelper1} />
+
+<VerticalSpace height="2em" />
+
+<NavPaging bind:navHelper={pagingHelper2} />
+
+<VerticalSpace height="2em" />
+
+<NavPaging bind:navHelper={pagingHelper3} />
+
+<VerticalSpace height="3em" />
+
+<NavPaging1 lengthNavigate={5} itemsPerPage={5} totalPage={9} />
+
+<VerticalSpace height="2em" />
+
+<NavPaging2 lengthNavigate={7} itemsPerPage={5} totalPage={11} />
+
+<VerticalSpace height="3em" />
+
+<LabelTop label="Tab Navigation" />
 
 <NavButton bind:navHelper={navHelper1} on:NavClick={() => {}} />
 
