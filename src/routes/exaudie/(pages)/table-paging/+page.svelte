@@ -1,5 +1,12 @@
 <script lang="ts">
-	import NavPaging1 from '$lib/components/paging/NavPaging1.svelte';
+	import PagingOutHelper from './(components)/PagingOutHelper.svelte';
+
+		const dataList: any[] = Array.from({ length: 71 }, (_, idx) => {
+		const numRow = idx + 1;
+		return Array.from({ length: 10 }, (_, idx) => {
+			return { name: `${numRow} column ${idx + 1}` };
+		});
+	});
 </script>
 
-<NavPaging1 lengthNavigate={6} itemsPerPage={5} dataList={Array.from({ length: 71 }, (_, idx) => idx + 1)} />
+<PagingOutHelper {dataList} />
