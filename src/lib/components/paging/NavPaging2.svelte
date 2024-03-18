@@ -12,45 +12,46 @@
 	const startPage: number = 1;
 	const dataListPages = Math.ceil(dataList.length / itemsPerPage);
 	const endPage: number = dataList.length > 0 ? dataListPages : totalPage;
-	const fixNavLength: number = lengthNavigate > endPage ? endPage : lengthNavigate;
-	const navLength: number = fixNavLength % 2 === 0 ? fixNavLength - 1 : fixNavLength;
-	const isWithDot = navLength > 3;
+	const fixNavLength1: number = lengthNavigate > endPage ? endPage : lengthNavigate;
+	const fixNavLength2: number = fixNavLength1 % 2 === 0 ? fixNavLength1 - 1 : fixNavLength1;
+	const isWithDot = fixNavLength2 > 5;
+	const navLength: number = isWithDot ? fixNavLength2 - 2 : fixNavLength2;
 	const navMedian: number = (navLength + 1) / 2;
 	const navExpanded: number = navMedian - startPage;
 
 	const generateNav = (prm: { page: number }) => {
 		const page: number = prm.page;
 
-		let navList: number[] = [];
+		let navList: number[] = isWithDot ? [startPage] : [];
 
 		let startNavCenter: number = currentPage - navExpanded;
 		let endNavCenter: number = currentPage + navExpanded;
 
-		if (page < navMedian) {
-			startNavCenter = startPage;
+		if (page <= navMedian) {
+			startNavCenter = isWithDot ? startPage + 1 : startPage;
 			endNavCenter = startNavCenter + (navLength - 1);
 		}
 
 		if (page > endPage - navMedian) {
-			endNavCenter = endPage;
+			endNavCenter = isWithDot ? endPage - 1 : endPage;
 			startNavCenter = endNavCenter - (navLength - 1);
 		}
 
 		for (let i = startNavCenter; i <= endNavCenter; i++) {
 			let item: number = i;
 
-			if (isWithDot && i === startNavCenter && i !== startPage) item = -1;
-			if (isWithDot && i === endNavCenter && i !== endPage) item = -1;
+			if (isWithDot && i === startNavCenter && i !== startPage + 1) item = -1;
+			if (isWithDot && i === endNavCenter && i !== endPage - 1) item = -1;
 
 			navList = [...navList, ...[item]];
 		}
+
+		if (isWithDot) navList = [...navList, ...[endPage]];
 
 		return navList;
 	};
 
 	const onSelectPage = (page: number) => (currentPage = page);
-	const onToFirst = () => (currentPage = startPage);
-	const onToLast = () => (currentPage = endPage);
 
 	const onPrev = () => {
 		if (isToFirst) currentPage -= 1;
@@ -66,9 +67,6 @@
 </script>
 
 <nav class="pagination">
-	<button on:click={onToFirst} type="button" disabled={!isToFirst} class="page-item sides">
-		&lt;&lt;
-	</button>
 	<button on:click={onPrev} type="button" disabled={!isToFirst} class="page-item sides">
 		&lt;
 	</button>
@@ -92,9 +90,6 @@
 
 	<button on:click={onNext} type="button" disabled={!isToLast} class="page-item sides">
 		&gt;
-	</button>
-	<button on:click={onToLast} type="button" disabled={!isToLast} class="page-item sides">
-		&gt;&gt;
 	</button>
 </nav>
 
