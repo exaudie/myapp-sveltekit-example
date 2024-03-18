@@ -2,7 +2,9 @@
 	import NavPaging from '$lib/components/paging/NavPaging.svelte';
 	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
 
-	export let dataList: any[];
+	type Daata = { name?: string; ggg?: string };
+
+	export let dataList: Daata[];
 
 	let pagingHelper = new NavPagingHelper();
 
@@ -13,17 +15,17 @@
 	<table>
 		<thead>
 			<tr>
-				{#each Array.from(dataList[0]) as _, colIdx}
+				{#each Object.keys(pagingHelper.getDataListPage[0]) as _, colIdx}
 					<th>head {colIdx + 1}</th>
 				{/each}
 			</tr>
 		</thead>
 
 		<tbody>
-			{#each pagingHelper.getDataListPage as row}
+			{#each pagingHelper.getDataListPage as rows}
 				<tr>
-					{#each row as column}
-						<td>{column.name}</td>
+					{#each Object.keys(rows) as key}
+						<td>{rows[key]}</td>
 					{/each}
 				</tr>
 			{/each}
@@ -33,8 +35,8 @@
 
 <div class="nav-paging">
 	<p>
-		Showing {pagingHelper.getStartDataPage} to {pagingHelper.getEndDataPage} from {pagingHelper.getTotalData}
-		entries
+		Showing {pagingHelper.getStartDataPage} to {pagingHelper.getEndDataPage} from
+		{pagingHelper.getTotalData} entries
 	</p>
 
 	<NavPaging colorActive="#ff5c5c" bind:navHelper={pagingHelper} />

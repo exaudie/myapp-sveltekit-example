@@ -16,16 +16,16 @@
 	];
 
 	let navHelper = NavButtonHelper.getInstance();
-	navHelper.setItems = {
+	navHelper.setItems({
 		navItems: tabItems as NavButtonType[]
-	};
+	});
 
 	const onNavClick = (val: CustomEvent) => (tabHelper.setActive = val.detail.value);
 
 	let tabHelper = TabBarHelper.getInstance();
-	tabHelper.setItems = {
+	tabHelper.setItems({
 		navItems: tabItems as TabItem[]
-	};
+	});
 
 	const onTabClick = (val: CustomEvent) => (navHelper.setActive = val.detail.value);
 </script>

@@ -45,17 +45,17 @@
 	<table>
 		<thead>
 			<tr>
-				{#each Array.from(dataList[0]) as _, colIdx}
+				{#each Object.keys(dataList[0]) as _, colIdx}
 					<th>head {colIdx + 1}</th>
 				{/each}
 			</tr>
 		</thead>
 
 		<tbody>
-			{#each dataPerPage as row}
+			{#each dataPerPage as rows}
 				<tr>
-					{#each row as column}
-						<td>{column.name}</td>
+					{#each Object.keys(rows) as key}
+						<td>{rows[key]}</td>
 					{/each}
 				</tr>
 			{/each}
@@ -86,12 +86,11 @@
 	}
 
 	.shadow-left-right-scroll {
-		background-image: 
-	/* Shadows */
+		background-image:
+			/* Shadows */
 			linear-gradient(to right, white, white),
 			linear-gradient(to right, white, white),
-			/* Shadow covers */ 
-			linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
+			/* Shadow covers */ linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
 			linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
 
 		background-position:
