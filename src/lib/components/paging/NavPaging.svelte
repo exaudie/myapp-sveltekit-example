@@ -4,6 +4,7 @@
 	import ShowHidden from '../ShowHidden.svelte';
 
 	export let navHelper: NavPagingHelper;
+	export let colorActive: string = 'var(--color-primary)';
 
 	const dispatch = createEventDispatcher();
 
@@ -14,13 +15,13 @@
 	};
 
 	const onToFirst = () => {
-		navHelper.setCurrentPage = navHelper.getStartPage;
+		navHelper.setCurrentPage = navHelper.getStartNavPage;
 
 		dispatch('ToFirst', { page: navHelper.getCurrentPage });
 	};
 
 	const onToLast = () => {
-		navHelper.setCurrentPage = navHelper.getEndPage;
+		navHelper.setCurrentPage = navHelper.getEndNavPage;
 
 		dispatch('ToLast', { page: navHelper.getCurrentPage });
 	};
@@ -38,7 +39,7 @@
 	};
 </script>
 
-<nav class="pagination">
+<nav class="pagination" style="--color-active:{colorActive};">
 	<ShowHidden isShow={navHelper.isToEnd}>
 		<button
 			on:click={onToFirst}
@@ -54,7 +55,7 @@
 		&lt;
 	</button>
 
-	{#each navHelper.getItems as page}
+	{#each navHelper.getNavItems as page}
 		<ShowHidden isShow={page > 0}>
 			<button
 				on:click={() => onSelectPage(page)}
@@ -130,7 +131,7 @@
 		}
 
 		.active {
-			background-color: var(--color-primary);
+			background-color: var(--color-active);
 			color: #fff;
 		}
 

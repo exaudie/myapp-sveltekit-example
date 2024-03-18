@@ -5,40 +5,8 @@
 	export let dataList: any[];
 
 	let pagingHelper = new NavPagingHelper();
-	let itemsPerPage: number = 5;
-	let totalPage: number = 0;
-	let dataPerPage: any[] = [];
-	let startDataPage: number = 0;
-	let endDataPage: number = 0;
 
-	const setDataPage = (page: number) => {
-		let list: any[] = [];
-
-		const startIdx = (page - 1) * itemsPerPage;
-		startDataPage = startIdx + 1;
-		const endIdx = Math.min(page * itemsPerPage, dataList.length);
-		endDataPage = endIdx;
-
-		for (let i = startIdx; i < endIdx; i++) {
-			if (!dataList[i]) break;
-
-			list = [...list, ...[dataList[i]]];
-		}
-
-		return list;
-	};
-
-	const onSelectPage = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onToFirst = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onToLast = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onPrev = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onNext = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-
-	totalPage = Math.ceil(dataList.length / itemsPerPage);
-
-	pagingHelper.setTotalPage(totalPage).setLengthNavigate(5).withToEnd().buildNavPage();
-
-	dataPerPage = setDataPage(pagingHelper.getCurrentPage);
+	pagingHelper.setDataList({ dataList }).setLengthNavigate(5).buildNavPage();
 </script>
 
 <div class="table-wrap shadow-left-right-scroll">
@@ -52,7 +20,7 @@
 		</thead>
 
 		<tbody>
-			{#each dataPerPage as row}
+			{#each pagingHelper.getDataListPage as row}
 				<tr>
 					{#each row as column}
 						<td>{column.name}</td>
@@ -64,16 +32,12 @@
 </div>
 
 <div class="nav-paging">
-	<p>Showing {startDataPage} to {endDataPage} from {dataList.length} entries</p>
+	<p>
+		Showing {pagingHelper.getStartDataPage} to {pagingHelper.getEndDataPage} from {pagingHelper.getTotalData}
+		entries
+	</p>
 
-	<NavPaging
-		bind:navHelper={pagingHelper}
-		on:SelectPage={onSelectPage}
-		on:Prev={onPrev}
-		on:Next={onNext}
-		on:ToFirst={onToFirst}
-		on:ToLast={onToLast}
-	/>
+	<NavPaging colorActive="#ff5c5c" bind:navHelper={pagingHelper} />
 </div>
 
 <style lang="less">
@@ -86,29 +50,25 @@
 	}
 
 	.shadow-left-right-scroll {
-		background-image: 
-	/* Shadows */
-			linear-gradient(to right, white, white),
-			linear-gradient(to right, white, white),
-			/* Shadow covers */ 
-			linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
-			linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+		/* overflow */
+		overflow-x: auto;
+		width: 50%;
 
-		background-position:
-			left center,
-			right center,
-			left center,
-			right center;
-		background-repeat: no-repeat;
-		background-color: white;
-		background-size:
-			20px 100%,
-			20px 100%,
-			10px 100%,
-			10px 100%;
+		/* shadow */
+		animation: scroll-shadow-inset linear;
+		animation-timeline: scroll(self inline);
+	}
 
-		/* Opera doesn't support this in the shorthand */
-		background-attachment: local, local, scroll, scroll;
+	@keyframes scroll-shadow-inset {
+		/* start with inset shadow on right */
+		from {
+			box-shadow: inset -10px -10px 15px 0px rgb(0 0 0 / 0.3);
+		}
+
+		/* end with inset shadow on left */
+		to {
+			box-shadow: inset 10px -10px 15px 0px rgb(0 0 0 / 0.3);
+		}
 	}
 
 	.table-wrap {
@@ -130,7 +90,7 @@
 					position: sticky;
 					z-index: 91;
 					color: white;
-					background-color: var(--color-primary);
+					background-color: #ff5c5c;
 					box-shadow:
 						inset -1px 0 0 white,
 						inset 0 1px 0 white,

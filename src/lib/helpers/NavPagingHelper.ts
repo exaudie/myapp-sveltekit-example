@@ -2,15 +2,17 @@ export default class NavPagingHelper {
 	private static instance: NavPagingHelper;
 
 	private dataList: object[] = [];
-	private totalPage: number = 1;
+	private dataListPage: object[] = [];
+	private startDataPage: number = 1;
+	private endDataPage: number = 1;
+	private totalData: number = 0;
+
 	private currentPage: number = 1;
+	private totalPage: number = 1;
 	private itemsPerPage: number = 5;
-	private dataListPages: number = 0;
 	private lengthNavigate: number = 5;
-	private startPage: number = 1;
-	private endPage: number = 1;
-	private fixNavLength1: number = 0;
-	private fixNavLength2: number = 0;
+	private startNavPage: number = 1;
+	private endNavPage: number = 1;
 	private navLength: number = 0;
 	private navMedian: number = 0;
 	private navExpanded: number = 0;
@@ -38,10 +40,6 @@ export default class NavPagingHelper {
 		return this;
 	}
 
-	public get getItemsPerPage(): number {
-		return this.itemsPerPage;
-	}
-
 	public setDataList(prm: { dataList: object[] }): this {
 		this.dataList = prm.dataList;
 
@@ -51,29 +49,46 @@ export default class NavPagingHelper {
 	public buildNavPage(): this {
 		this.setDependency();
 		this.generateNav({ page: this.currentPage });
+		this.setDataListPage({ page: this.currentPage });
 
 		return this;
 	}
 
-	public get getItems(): number[] {
+	public get getDataListPage() {
+		return this.dataListPage;
+	}
+
+	public get getStartDataPage(): number {
+		return this.startDataPage;
+	}
+
+	public get getEndDataPage(): number {
+		return this.endDataPage;
+	}
+	public get getTotalData(): number {
+		return this.totalData;
+	}
+
+	public get getNavItems(): number[] {
 		return this.navItems;
 	}
 
 	public set setCurrentPage(page: number) {
 		this.currentPage = page;
 		this.generateNav({ page: this.currentPage });
+		this.setDataListPage({ page: this.currentPage });
 	}
 
 	public get getCurrentPage(): number {
 		return this.currentPage;
 	}
 
-	public get getStartPage(): number {
-		return this.startPage;
+	public get getStartNavPage(): number {
+		return this.startNavPage;
 	}
 
-	public get getEndPage(): number {
-		return this.endPage;
+	public get getEndNavPage(): number {
+		return this.endNavPage;
 	}
 
 	public get getPrevPage(): number {
@@ -93,7 +108,7 @@ export default class NavPagingHelper {
 	}
 
 	public get isToLast(): boolean {
-		return this.currentPage < this.endPage;
+		return this.currentPage < this.endNavPage;
 	}
 
 	public withToEnd(isToEnd?: boolean): this {
@@ -107,47 +122,72 @@ export default class NavPagingHelper {
 	}
 
 	private setDependency() {
-		this.dataListPages = Math.ceil(this.dataList.length / this.itemsPerPage);
-		this.endPage = this.dataList.length > 0 ? this.dataListPages : this.totalPage;
-		this.fixNavLength1 = this.lengthNavigate > this.endPage ? this.endPage : this.lengthNavigate;
-		this.fixNavLength2 = this.fixNavLength1 % 2 === 0 ? this.fixNavLength1 - 1 : this.fixNavLength1;
-		this.isWithDot = (!this.isToEnd && this.fixNavLength2 > 5) || this.isToEnd;
-		this.navLength = this.isWithDot && !this.isToEnd ? this.fixNavLength2 - 2 : this.fixNavLength2;
+		this.totalData = this.dataList.length;
+		const dataListPages: number = Math.ceil(this.totalData / this.itemsPerPage);
+
+		this.endNavPage = this.totalData > 0 ? dataListPages : this.totalPage;
+
+		const fixNavLength1: number =
+			this.lengthNavigate > this.endNavPage ? this.endNavPage : this.lengthNavigate;
+
+		const fixNavLength2: number = fixNavLength1 % 2 === 0 ? fixNavLength1 - 1 : fixNavLength1;
+
+		this.isWithDot = (!this.isToEnd && fixNavLength2 > 5) || (this.isToEnd && fixNavLength2 > 3);
+		this.navLength = this.isWithDot && !this.isToEnd ? fixNavLength2 - 2 : fixNavLength2;
 		this.navMedian = (this.navLength + 1) / 2;
-		this.navExpanded = this.navMedian - this.startPage;
+		this.navExpanded = this.navMedian - this.startNavPage;
+	}
+
+	private setDataListPage(prm: { page: number }): this {
+		let dataList: object[] = [];
+
+		const startIdx = (prm.page - 1) * this.itemsPerPage;
+		this.startDataPage = startIdx + 1;
+		const endIdx = Math.min(prm.page * this.itemsPerPage, this.totalData);
+		this.endDataPage = endIdx;
+
+		for (let i = startIdx; i < endIdx; i++) {
+			if (!this.dataList[i]) break;
+
+			dataList = [...dataList, ...[this.dataList[i]]];
+		}
+
+		this.dataListPage = dataList;
+
+		return this;
 	}
 
 	private generateNav(prm: { page: number }): this {
 		const page: number = prm.page;
 
-		let navList: number[] = this.isWithDot && !this.isToEnd ? [this.startPage] : [];
+		let navList: number[] = this.isWithDot && !this.isToEnd ? [this.startNavPage] : [];
 
 		let startNavCenter: number = this.currentPage - this.navExpanded;
 		let endNavCenter: number = this.currentPage + this.navExpanded;
 
 		if (page <= this.navMedian) {
-			startNavCenter = this.isWithDot && !this.isToEnd ? this.startPage + 1 : this.startPage;
+			startNavCenter = this.isWithDot && !this.isToEnd ? this.startNavPage + 1 : this.startNavPage;
 			endNavCenter = startNavCenter + (this.navLength - 1);
 		}
 
-		if (page > this.endPage - this.navMedian) {
-			endNavCenter = this.isWithDot && !this.isToEnd ? this.endPage - 1 : this.endPage;
+		if (page > this.endNavPage - this.navMedian) {
+			endNavCenter = this.isWithDot && !this.isToEnd ? this.endNavPage - 1 : this.endNavPage;
 			startNavCenter = endNavCenter - (this.navLength - 1);
 		}
 
 		for (let i = startNavCenter; i <= endNavCenter; i++) {
 			let item: number = i;
 
-			const startNavDot = !this.isToEnd ? this.startPage + 1 : this.startPage;
+			const startNavDot = !this.isToEnd ? this.startNavPage + 1 : this.startNavPage;
 			if (this.isWithDot && i === startNavCenter && i !== startNavDot) item = -1;
 
-			const endNavDot = !this.isToEnd ? this.endPage - 1 : this.endPage;
+			const endNavDot = !this.isToEnd ? this.endNavPage - 1 : this.endNavPage;
 			if (this.isWithDot && i === endNavCenter && i !== endNavDot) item = -1;
 
 			navList = [...navList, ...[item]];
 		}
 
-		if (this.isWithDot && !this.isToEnd) navList = [...navList, ...[this.endPage]];
+		if (this.isWithDot && !this.isToEnd) navList = [...navList, ...[this.endNavPage]];
 
 		this.navItems = navList;
 
