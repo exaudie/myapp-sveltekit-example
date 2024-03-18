@@ -7,7 +7,7 @@
 	import PagingOutHelper from './(components)/PagingOutHelper.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 
-	const dataList: any[] = Array.from({ length: 35 }, (_, idx) => {
+	const dataList: any[] = Array.from({ length: 38 }, (_, idx) => {
 		const numRow = idx + 1;
 		return Array.from({ length: 10 }, (_, idx) => {
 			return { name: `${numRow} column ${idx + 1}` };

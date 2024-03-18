@@ -15,13 +15,13 @@
 	};
 
 	const onToFirst = () => {
-		navHelper.setCurrentPage = navHelper.getStartPage;
+		navHelper.setCurrentPage = navHelper.getStartNavPage;
 
 		dispatch('ToFirst', { page: navHelper.getCurrentPage });
 	};
 
 	const onToLast = () => {
-		navHelper.setCurrentPage = navHelper.getEndPage;
+		navHelper.setCurrentPage = navHelper.getEndNavPage;
 
 		dispatch('ToLast', { page: navHelper.getCurrentPage });
 	};
@@ -55,7 +55,7 @@
 		&lt;
 	</button>
 
-	{#each navHelper.getItems as page}
+	{#each navHelper.getNavItems as page}
 		<ShowHidden isShow={page > 0}>
 			<button
 				on:click={() => onSelectPage(page)}

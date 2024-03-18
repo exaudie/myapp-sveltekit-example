@@ -5,38 +5,8 @@
 	export let dataList: any[];
 
 	let pagingHelper = new NavPagingHelper();
-	let itemsPerPage: number = 5;
-	let totalPage: number = 0;
-	let dataPerPage: any[] = [];
-	let startDataPage: number = 0;
-	let endDataPage: number = 0;
 
-	const setDataPage = (page: number) => {
-		let list: any[] = [];
-
-		const startIdx = (page - 1) * itemsPerPage;
-		startDataPage = startIdx + 1;
-		const endIdx = Math.min(page * itemsPerPage, dataList.length);
-		endDataPage = endIdx;
-
-		for (let i = startIdx; i < endIdx; i++) {
-			if (!dataList[i]) break;
-
-			list = [...list, ...[dataList[i]]];
-		}
-
-		return list;
-	};
-
-	const onSelectPage = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onPrev = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onNext = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-
-	totalPage = Math.ceil(dataList.length / itemsPerPage);
-
-	pagingHelper.setTotalPage(totalPage).setLengthNavigate(5).buildNavPage();
-
-	dataPerPage = setDataPage(pagingHelper.getCurrentPage);
+	pagingHelper.setDataList({ dataList }).setLengthNavigate(5).buildNavPage();
 </script>
 
 <div class="table-wrap shadow-left-right-scroll">
@@ -50,7 +20,7 @@
 		</thead>
 
 		<tbody>
-			{#each dataPerPage as row}
+			{#each pagingHelper.getDataListPage as row}
 				<tr>
 					{#each row as column}
 						<td>{column.name}</td>
@@ -62,15 +32,12 @@
 </div>
 
 <div class="nav-paging">
-	<p>Showing {startDataPage} to {endDataPage} from {dataList.length} entries</p>
+	<p>
+		Showing {pagingHelper.getStartDataPage} to {pagingHelper.getEndDataPage} from {pagingHelper.getTotalData}
+		entries
+	</p>
 
-	<NavPaging
-		colorActive="#ff5c5c"
-		bind:navHelper={pagingHelper}
-		on:SelectPage={onSelectPage}
-		on:Prev={onPrev}
-		on:Next={onNext}
-	/>
+	<NavPaging colorActive="#ff5c5c" bind:navHelper={pagingHelper} />
 </div>
 
 <style lang="less">
