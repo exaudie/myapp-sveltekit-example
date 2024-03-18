@@ -111,7 +111,10 @@ export default class NavPagingHelper {
 		this.endPage = this.dataList.length > 0 ? this.dataListPages : this.totalPage;
 		this.fixNavLength1 = this.lengthNavigate > this.endPage ? this.endPage : this.lengthNavigate;
 		this.fixNavLength2 = this.fixNavLength1 % 2 === 0 ? this.fixNavLength1 - 1 : this.fixNavLength1;
-		this.isWithDot = (!this.isToEnd && this.fixNavLength2 > 5) || this.isToEnd;
+
+		this.isWithDot =
+			(!this.isToEnd && this.fixNavLength2 > 5) || (this.isToEnd && this.fixNavLength2 > 3);
+
 		this.navLength = this.isWithDot && !this.isToEnd ? this.fixNavLength2 - 2 : this.fixNavLength2;
 		this.navMedian = (this.navLength + 1) / 2;
 		this.navExpanded = this.navMedian - this.startPage;

@@ -29,14 +29,12 @@
 	};
 
 	const onSelectPage = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onToFirst = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
-	const onToLast = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
 	const onPrev = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
 	const onNext = (evn: CustomEvent) => (dataPerPage = setDataPage(evn?.detail?.page ?? 1));
 
 	totalPage = Math.ceil(dataList.length / itemsPerPage);
 
-	pagingHelper.setTotalPage(totalPage).setLengthNavigate(5).withToEnd().buildNavPage();
+	pagingHelper.setTotalPage(totalPage).setLengthNavigate(5).buildNavPage();
 
 	dataPerPage = setDataPage(pagingHelper.getCurrentPage);
 </script>
@@ -67,12 +65,11 @@
 	<p>Showing {startDataPage} to {endDataPage} from {dataList.length} entries</p>
 
 	<NavPaging
+		colorActive="#ff5c5c"
 		bind:navHelper={pagingHelper}
 		on:SelectPage={onSelectPage}
 		on:Prev={onPrev}
 		on:Next={onNext}
-		on:ToFirst={onToFirst}
-		on:ToLast={onToLast}
 	/>
 </div>
 
@@ -86,29 +83,25 @@
 	}
 
 	.shadow-left-right-scroll {
-		background-image: 
-	/* Shadows */
-			linear-gradient(to right, white, white),
-			linear-gradient(to right, white, white),
-			/* Shadow covers */ 
-			linear-gradient(to right, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0)),
-			linear-gradient(to left, rgba(0, 0, 0, 0.25), rgba(255, 255, 255, 0));
+		/* overflow */
+		overflow-x: auto;
+		width: 50%;
 
-		background-position:
-			left center,
-			right center,
-			left center,
-			right center;
-		background-repeat: no-repeat;
-		background-color: white;
-		background-size:
-			20px 100%,
-			20px 100%,
-			10px 100%,
-			10px 100%;
+		/* shadow */
+		animation: scroll-shadow-inset linear;
+		animation-timeline: scroll(self inline);
+	}
 
-		/* Opera doesn't support this in the shorthand */
-		background-attachment: local, local, scroll, scroll;
+	@keyframes scroll-shadow-inset {
+		/* start with inset shadow on right */
+		from {
+			box-shadow: inset -10px -10px 15px 0px rgb(0 0 0 / 0.3);
+		}
+
+		/* end with inset shadow on left */
+		to {
+			box-shadow: inset 10px -10px 15px 0px rgb(0 0 0 / 0.3);
+		}
 	}
 
 	.table-wrap {
@@ -130,7 +123,7 @@
 					position: sticky;
 					z-index: 91;
 					color: white;
-					background-color: var(--color-primary);
+					background-color: #ff5c5c;
 					box-shadow:
 						inset -1px 0 0 white,
 						inset 0 1px 0 white,

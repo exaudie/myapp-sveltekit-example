@@ -5,6 +5,7 @@
 	export let navHelper: NavButtonHelper;
 	export let isAutoNav: boolean = true;
 	export let isBold: boolean = true;
+	export let isFitLabel: boolean = false;
 	export let fontSize: string | '16px' = '16px';
 	export let paddingBtn: string | '8px 16px' = '0.5em 1em';
 	export let colorBtn: string | '#0d6efd' | '#dc3545' = 'var(--color-primary)';
@@ -24,7 +25,8 @@
 	style="--gap:{gap}; 
 				--font-size:{fontSize};
 				--padding-btn:{paddingBtn};
-				--color-btn:{colorBtn};"
+				--color-btn:{colorBtn};
+				--width-btn:{isFitLabel ? 'fit-content' : '100%'};"
 >
 	{#each navHelper.getItems as item}
 		{@const isEnabled = item?.enabled ?? true}
@@ -71,7 +73,7 @@
 		background-color: #f8f9fa;
 		padding: var(--padding-btn) !important;
 		min-width: fit-content;
-		width: 100%;
+		width: var(--width-btn);
 		border-radius: 8px;
 		transition: 0.2s ease-in;
 
