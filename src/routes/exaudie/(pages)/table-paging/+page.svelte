@@ -21,7 +21,9 @@
 
 	const tabItems = [
 		{ label: 'PagingInHelper', value: 1 },
-		{ label: 'PagingOutHelper', value: 2 }
+		{ label: 'PagingOutHelper', value: 2 },
+		{ label: 'NavPaging1', value: 3 },
+		{ label: 'NavPaging2', value: 4 }
 	];
 
 	let navHelper = new NavButtonHelper().setItems({

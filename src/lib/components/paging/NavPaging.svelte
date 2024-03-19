@@ -107,6 +107,7 @@
 		.page-item,
 		.separator {
 			background: transparent;
+			color: var(--text-primary);
 			display: flex;
 			justify-content: center;
 			align-items: center;
@@ -132,7 +133,7 @@
 
 		.active {
 			background-color: var(--color-active);
-			color: #fff;
+			color: white;
 		}
 
 		.sides {
@@ -154,9 +155,15 @@
 			all: unset;
 			cursor: pointer;
 
+			&:active {
+				color: white;
+				background-color: var(--color-active);
+			}
+
 			&.sides:disabled {
 				cursor: default;
 				background-color: rgba(128, 128, 128, 0.2);
+				color: var(--text-primary);
 				box-shadow: none;
 			}
 		}

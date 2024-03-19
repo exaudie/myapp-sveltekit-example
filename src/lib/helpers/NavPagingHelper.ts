@@ -17,6 +17,7 @@ export default class NavPagingHelper {
 	private navMedian: number = 0;
 	private navExpanded: number = 0;
 	private isWithDot: boolean = false;
+	private isWithToEndNum: boolean = false;
 	private isShowToEnd: boolean = false;
 	private navItems: number[] = [];
 
@@ -132,8 +133,10 @@ export default class NavPagingHelper {
 
 		const fixNavLength2: number = fixNavLength1 % 2 === 0 ? fixNavLength1 - 1 : fixNavLength1;
 
-		this.isWithDot = (!this.isToEnd && fixNavLength2 > 5) || (this.isToEnd && fixNavLength2 > 3);
-		this.navLength = this.isWithDot && !this.isToEnd ? fixNavLength2 - 2 : fixNavLength2;
+		this.isWithDot = fixNavLength2 > 3;
+		this.isWithToEndNum = !this.isToEnd && fixNavLength2 > 5;
+
+		this.navLength = this.isWithToEndNum ? fixNavLength2 - 2 : fixNavLength2;
 		this.navMedian = (this.navLength + 1) / 2;
 		this.navExpanded = this.navMedian - this.startNavPage;
 	}
@@ -160,34 +163,36 @@ export default class NavPagingHelper {
 	private generateNav(prm: { page: number }): this {
 		const page: number = prm.page;
 
-		let navList: number[] = this.isWithDot && !this.isToEnd ? [this.startNavPage] : [];
+		let navList: number[] = this.isWithToEndNum && !this.isToEnd ? [this.startNavPage] : [];
 
 		let startNavCenter: number = this.currentPage - this.navExpanded;
 		let endNavCenter: number = this.currentPage + this.navExpanded;
 
 		if (page <= this.navMedian) {
-			startNavCenter = this.isWithDot && !this.isToEnd ? this.startNavPage + 1 : this.startNavPage;
+			startNavCenter =
+				this.isWithToEndNum && !this.isToEnd ? this.startNavPage + 1 : this.startNavPage;
+
 			endNavCenter = startNavCenter + (this.navLength - 1);
 		}
 
 		if (page > this.endNavPage - this.navMedian) {
-			endNavCenter = this.isWithDot && !this.isToEnd ? this.endNavPage - 1 : this.endNavPage;
+			endNavCenter = this.isWithToEndNum && !this.isToEnd ? this.endNavPage - 1 : this.endNavPage;
 			startNavCenter = endNavCenter - (this.navLength - 1);
 		}
 
 		for (let i = startNavCenter; i <= endNavCenter; i++) {
 			let item: number = i;
 
-			const startNavDot = !this.isToEnd ? this.startNavPage + 1 : this.startNavPage;
+			const startNavDot = this.isWithToEndNum ? this.startNavPage + 1 : this.startNavPage;
 			if (this.isWithDot && i === startNavCenter && i !== startNavDot) item = -1;
 
-			const endNavDot = !this.isToEnd ? this.endNavPage - 1 : this.endNavPage;
+			const endNavDot = this.isWithToEndNum ? this.endNavPage - 1 : this.endNavPage;
 			if (this.isWithDot && i === endNavCenter && i !== endNavDot) item = -1;
 
 			navList = [...navList, ...[item]];
 		}
 
-		if (this.isWithDot && !this.isToEnd) navList = [...navList, ...[this.endNavPage]];
+		if (this.isWithToEndNum && !this.isToEnd) navList = [...navList, ...[this.endNavPage]];
 
 		this.navItems = navList;
 
