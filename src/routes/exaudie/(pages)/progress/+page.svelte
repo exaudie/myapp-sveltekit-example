@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { cubicOut } from 'svelte/easing';
 	import { tweened } from 'svelte/motion';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 
 	const progress = tweened(0, {
 		duration: 400,

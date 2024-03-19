@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { isEmptyTo } from '$lib/helpers/DefaultValue';
 	import LabelTop from '$lib/components/LabelTop.svelte';
-	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
+	import GridLayoutThreeColumn from '$lib/components/layout-style/GridLayoutThreeColumn.svelte';
 	import InputNegativeDisplay from '$lib/components/input/InputNegativeDisplay.svelte';
 
 	let value1: string = '';

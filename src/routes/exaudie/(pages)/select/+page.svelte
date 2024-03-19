@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { getMonthList } from '$lib/helpers/DateFormatter';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import Select from '$lib/components/select/Select.svelte';
 	import SelectClassic from '$lib/components/select/SelectClassic.svelte';
 	import SelectMinimal from '$lib/components/select/SelectMinimal.svelte';

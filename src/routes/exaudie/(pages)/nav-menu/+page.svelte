@@ -6,7 +6,7 @@
 	import TabBar from '$lib/components/tabs/TabBar.svelte';
 	import NavButtonHelper from '$lib/helpers/NavButtonHelper';
 	import TabBarHelper from '$lib/helpers/TabBarHelper';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import NavPaging from '$lib/components/paging/NavPaging.svelte';
 	import NavPagingHelper from '$lib/helpers/NavPagingHelper';

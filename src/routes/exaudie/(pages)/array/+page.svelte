@@ -1,6 +1,6 @@
 <script lang="ts">
 	import LabelTop from '$lib/components/LabelTop.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 
 	type ObjSort = { numb: number; name: string };
 

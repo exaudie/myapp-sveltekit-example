@@ -3,7 +3,7 @@
 	import { isEmptyTo } from '$lib/helpers/DefaultValue';
 	import HeaderAction from '$lib/components/HeaderAction.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 
 	export let datas: SocialMedia[];

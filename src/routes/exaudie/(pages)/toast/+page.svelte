@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { toastNotify } from '$lib/stores/ToastNotifyStore';
 	import Button from '$lib/components/button/Button.svelte';
-	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
+	import GridLayoutThreeColumn from '$lib/components/layout-style/GridLayoutThreeColumn.svelte';
 
 	const onSuccess = () => toastNotify.success({ message: 'Toast success' });
 
