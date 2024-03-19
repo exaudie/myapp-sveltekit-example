@@ -1,5 +1,6 @@
 <script lang="ts">
 	import NavPaging from '$lib/components/paging/NavPaging.svelte';
+	import NavPagingInfoShowing from '$lib/components/paging/NavPagingInfoShowing.svelte';
 	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
 
 	type Daata = { name?: string; ggg?: string };
@@ -33,14 +34,7 @@
 	</table>
 </div>
 
-<div class="nav-paging">
-	<p>
-		Showing {pagingHelper.getStartDataPage} to {pagingHelper.getEndDataPage} from
-		{pagingHelper.getTotalData} entries
-	</p>
-
-	<NavPaging colorActive="#ff5c5c" bind:navHelper={pagingHelper} />
-</div>
+<NavPagingInfoShowing colorActive="#ff5c5c" bind:navHelper={pagingHelper} />
 
 <style lang="less">
 	* {
@@ -150,20 +144,6 @@
 					position: sticky;
 				}
 			}
-		}
-	}
-
-	.nav-paging {
-		display: flex;
-		justify-content: space-between;
-		padding: 0.5em 0;
-
-		p {
-			width: 100%;
-		}
-
-		& :global(.pagination) {
-			justify-content: end;
 		}
 	}
 </style>
