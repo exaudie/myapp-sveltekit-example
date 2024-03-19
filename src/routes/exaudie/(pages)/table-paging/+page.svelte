@@ -7,11 +7,16 @@
 	import PagingOutHelper from './(components)/PagingOutHelper.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 
-	const dataList: any[] = Array.from({ length: 38 }, (_, idx) => {
-		const numRow = idx + 1;
-		return Array.from({ length: 10 }, (_, idx) => {
-			return { name: `${numRow} column ${idx + 1}` };
-		});
+	const dataList = Array.from({ length: 38 }, (_, idx) => {
+		const numRow: number = idx + 1;
+
+		let column = new Map<string, any>();
+
+		for (let i = 1; i <= 10; i++) {
+			column.set(`field${i}`, `row${numRow} col${i} `);
+		}
+
+		return Object.fromEntries(column);
 	});
 
 	const tabItems = [

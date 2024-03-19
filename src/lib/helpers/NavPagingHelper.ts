@@ -1,8 +1,8 @@
 export default class NavPagingHelper {
 	private static instance: NavPagingHelper;
 
-	private dataList: object[] = [];
-	private dataListPage: object[] = [];
+	private dataList: DataList[] = [];
+	private dataListPage: DataList[] = [];
 	private startDataPage: number = 1;
 	private endDataPage: number = 1;
 	private totalData: number = 0;
@@ -40,7 +40,7 @@ export default class NavPagingHelper {
 		return this;
 	}
 
-	public setDataList(prm: { dataList: object[] }): this {
+	public setDataList(prm: { dataList: DataList[] }): this {
 		this.dataList = prm.dataList;
 
 		return this;
@@ -54,7 +54,7 @@ export default class NavPagingHelper {
 		return this;
 	}
 
-	public get getDataListPage() {
+	public get getDataListPage(): DataList[] {
 		return this.dataListPage;
 	}
 
@@ -139,7 +139,7 @@ export default class NavPagingHelper {
 	}
 
 	private setDataListPage(prm: { page: number }): this {
-		let dataList: object[] = [];
+		let dataList: DataList[] = [];
 
 		const startIdx = (prm.page - 1) * this.itemsPerPage;
 		this.startDataPage = startIdx + 1;
@@ -194,3 +194,5 @@ export default class NavPagingHelper {
 		return this;
 	}
 }
+
+type DataList = Record<string, string | number | boolean | null | undefined>;
