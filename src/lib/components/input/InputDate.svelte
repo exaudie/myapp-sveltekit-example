@@ -16,7 +16,7 @@
 	export let isErrorReactive: boolean = false;
 	export let isError: boolean = false;
 	export let errorMessage: string = '';
-	export let onValidate = (value: string): ValidateType => ({ isError: false, errorMessage: '' });
+	export let onValidate = (value: string): ValidateType | null => null;
 
 	const dispatch = createEventDispatcher();
 
@@ -28,7 +28,12 @@
 	};
 	const onBlur = () => dispatch('Blur');
 
-	$: if (isErrorReactive) ({ isError, errorMessage } = onValidate(value));
+	const parseValidate = () => {
+		const valid: ValidateType | null = onValidate(value);
+		if (valid != null) ({ isError, errorMessage } = valid);
+	};
+
+	$: if (isErrorReactive) parseValidate();
 </script>
 
 <div class="input-customize">

@@ -138,13 +138,18 @@
 
 	<FormLeftTitle>
 		<div class="btn-wrap">
-			<Button label="cancel" isOutline={true} />
-			<Button label="save" />
+			<div class="item1">
+				<Button label="cancel" isOutline={true} />
+			</div>
+
+			<div class="item2">
+				<Button label="save" />
+			</div>
 		</div>
 	</FormLeftTitle>
 </main>
 
-<style>
+<style lang="less">
 	* {
 		margin: 0;
 		padding: 0;
@@ -160,8 +165,25 @@
 	}
 
 	.btn-wrap {
-		display: flex;
-		justify-content: end;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		grid-template-areas: '. item1 item2';
 		gap: 1em;
+
+		.item1 {
+			grid-area: item1;
+		}
+
+		.item2 {
+			grid-area: item2;
+		}
+	}
+
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		.btn-wrap {
+			grid-template-columns: repeat(2, 1fr);
+			grid-template-areas: 'item1 item2';
+		}
 	}
 </style>

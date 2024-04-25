@@ -76,6 +76,7 @@
 	}
 
 	button {
+		width: 100%;
 		flex-grow: 1;
 		cursor: pointer;
 		color: white;

@@ -31,7 +31,7 @@
 	{required}
 	{disabled}
 	bind:value
-	class="customize"
+	class="customize arrow"
 	class:read-only={readonly}
 	class:error-border={isError}
 	class:empty-value={value === ''}
@@ -53,6 +53,7 @@
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
+
 		font-family: var(--font-body);
 	}
 
@@ -64,11 +65,45 @@
 			border: 1px solid rgba(128, 128, 128, 0.5);
 			border-radius: 4px;
 			padding: 0.7em 1em;
+			outline: none;
 
 			text-overflow: ellipsis;
 			color: var(--text-primary);
 			text-align: var(--value-align);
 			font-size: 1em;
+		}
+
+		&.arrow {
+			-webkit-appearance: none;
+			-moz-appearance: none;
+			appearance: none;
+			background-image: linear-gradient(45deg, transparent 50%, black 50%),
+				linear-gradient(135deg, black 50%, transparent 50%),
+				linear-gradient(to right, transparent, transparent);
+			background-position:
+				calc(100% - 20px) calc(1em + 2px),
+				calc(100% - 15px) calc(1em + 2px),
+				100% 0;
+			background-size:
+				5px 5px,
+				5px 5px,
+				2.5em 2.5em;
+			background-repeat: no-repeat;
+
+			&:active {
+				background-image: linear-gradient(45deg, black 50%, transparent 50%),
+					linear-gradient(135deg, transparent 50%, black 50%),
+					linear-gradient(to right, transparent, transparent);
+				background-position:
+					calc(100% - 15px) 1em,
+					calc(100% - 20px) 1em,
+					100% 0;
+				background-size:
+					5px 5px,
+					5px 5px,
+					2.5em 2.5em;
+				background-repeat: no-repeat;
+			}
 		}
 
 		& :global(option) {
@@ -84,7 +119,6 @@
 
 		&:focus,
 		&:hover {
-			outline: none;
 			border-color: royalblue;
 		}
 

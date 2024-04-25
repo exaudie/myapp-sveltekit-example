@@ -1,5 +1,4 @@
 <script lang="ts">
-	import NavPaging from '$lib/components/paging/NavPaging.svelte';
 	import NavPagingInfoShowing from '$lib/components/paging/NavPagingInfoShowing.svelte';
 	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
 
