@@ -1,5 +1,5 @@
 <script lang="ts">
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 
 	import Select from '$lib/components/select/Select.svelte';
 	import SvelteIcon from '$lib/images/svelte-logo.svg';

@@ -3,7 +3,7 @@
 	import HeaderExpand from '$lib/components/HeaderExpand.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
 	import PrefixField from '$lib/components/input/PrefixField.svelte';

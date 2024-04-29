@@ -9,7 +9,7 @@
 	import { isEmptyTo } from '$lib/helpers/DefaultValue';
 	import LabelTopLeft from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
+	import GridLayoutThreeColumn from '$lib/components/layout-style/GridLayoutThreeColumn.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
 
 	let dateValue: string = '';

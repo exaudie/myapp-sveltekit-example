@@ -7,7 +7,7 @@
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import Button from '$lib/components/button/Button.svelte';
-	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
+	import GridLayoutThreeColumn from '$lib/components/layout-style/GridLayoutThreeColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 
 	let inputValue = { store: '', derived: '', localStorage: '', sessionStorage: '' };

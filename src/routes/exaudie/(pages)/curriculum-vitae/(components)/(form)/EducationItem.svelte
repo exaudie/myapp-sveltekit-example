@@ -3,7 +3,7 @@
 	import { createEventDispatcher } from 'svelte';
 	import HeaderAction from '$lib/components/HeaderAction.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
 	import TextArea from '$lib/components/input/TextArea.svelte';

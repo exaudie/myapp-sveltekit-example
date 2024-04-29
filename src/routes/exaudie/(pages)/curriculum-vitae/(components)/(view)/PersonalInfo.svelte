@@ -4,7 +4,7 @@
 	import { dateddmmmmyyyyCust } from '$lib/helpers/DateFormatter';
 	import HeaderAction from '$lib/components/HeaderAction.svelte';
 	import { isEmptyTo } from '$lib/helpers/DefaultValue';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 
 	export let data: PersonalInfo;

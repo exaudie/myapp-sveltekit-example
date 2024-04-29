@@ -62,15 +62,18 @@
 	}
 
 	input {
-		background-color: white;
-		border-radius: 4px;
-		border: 1px solid rgba(128, 128, 128, 0.5);
-		color: var(--text-primary);
-		padding: 0.7em 1em;
-		text-overflow: ellipsis;
-		flex-grow: 1;
-		text-align: var(--value-align);
-		font-size: 1em;
+		&.customize {
+			width: 100%;
+			background-color: white;
+			border: 1px solid rgba(128, 128, 128, 0.5);
+			border-radius: 4px;
+			padding: 0.7em 1em;
+
+			color: var(--text-primary);
+			text-overflow: ellipsis;
+			text-align: var(--value-align);
+			font-size: 1em;
+		}
 
 		&::placeholder {
 			color: var(--text-secondary);

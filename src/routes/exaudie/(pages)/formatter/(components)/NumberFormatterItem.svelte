@@ -8,9 +8,9 @@
 	} from '$lib/helpers/NumberFormatter';
 	import LabelTopLeft from '$lib/components/LabelTop.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
-	import GridLayoutTwoColumn from '$lib/components/grid/GridLayoutTwoColumn.svelte';
+	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import InputNumber from '$lib/components/input/InputNumber.svelte';
-	import GridLayoutThreeColumn from '$lib/components/grid/GridLayoutThreeColumn.svelte';
+	import GridLayoutThreeColumn from '$lib/components/layout-style/GridLayoutThreeColumn.svelte';
 
 	const initialValDot = '-13500000.25';
 
