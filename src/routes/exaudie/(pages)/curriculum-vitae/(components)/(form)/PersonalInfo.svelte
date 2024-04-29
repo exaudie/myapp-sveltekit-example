@@ -7,7 +7,7 @@
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
 	import PrefixField from '$lib/components/input/PrefixField.svelte';
-	import TextArea from '$lib/components/input/TextArea.svelte';
+	import TextArea from '$lib/components/input/TextAreaBasic.svelte';
 	import SvelteIcon from '$lib/images/svelte-logo.svg';
 
 	export let scheme: PersonalInfoScheme;

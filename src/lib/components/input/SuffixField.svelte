@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { createEventDispatcher } from 'svelte';
 	import Clicker from '../clicker/Clicker.svelte';
+	import ShowHidden from '../ShowHidden.svelte';
 
 	export let suffixOpacity: string = '1';
 	export let suffixIcon: string = '';
@@ -20,21 +21,25 @@
 	<slot />
 
 	<div class="suffix-wrap" style="--suffix-opacity:{suffixOpacity}" bind:offsetWidth={widthSuffix}>
-		<Clicker replaceClick={withClick} on:onClick={onClick}>
-			<img src={suffixIcon} alt="suffix" class:display-none={suffixIcon === ''} />
-			<span
-				class="suffix-text"
-				class:display-none={suffixIcon !== '' && suffixText !== ''}
-				class:text-bold={suffixBold}
-				style="--suffix-text-color:{suffixTextColor};"
-			>
-				{suffixText}
-			</span>
+		<Clicker replaceClick={withClick} on:Click={onClick}>
+			<ShowHidden isShow={suffixIcon !== ''}>
+				<img src={suffixIcon} alt="suffix" />
+			</ShowHidden>
+
+			<ShowHidden isShow={suffixIcon === '' && suffixText !== ''}>
+				<span
+					class="suffix-text"
+					class:text-bold={suffixBold}
+					style="--suffix-text-color:{suffixTextColor};"
+				>
+					{suffixText}
+				</span>
+			</ShowHidden>
 		</Clicker>
 	</div>
 </div>
 
-<style>
+<style lang="less">
 	* {
 		margin: 0;
 		padding: 0;
@@ -43,14 +48,15 @@
 		box-sizing: border-box;
 	}
 
-	.display-none {
-		display: none !important;
-	}
-
 	.suffix-customize {
 		position: relative;
 		display: flex;
 		flex-grow: 1;
+
+		& :global(input),
+		& :global(textarea) {
+			padding-right: calc(var(--padding-right) * 1px) !important;
+		}
 	}
 
 	.suffix-wrap {
@@ -58,21 +64,13 @@
 		padding: 12px 10px 12px 5px;
 		top: 0;
 		right: 0;
-	}
-
-	.suffix-wrap {
 		opacity: var(--suffix-opacity);
-	}
 
-	.suffix-wrap img {
-		display: block;
-		width: 1.2em;
-		height: 1.2em;
-	}
-
-	.suffix-customize :global(input),
-	.suffix-customize :global(textarea) {
-		padding-right: calc(var(--padding-right) * 1px) !important;
+		img {
+			display: block;
+			width: 1.2em;
+			height: 1.2em;
+		}
 	}
 
 	.suffix-text {

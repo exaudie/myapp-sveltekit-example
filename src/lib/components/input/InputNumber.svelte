@@ -1,8 +1,9 @@
 <script lang="ts">
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { removeSeparator, setIntlThousandSeparator } from '$lib/helpers/NumberFormatter';
-	import { createEventDispatcher } from 'svelte';
+	import { createEventDispatcher, onMount } from 'svelte';
 	import InputBasic from './InputBasic.svelte';
+	import type { ValidateType } from '$lib/types/ValidateType';
 
 	export let type: HTMLInputElement['type'] = 'text';
 	export let id: string = '';
@@ -21,7 +22,10 @@
 	export let withSeparator: boolean = false;
 	export let separator: '.' | ',' = '.';
 	export let toFixed: number = 2;
+	export let isErrorReactive: boolean = false;
 	export let isError: boolean = false;
+	export let errorMessage: string = '';
+	export let onValidate = (value: string): ValidateType => ({ isError: false, errorMessage: '' });
 
 	const decimal = separator == '.' ? ',' : '.';
 	const patternNeg = new RegExp(`^[-]`);
@@ -80,15 +84,17 @@
 	};
 
 	const onInput = () => {
+		dispatch('Input');
+
 		value = setNominalOnly(value);
 		value = setIsMaxNum(value);
 		value = withSeparator ? setToSpar(value) : value;
-
-		dispatch('Input');
 	};
 
 	const onFocus = () => {
 		dispatch('Focus');
+
+		isErrorReactive = true;
 	};
 
 	const onBlur = () => dispatch('Blur');
@@ -100,7 +106,9 @@
 		dispatch('Keypress', evn);
 	};
 
-	value = withSeparator ? setToSpar(value) : value;
+	$: if (isErrorReactive) ({ isError, errorMessage } = onValidate(value));
+
+	onMount(() => (value = withSeparator ? setToSpar(value) : value));
 </script>
 
 <div class="input-customize">
@@ -120,8 +128,8 @@
 		bind:value
 		bind:isError
 		on:Input={onInput}
-		on:focus={onFocus}
-		on:blur={onBlur}
+		on:Focus={onFocus}
+		on:Blur={onBlur}
 		on:Keypress={(evn) => onKeypress(evn)}
 	/>
 </div>

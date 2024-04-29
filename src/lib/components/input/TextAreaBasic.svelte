@@ -1,26 +1,38 @@
 <script lang="ts">
-	import { createEventDispatcher } from 'svelte';
 	import type { HTMLInputAttributes } from 'svelte/elements';
+	import { createEventDispatcher } from 'svelte';
 
 	export let id: string = '';
 	export let name: string = '';
 	export let placeholder: string = '';
 	export let autocomplete: string = 'off';
 	export let value: string;
+	export let rows: number | null = null;
 	export let valueAlign: 'start' | 'end' | 'center' = 'start';
 	export let required: boolean = false;
 	export let disabled: boolean = false;
 	export let readonly: boolean = false;
 	export let maxlength: HTMLInputAttributes['maxlength'] = null;
+	export let maxHeight: string = 'none';
+	export let autoHeight: boolean = false;
 	export let isError: boolean = false;
 
-	const dispatch = createEventDispatcher();
+	let scrollHeight: number;
 
-	let heightArea: number;
+	const dispatch = createEventDispatcher();
 
 	const onInput = () => dispatch('Input');
 	const onFocus = () => dispatch('Focus');
 	const onBlur = () => dispatch('Blur');
+
+	const onKeyup = (e: Event) => {
+		if (!autoHeight) return;
+
+		const target = e.target as HTMLElement;
+		target.style.height = 'auto';
+		scrollHeight = target.scrollHeight;
+		target.style.height = `${scrollHeight + 1.4}px`;
+	};
 </script>
 
 <textarea
@@ -31,21 +43,20 @@
 	{required}
 	{disabled}
 	{readonly}
+	{rows}
 	{maxlength}
-	autocorrect="off"
 	bind:value
 	class="customize"
 	class:error-border={isError}
-	style="--value-align:{valueAlign};"
+	style="--value-align:{valueAlign};
+				--max-height:{maxHeight};"
 	on:input={onInput}
 	on:focus={onFocus}
 	on:blur={onBlur}
-	on:resize={(e) => {
-		console.log('e', e);
-	}}
+	on:keyup={onKeyup}
 />
 
-<style>
+<style lang="less">
 	* {
 		margin: 0;
 		padding: 0;
@@ -56,17 +67,19 @@
 	}
 
 	textarea {
-		background-color: white;
-		flex-grow: 1;
-		border-radius: 4px;
-		border: 1px solid rgba(128, 128, 128, 0.5);
-		color: var(--text-primary);
-		padding: 0.7em 1em;
-		text-overflow: ellipsis;
-		text-align: var(--value-align);
-		resize: none;
-		font-size: 1em;
-		/* height: calc(var(--height-area) * 1px) !important; */
+		&.customize {
+			width: 100%;
+			max-height: var(--max-height);
+			border-radius: 4px;
+			padding: 0.7em 1em;
+			border: 1px solid rgba(128, 128, 128, 0.5);
+			resize: none;
+			outline: none;
+			scrollbar-width: thin;
+
+			color: var(--text-primary);
+			font-size: 1em;
+		}
 
 		&::placeholder {
 			color: var(--text-secondary);
@@ -74,17 +87,20 @@
 		}
 
 		&:focus {
-			outline: none;
-			border: 1px solid royalblue;
+			border-color: royalblue;
+		}
+
+		&::-webkit-scrollbar {
+			width: 0;
 		}
 
 		&:read-only,
 		&:disabled {
 			background-color: rgba(128, 128, 128, 0.3);
 		}
-	}
 
-	.error-border {
-		border: 1px solid red;
+		&.error-border {
+			border-color: var(--danger-state);
+		}
 	}
 </style>

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import ShowHidden from '../ShowHidden.svelte';
+
 	export let prefixOpacity: string = '1';
 	export let prefixIcon: string = '';
 	export let prefixText: string = '';
@@ -12,19 +14,23 @@
 	<slot />
 
 	<div class="prefix-wrap" style="--prefix-opacity:{prefixOpacity}" bind:offsetWidth={widthPrefix}>
-		<img src={prefixIcon} alt="prefix" class:display-none={prefixIcon === ''} />
-		<span
-			class="prefix-text"
-			class:display-none={prefixIcon !== '' && prefixText !== ''}
-			class:text-bold={prefixBold}
-			style="--prefix-text-color:{prefixTextColor};"
-		>
-			{prefixText}
-		</span>
+		<ShowHidden isShow={prefixIcon !== ''}>
+			<img src={prefixIcon} alt="prefix" />
+		</ShowHidden>
+
+		<ShowHidden isShow={prefixIcon === '' && prefixText !== ''}>
+			<span
+				class="prefix-text"
+				class:text-bold={prefixBold}
+				style="--prefix-text-color:{prefixTextColor};"
+			>
+				{prefixText}
+			</span>
+		</ShowHidden>
 	</div>
 </div>
 
-<style>
+<style lang="less">
 	* {
 		margin: 0;
 		padding: 0;
@@ -33,14 +39,15 @@
 		box-sizing: border-box;
 	}
 
-	.display-none {
-		display: none !important;
-	}
-
 	.prefix-customize {
 		position: relative;
 		display: flex;
 		flex-grow: 1;
+
+		& :global(input),
+		& :global(textarea) {
+			padding-left: calc(var(--padding-left) * 1px) !important;
+		}
 	}
 
 	.prefix-wrap {
@@ -48,21 +55,13 @@
 		padding: 12px 5px 12px 10px;
 		top: 0;
 		left: 0;
-	}
-
-	.prefix-wrap {
 		opacity: var(--prefix-opacity);
-	}
 
-	.prefix-wrap img {
-		display: block;
-		width: 1.2em;
-		height: 1.2em;
-	}
-
-	.prefix-customize :global(input),
-	.prefix-customize :global(textarea) {
-		padding-left: calc(var(--padding-left) * 1px) !important;
+		img {
+			display: block;
+			width: 1.2em;
+			height: 1.2em;
+		}
 	}
 
 	.prefix-text {

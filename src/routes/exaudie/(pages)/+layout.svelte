@@ -41,7 +41,7 @@
 	}
 
 	main {
-		height: 65vh;
+		height: 63vh;
 		overflow: auto;
 		background-color: rgba(245, 245, 245, 0.3);
 		padding: 1em;

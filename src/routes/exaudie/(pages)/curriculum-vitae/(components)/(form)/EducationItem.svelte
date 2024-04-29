@@ -6,7 +6,7 @@
 	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import InputBasic from '$lib/components/input/InputBasic.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
-	import TextArea from '$lib/components/input/TextArea.svelte';
+	import TextArea from '$lib/components/input/TextAreaBasic.svelte';
 	import DeleteIcon from '$lib/images/icon/delete_icon.svg';
 
 	export let indexScheme: number;

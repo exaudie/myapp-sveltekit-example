@@ -69,8 +69,8 @@
 			border-radius: 4px;
 			padding: 0.7em 1em;
 
-			color: var(--text-primary);
 			text-overflow: ellipsis;
+			color: var(--text-primary);
 			text-align: var(--value-align);
 			font-size: 1em;
 		}
@@ -80,18 +80,19 @@
 			opacity: 1;
 		}
 
-		&:focus {
+		&:focus,
+		&:hover {
 			outline: none;
-			border: 1px solid royalblue;
+			border-color: royalblue;
 		}
 
 		&:read-only,
 		&:disabled {
 			background-color: rgba(128, 128, 128, 0.3);
 		}
-	}
 
-	.error-border {
-		border: 1px solid red;
+		&.error-border {
+			border-color: var(--danger-state);
+		}
 	}
 </style>
