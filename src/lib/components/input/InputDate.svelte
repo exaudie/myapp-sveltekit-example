@@ -2,6 +2,7 @@
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createEventDispatcher } from 'svelte';
 	import InputBasic from './InputBasic.svelte';
+	import type { ValidateType } from '$lib/types/ValidateType';
 
 	export let type: 'date' | 'week' | 'time' | 'month' = 'date';
 	export let id: string = '';
@@ -12,16 +13,22 @@
 	export let required: boolean = false;
 	export let disabled: boolean = false;
 	export let readonly: boolean = false;
-	export let maxlength: HTMLInputAttributes['maxlength'] = null;
-	export let max: HTMLInputAttributes['max'] = null;
-	export let min: HTMLInputAttributes['min'] = null;
+	export let isErrorReactive: boolean = false;
 	export let isError: boolean = false;
+	export let errorMessage: string = '';
+	export let onValidate = (value: string): ValidateType => ({ isError: false, errorMessage: '' });
 
 	const dispatch = createEventDispatcher();
 
 	const onInput = () => dispatch('Input');
-	const onFocus = () => dispatch('Focus');
+	const onFocus = () => {
+		dispatch('Focus');
+
+		isErrorReactive = true;
+	};
 	const onBlur = () => dispatch('Blur');
+
+	$: if (isErrorReactive) ({ isError, errorMessage } = onValidate(value));
 </script>
 
 <div class="input-customize">
@@ -34,14 +41,11 @@
 		{required}
 		{disabled}
 		{readonly}
-		{maxlength}
-		{max}
-		{min}
 		bind:value
 		bind:isError
 		on:Input={onInput}
-		on:focus={onFocus}
-		on:blur={onBlur}
+		on:Focus={onFocus}
+		on:Blur={onBlur}
 	/>
 </div>
 

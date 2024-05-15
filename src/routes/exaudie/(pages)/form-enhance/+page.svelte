@@ -7,10 +7,11 @@
 
 	let navHelper: TabBarHelper = new TabBarHelper();
 	navHelper.setItems({
-		navItems: Array.from({ length: 3 }, (_, idx) => idx + 1).map((v) => ({
-			label: 'Form' + v,
-			value: v
-		}))
+		navItems: [
+			{ label: 'Form Basic', value: 1 },
+			{ label: 'Form Validation', value: 2 },
+			{ label: 'Form Enhance', value: 3 }
+		]
 	});
 	navHelper.setActive = 1;
 </script>
@@ -20,3 +21,25 @@
 
 	<ShowHidden isShow={navHelper.getActive === 2}><Form2 /></ShowHidden>
 </TabBar>
+
+<style>
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+	}
+
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+	}
+
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+	}
+
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+	}
+
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+	}
+</style>
