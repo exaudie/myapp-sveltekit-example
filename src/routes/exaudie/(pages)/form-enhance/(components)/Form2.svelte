@@ -11,6 +11,7 @@
 	import SuffixField from '$lib/components/input/SuffixField.svelte';
 	import FormLeftTitle from '$lib/components/layout-style/form-left-title/FormLeftTitle.svelte';
 	import FormRightGrid from '$lib/components/layout-style/form-left-title/FormRightGrid.svelte';
+	import moment from 'moment';
 
 	type FormSchemeType = {
 		firstName: InputFieldScheme;
@@ -64,6 +65,8 @@
 			formScheme = setError({ form: formScheme, err: errMsg });
 		}
 	};
+
+	$: formScheme.age.value = moment(formScheme.dayOfBirth.value, 'YYYY-MM-DD').fromNow();
 </script>
 
 <main>
