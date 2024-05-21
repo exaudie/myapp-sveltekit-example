@@ -43,12 +43,13 @@
 		dispatch('Keypress', evn);
 	};
 
-	const parseValidate = () => {
+	const parseValidate = (value: string) => {
 		const valid: ValidateType | null = onValidate(value);
+
 		if (valid != null) ({ isError, errorMessage } = valid);
 	};
 
-	$: if (isErrorReactive) parseValidate();
+	$: if (isErrorReactive) parseValidate(value);
 </script>
 
 <div class="input-customize">
