@@ -5,4 +5,5 @@ export type InputFieldScheme = {
 	label?: string;
 	placeholder?: string;
 	isError?: boolean;
+	errorMsg?: string;
 };

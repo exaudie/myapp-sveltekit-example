@@ -4,6 +4,7 @@
 	import { createEventDispatcher, onMount } from 'svelte';
 	import ShowHidden from '../ShowHidden.svelte';
 	import SelectBasic from './SelectBasic.svelte';
+	import ErrorMessageField from '../ErrorMessageField.svelte';
 
 	export let id: string = '';
 	export let name: string = '';
@@ -67,6 +68,8 @@
 			<option value={opt.value}>{opt.label}</option>
 		{/each}
 	</SelectBasic>
+
+	<ErrorMessageField {isError} message={errorMessage} />
 </div>
 
 <style lang="less">
@@ -76,5 +79,13 @@
 		-webkit-box-sizing: border-box;
 		-moz-box-sizing: border-box;
 		box-sizing: border-box;
+	}
+
+	.select-customize {
+		width: 100%;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		row-gap: 0.2em;
 	}
 </style>

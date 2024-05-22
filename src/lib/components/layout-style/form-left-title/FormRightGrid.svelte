@@ -15,6 +15,7 @@
 		display: grid;
 		grid-template-columns: repeat(2, 1fr);
 		gap: 1em;
+		align-items: start;
 	}
 
 	/* Extra small devices (phones, 600px and down) */
