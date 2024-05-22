@@ -3,6 +3,7 @@
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createEventDispatcher } from 'svelte';
 	import InputBasic from './InputBasic.svelte';
+	import ErrorMessageField from '../ErrorMessageField.svelte';
 
 	export let type: HTMLInputElement['type'] = 'text';
 	export let id: string = '';
@@ -20,7 +21,7 @@
 	export let isErrorReactive: boolean = false;
 	export let isError: boolean = false;
 	export let errorMessage: string = '';
-	export let onValidate = (value: string): ValidateType | null => null;
+	export let onValidate = (value: string): ValidateType => ({ isError: false, errorMessage: '' });
 
 	const regNumOnly = new RegExp(`^[\\d]*$`);
 
@@ -43,13 +44,7 @@
 		dispatch('Keypress', evn);
 	};
 
-	const parseValidate = (value: string) => {
-		const valid: ValidateType | null = onValidate(value);
-
-		if (valid != null) ({ isError, errorMessage } = valid);
-	};
-
-	$: if (isErrorReactive) parseValidate(value);
+	$: if (isErrorReactive) ({ isError, errorMessage } = onValidate(value));
 </script>
 
 <div class="input-customize">
@@ -73,6 +68,8 @@
 		on:Blur={onBlur}
 		on:Keypress={(evn) => onKeypress(evn)}
 	/>
+
+	<ErrorMessageField {isError} message={errorMessage} />
 </div>
 
 <style>
@@ -85,7 +82,10 @@
 	}
 
 	.input-customize {
+		width: 100%;
 		flex-grow: 1;
 		display: flex;
+		flex-direction: column;
+		row-gap: 0.2em;
 	}
 </style>

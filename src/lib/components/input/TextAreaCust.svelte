@@ -3,6 +3,7 @@
 	import type { HTMLInputAttributes } from 'svelte/elements';
 	import { createEventDispatcher } from 'svelte';
 	import TextAreaBasic from './TextAreaBasic.svelte';
+	import ErrorMessageField from '../ErrorMessageField.svelte';
 
 	export let id: string = '';
 	export let name: string = '';
@@ -57,6 +58,8 @@
 		on:Focus={onFocus}
 		on:Blur={onBlur}
 	/>
+
+	<ErrorMessageField {isError} message={errorMessage} />
 </div>
 
 <style lang="less">
@@ -70,5 +73,9 @@
 
 	.input-customize {
 		width: 100%;
+		flex-grow: 1;
+		display: flex;
+		flex-direction: column;
+		row-gap: 0.2em;
 	}
 </style>
