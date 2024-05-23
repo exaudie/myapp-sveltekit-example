@@ -1,4 +1,12 @@
 <script lang="ts">
+	import type { SubmitFunction } from '../$types';
+	import {
+		failedState,
+		internalError,
+		saveConfirm,
+		successState,
+		type ContentConfirmType
+	} from '../(helpers)/ConfirmContent';
 	import {
 		educationList,
 		setAge,
@@ -6,11 +14,17 @@
 		zDayOfBirth,
 		zFormScheme,
 		zLimitChar,
-		type FormSchemeType
+		type DataType,
+		type FormSchemeType,
+		type ResponseDataType
 	} from '../(helpers)/FormHelpers';
+	import { enhance } from '$app/forms';
 	import { getZValidField, zReuiredField } from '$lib/helpers/InputValidation';
+	import ConfirmState from '$lib/components/ConfirmState.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
+	import ShowHidden from '$lib/components/ShowHidden.svelte';
 	import Button from '$lib/components/button/Button.svelte';
+	import DialogConfirm from '$lib/components/dialog/DialogConfirm.svelte';
 	import InputDate from '$lib/components/input/InputDate.svelte';
 	import InputNumber from '$lib/components/input/InputNumber.svelte';
 	import InputText from '$lib/components/input/InputText.svelte';
@@ -19,22 +33,105 @@
 	import FormLeftTitle from '$lib/components/layout-style/form-left-title/FormLeftTitle.svelte';
 	import FormRightGrid from '$lib/components/layout-style/form-left-title/FormRightGrid.svelte';
 	import FormRightRow from '$lib/components/layout-style/form-left-title/FormRightRow.svelte';
+	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
 	import SelectCust from '$lib/components/select/SelectCust.svelte';
 
-	let formScheme: FormSchemeType = setFormScheme();
+	export let data: DataType | undefined;
+
+	let formScheme: FormSchemeType = setFormScheme({ data });
+	let saveDataSubmit: HTMLFormElement;
+	let isLoading: boolean = false;
+	let isShowConfirmDialog: boolean = false;
+	let contentConfirm: ContentConfirmType;
+
+	const toogleConfirmDialog = () => (isShowConfirmDialog = !isShowConfirmDialog);
+
+	const parseResponse = (respon?: ResponseDataType) => {
+		if (!(respon?.success ?? false)) {
+			contentConfirm = failedState;
+			toogleConfirmDialog();
+
+			return;
+		}
+
+		contentConfirm = successState;
+		toogleConfirmDialog();
+	};
+
+	const saveDataEnhance: SubmitFunction = ({ formData }) => {
+		isLoading = true;
+
+		formData.append('formShceme', window.btoa(JSON.stringify(formScheme)));
+
+		return async ({ result }) => {
+			isLoading = false;
+
+			switch (result.type) {
+				case 'success':
+					parseResponse(result?.data?.actionResponse);
+					break;
+
+				default:
+					contentConfirm = internalError;
+					toogleConfirmDialog();
+			}
+		};
+	};
 
 	const onSave = async () => {
 		const parse = await zFormScheme.safeParseAsync(formScheme);
 
 		if (!parse.success) {
 			const errMsg = parse.error.format();
-
 			formScheme = setFormScheme({ form: formScheme, err: errMsg });
+
+			return;
+		}
+
+		contentConfirm = saveConfirm;
+		toogleConfirmDialog();
+	};
+
+	const onClose = () => {};
+
+	const onConfirm = () => {
+		if (contentConfirm.confirm) {
+			saveDataSubmit.requestSubmit();
+
+			return;
 		}
 	};
 
 	$: formScheme.age.value = setAge({ dayOfBirth: formScheme.dayOfBirth.value });
 </script>
+
+<form
+	bind:this={saveDataSubmit}
+	method="post"
+	action="?/saveData"
+	use:enhance={saveDataEnhance}
+	hidden={true}
+/>
+
+<LoadingDialog isShow={isLoading} />
+
+<DialogConfirm
+	bind:isShow={isShowConfirmDialog}
+	title={(contentConfirm?.illust ?? '') === '' ? contentConfirm?.title ?? '' : ''}
+	desc={(contentConfirm?.illust ?? '') === '' ? contentConfirm?.desc ?? '' : ''}
+	primaryText={contentConfirm?.primaryText ?? 'Ok'}
+	secondaryText={contentConfirm?.secondaryText ?? ''}
+	on:Close={onClose}
+	on:Confirm={onConfirm}
+>
+	<ShowHidden isShow={(contentConfirm?.illust ?? '') !== ''}>
+		<ConfirmState
+			title={contentConfirm?.title ?? ''}
+			desc={contentConfirm?.desc ?? ''}
+			illust={contentConfirm?.illust ?? ''}
+		/>
+	</ShowHidden>
+</DialogConfirm>
 
 <main>
 	<FormLeftTitle title="Data Personal">
@@ -42,7 +139,7 @@
 			<FormRightGrid>
 				<LabelTop label="First Name">
 					<InputText
-						required
+						id="firstName"
 						placeholder="Enter First Name"
 						bind:isError={formScheme.firstName.isError}
 						bind:errorMessage={formScheme.firstName.errorMsg}
@@ -53,15 +150,18 @@
 
 				<LabelTop label="Last Name">
 					<InputText
+						id="lastName"
 						placeholder="Enter Last Name"
 						bind:isError={formScheme.lastName.isError}
 						bind:errorMessage={formScheme.lastName.errorMsg}
 						bind:value={formScheme.lastName.value}
+						onValidate={(value) => getZValidField({ value, zScheme: zReuiredField })}
 					/>
 				</LabelTop>
 
 				<LabelTop label="Day Of Birth">
 					<InputDate
+						id="dayOfBirth"
 						bind:isError={formScheme.dayOfBirth.isError}
 						bind:errorMessage={formScheme.dayOfBirth.errorMsg}
 						bind:value={formScheme.dayOfBirth.value}
@@ -72,6 +172,7 @@
 				<LabelTop label="Age">
 					<SuffixField suffixText="Year">
 						<InputNumber
+							id="age"
 							placeholder="Year age"
 							readonly={true}
 							isErrorReactive={formScheme.age.value !== ''}
@@ -90,13 +191,24 @@
 					bind:isError={formScheme.aboutMe.isError}
 					bind:errorMessage={formScheme.aboutMe.errorMsg}
 					bind:value={formScheme.aboutMe.value}
-					onValidate={(value) => getZValidField({ value, zScheme: zLimitChar({ min: 20 }) })}
+					onValidate={(value) =>
+						getZValidField({ value, zScheme: zLimitChar({ required: true, min: 20 }) })}
 				/>
 			</LabelTop>
 		</FormRightRow>
 	</FormLeftTitle>
 
-	<FormLeftTitle title="Alamat"></FormLeftTitle>
+	<FormLeftTitle title="Alamat">
+		<LabelTop label="Complete Address">
+			<TextAreaCust
+				placeholder="Enter Complete Address"
+				bind:isError={formScheme.address.isError}
+				bind:errorMessage={formScheme.address.errorMsg}
+				bind:value={formScheme.address.value}
+				onValidate={(value) => getZValidField({ value, zScheme: zLimitChar({ min: 20 }) })}
+			/>
+		</LabelTop>
+	</FormLeftTitle>
 
 	<FormLeftTitle title="Pendidikan">
 		<FormRightGrid>
@@ -108,6 +220,7 @@
 					bind:isError={formScheme.education.isError}
 					bind:errorMessage={formScheme.education.errorMsg}
 					bind:value={formScheme.education.value}
+					onValidate={(value) => getZValidField({ value, zScheme: zReuiredField })}
 				/>
 			</LabelTop>
 		</FormRightGrid>
@@ -142,6 +255,7 @@
 	}
 
 	.btn-wrap {
+		margin-top: 2em;
 		display: grid;
 		grid-template-columns: repeat(3, 1fr);
 		grid-template-areas: '. item1 item2';

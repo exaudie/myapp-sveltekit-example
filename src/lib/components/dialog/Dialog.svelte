@@ -22,7 +22,7 @@
 		transform: translate(-50%, -50%);
 	}
 
-	@media only screen and (max-width: 640px) {
+	@media only screen and (max-width: 600px) {
 		dialog {
 			width: 90vw;
 		}
