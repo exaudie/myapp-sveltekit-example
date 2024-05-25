@@ -6,6 +6,7 @@
 	import Dialog from './Dialog.svelte';
 
 	export let isShow: boolean = false;
+	export let withCloseEsc: boolean = false;
 	export let title: string = '';
 	export let titleColor: string = 'var(--text-primary)';
 	export let desc: string = '';
@@ -36,7 +37,7 @@
 </script>
 
 <ShowHidden bind:isShow>
-	<Backdrop bind:isShow withCloseEsc={true}>
+	<Backdrop bind:isShow {withCloseEsc}>
 		<div
 			class="dialog-customize"
 			style="--title-color:{titleColor};
@@ -54,9 +55,9 @@
 					</div>
 
 					<div class="content-dialog">
-						<slot>
-							<p>{desc}</p>
-						</slot>
+						<ShowHidden isShow={desc !== ''}><p>{desc}</p></ShowHidden>
+
+						<slot />
 					</div>
 
 					<ShowHidden isShow={primaryText !== '' || secondaryText !== ''}>
@@ -92,7 +93,7 @@
 	}
 
 	.dialog-customize :global(dialog) {
-		min-width: 25vw;
+		min-width: 32vw;
 		border-radius: 0.4em;
 		overflow: hidden;
 	}
@@ -132,7 +133,11 @@
 
 	.content-dialog {
 		color: var(--text-secondary);
+		min-height: 12vh;
 		max-height: 75vh;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
 		overflow: auto;
 
 		p {

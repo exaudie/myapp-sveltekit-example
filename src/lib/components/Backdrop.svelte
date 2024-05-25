@@ -1,5 +1,7 @@
 <script lang="ts">
+	import { lockScroll, unLockScroll } from '$lib/helpers/CommonHelpers';
 	import CloseIcon from '$lib/images/icon/close_icon.svg';
+	import { onDestroy, onMount } from 'svelte';
 
 	export let isShow: boolean;
 	export let withClose: boolean = false;
@@ -10,8 +12,11 @@
 	const onKeypress = (event: KeyboardEvent) => {
 		if (!withCloseEsc) return;
 		if (event.metaKey) return;
-		if (isShow && event.key == 'Escape') onClose();
+		if (isShow && event.key === 'Escape') onClose();
 	};
+
+	onMount(() => lockScroll());
+	onDestroy(() => unLockScroll());
 </script>
 
 <svelte:window on:keydown={onKeypress} />
