@@ -48,6 +48,7 @@
 	bind:value
 	class="customize"
 	class:error-border={isError}
+	class:auto-height={autoHeight}
 	style="--value-align:{valueAlign};
 				--max-height:{maxHeight};"
 	on:input={onInput}
@@ -75,10 +76,17 @@
 			border: 1px solid rgba(128, 128, 128, 0.5);
 			resize: none;
 			outline: none;
-			scrollbar-width: thin;
 
 			color: var(--text-primary);
 			font-size: 1em;
+		}
+
+		&.auto-height {
+			scrollbar-width: thin;
+
+			&::-webkit-scrollbar {
+				width: 0;
+			}
 		}
 
 		&::placeholder {
@@ -88,10 +96,6 @@
 
 		&:focus {
 			border-color: royalblue;
-		}
-
-		&::-webkit-scrollbar {
-			width: 0;
 		}
 
 		&:read-only,
