@@ -8,7 +8,7 @@
 	export let id: string = '';
 	export let name: string = '';
 	export let placeholder: string = '';
-	export let value: string = '';
+	export let value: string;
 	export let required: boolean = false;
 	export let disabled: boolean = false;
 	export let readonly: boolean = false;
