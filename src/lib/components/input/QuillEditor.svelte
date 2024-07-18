@@ -122,12 +122,12 @@
 	.error-border {
 		& :global(.ql-toolbar) {
 			border-color: var(--danger-state) var(--danger-state) rgba(128, 128, 128, 0.5)
-				var(--danger-state);
+				var(--danger-state) !important;
 		}
 
 		& :global(.ql-container) {
 			border-color: rgba(128, 128, 128, 0.5) var(--danger-state) var(--danger-state)
-				var(--danger-state);
+				var(--danger-state) !important;
 		}
 	}
 </style>

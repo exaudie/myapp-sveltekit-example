@@ -124,7 +124,8 @@ export const parseToDate = (
 	}
 ) => {
 	try {
-		const newDateFormat = new Date(value);
+		const dateValue = new Date(value);
+		const newDateFormat = new Date(dateValue.toLocaleString('en-US', { timeZone: 'UTC' }));
 
 		if (newDateFormat instanceof Date && !isNaN(newDateFormat.getTime())) return newDateFormat;
 
