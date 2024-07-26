@@ -9,8 +9,7 @@ export const menuItems: MenuItems[] = [
 	{ title: 'Select', subtitle: '', page: '/select' },
 	{ title: 'Checkbox', subtitle: '', page: '/checkbox' },
 	{ title: 'Input Auto Load', subtitle: '', page: '/input-auto-load' },
-	{ title: 'Input Validate', subtitle: '', page: '/input-validate' },
-	{ title: 'Input Change Value', subtitle: '', page: '/input-change-value' },
+	{ title: 'Input Auto Calculate', subtitle: '', page: '/input-auto-calculate' },
 	{ title: 'Form Enhance', subtitle: '', page: '/form-enhance' },
 	{ title: 'File Upload', subtitle: '', page: '/file-upload' },
 	{ title: 'Dialog', subtitle: '', page: '/dialog' },
@@ -24,6 +23,7 @@ export const menuItems: MenuItems[] = [
 	{ title: 'Array', subtitle: '', page: '/array' },
 	{ title: 'Formatter', subtitle: '', page: '/formatter' },
 	{ title: 'Base Navigation', subtitle: '', page: '/nav-menu' },
-	{ title: 'Zzzz', subtitle: '', page: '/zzz' },
-	{ title: 'Variable Generator', subtitle: '', page: '/var-gen' }
+	{ title: 'Variable Generator', subtitle: '', page: '/var-gen' },
+	{ title: 'Otp Pin', subtitle: '', page: '/otp-pin' },
+	{ title: 'Zzzz', subtitle: '', page: '/zzz' }
 ];

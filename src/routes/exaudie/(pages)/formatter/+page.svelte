@@ -8,11 +8,20 @@
 	import DateFormatterItem from './(components)/DateFormatterItem.svelte';
 	import NumberFormatterItem from './(components)/NumberFormatterItem.svelte';
 	import TabBarHelper from '$lib/helpers/TabBarHelper';
+	import DateFormatterMomentItem from './(components)/DateFormatterMomentItem.svelte';
+
+	enum NavValue {
+		DateFormat1 = 1,
+		DateFormat2 = 2,
+		NumberFormat = 3,
+		Disabled = 4
+	}
 
 	let tabItems = [
-		{ label: 'Date Formatter', value: 1 },
-		{ label: 'Number Formatter', value: 2 },
-		{ label: 'Disabled', value: 3, enabled: false }
+		{ label: 'Date Formatter', value: NavValue.DateFormat1 },
+		{ label: 'Date Formatter With MomentJs', value: NavValue.DateFormat2 },
+		{ label: 'Number Formatter', value: NavValue.NumberFormat },
+		{ label: 'Disabled', value: NavValue.Disabled, enabled: false }
 	];
 
 	let navHelper = NavButtonHelper.getInstance();
@@ -26,6 +35,7 @@
 	tabHelper.setItems({
 		navItems: tabItems as TabItem[]
 	});
+	tabHelper.setActive = 2;
 
 	const onTabClick = (val: CustomEvent) => (navHelper.setActive = val.detail.value);
 </script>
@@ -33,11 +43,15 @@
 <NavButton bind:navHelper paddingBtn="4px 8px" on:NavClick={onNavClick} />
 
 <TabBar bind:navHelper={tabHelper} on:TabClick={onTabClick}>
-	<ShowHidden isShow={tabHelper.getActive === 1}>
+	<ShowHidden isShow={tabHelper.getActive === NavValue.DateFormat1}>
 		<DateFormatterItem />
 	</ShowHidden>
 
-	<ShowHidden isShow={tabHelper.getActive === 2}>
+	<ShowHidden isShow={tabHelper.getActive === NavValue.DateFormat2}>
+		<DateFormatterMomentItem />
+	</ShowHidden>
+
+	<ShowHidden isShow={tabHelper.getActive === NavValue.NumberFormat}>
 		<NumberFormatterItem />
 	</ShowHidden>
 </TabBar>
