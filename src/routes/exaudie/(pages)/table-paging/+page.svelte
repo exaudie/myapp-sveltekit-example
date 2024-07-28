@@ -2,7 +2,7 @@
 	import type { NavButtonType } from '$lib/types/NavButtonType';
 	import ShowHidden from '$lib/components/ShowHidden.svelte';
 	import NavButton from '$lib/components/tabs/NavButton.svelte';
-	import NavButtonHelper from '$lib/helpers/NavButtonHelper';
+	import NavButtonHelper from '$lib/components/tabs/NavButtonHelper';
 	import PagingInHelper from './(components)/PagingInHelper.svelte';
 	import PagingOutHelper from './(components)/PagingOutHelper.svelte';
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';

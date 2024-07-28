@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type NavPagingHelper from '$lib/helpers/NavPagingHelper';
+	import type NavPagingHelper from '$lib/components/paging/NavPagingHelper';
 	import { createEventDispatcher } from 'svelte';
 	import ShowHidden from '../ShowHidden.svelte';
 

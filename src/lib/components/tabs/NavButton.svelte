@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type NavButtonHelper from '$lib/helpers/NavButtonHelper';
+	import type NavButtonHelper from '$lib/components/tabs/NavButtonHelper';
 	import { createEventDispatcher } from 'svelte';
 
 	export let navHelper: NavButtonHelper;

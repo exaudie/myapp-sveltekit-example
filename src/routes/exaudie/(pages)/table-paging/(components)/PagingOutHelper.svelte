@@ -1,6 +1,6 @@
 <script lang="ts">
 	import NavPaging from '$lib/components/paging/NavPaging.svelte';
-	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
+	import NavPagingHelper from '$lib/components/paging/NavPagingHelper';
 
 	export let dataList: any[];
 

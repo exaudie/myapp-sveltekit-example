@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type TabBarHelper from '$lib/helpers/TabBarHelper';
+	import type TabBarHelper from '$lib/components/tabs/TabBarHelper';
 	import { createEventDispatcher } from 'svelte';
 
 	export let navHelper: TabBarHelper;

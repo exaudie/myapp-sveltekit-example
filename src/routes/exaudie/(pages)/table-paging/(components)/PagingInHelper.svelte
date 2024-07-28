@@ -1,6 +1,6 @@
 <script lang="ts">
+	import NavPagingHelper from '$lib/components/paging/NavPagingHelper';
 	import NavPagingInfoShowing from '$lib/components/paging/NavPagingInfoShowing.svelte';
-	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
 
 	type Daata = { name?: string; ggg?: string };
 
