@@ -4,10 +4,10 @@
 	import ShowHidden from '$lib/components/ShowHidden.svelte';
 	import NavButton from '$lib/components/tabs/NavButton.svelte';
 	import TabBar from '$lib/components/tabs/TabBar.svelte';
-	import NavButtonHelper from '$lib/helpers/NavButtonHelper';
+	import NavButtonHelper from '$lib/components/tabs/NavButtonHelper';
 	import DateFormatterItem from './(components)/DateFormatterItem.svelte';
 	import NumberFormatterItem from './(components)/NumberFormatterItem.svelte';
-	import TabBarHelper from '$lib/helpers/TabBarHelper';
+	import TabBarHelper from '$lib/components/tabs/TabBarHelper';
 	import DateFormatterMomentItem from './(components)/DateFormatterMomentItem.svelte';
 
 	enum NavValue {

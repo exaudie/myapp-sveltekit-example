@@ -1,11 +1,11 @@
 <script lang="ts">
+	import type { ContentConfirmType } from '$lib/types/ ContentConfirmType';
 	import type { SubmitFunction } from '../$types';
 	import {
 		failedState,
 		internalError,
 		saveConfirm,
-		successState,
-		type ContentConfirmType
+		successState
 	} from '../(helpers)/ConfirmContent';
 	import {
 		educationList,

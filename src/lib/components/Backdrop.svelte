@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { lockScroll, unLockScroll } from '$lib/helpers/CommonHelpers';
-	import CloseIcon from '$lib/images/icon/close_icon.svg';
 	import { onDestroy, onMount } from 'svelte';
+	import CloseIcon from '$lib/images/icon/close_icon.svg';
 
 	export let isShow: boolean;
 	export let withClose: boolean = false;

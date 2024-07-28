@@ -4,12 +4,12 @@
 	import VerticalSpace from '$lib/components/VerticalSpace.svelte';
 	import NavButton from '$lib/components/tabs/NavButton.svelte';
 	import TabBar from '$lib/components/tabs/TabBar.svelte';
-	import NavButtonHelper from '$lib/helpers/NavButtonHelper';
-	import TabBarHelper from '$lib/helpers/TabBarHelper';
+	import NavButtonHelper from '$lib/components/tabs/NavButtonHelper';
+	import TabBarHelper from '$lib/components/tabs/TabBarHelper';
 	import GridLayoutTwoColumn from '$lib/components/layout-style/GridLayoutTwoColumn.svelte';
 	import LabelTop from '$lib/components/LabelTop.svelte';
 	import NavPaging from '$lib/components/paging/NavPaging.svelte';
-	import NavPagingHelper from '$lib/helpers/NavPagingHelper';
+	import NavPagingHelper from '$lib/components/paging/NavPagingHelper';
 	import NavPaging1 from '$lib/components/paging/NavPaging1.svelte';
 	import NavPaging2 from '$lib/components/paging/NavPaging2.svelte';
 

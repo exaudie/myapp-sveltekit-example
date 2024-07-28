@@ -1,17 +1,6 @@
 import FailedIcon from '$lib/images/icon/failed_icon.svg';
 import SuccessIcon from '$lib/images/icon/success_icon.svg';
 
-export type ContentConfirmType = {
-	contentCode?: string;
-	confirm: boolean;
-	success?: boolean;
-	title: string;
-	desc: string;
-	illust?: string;
-	primaryText?: string;
-	secondaryText?: string;
-};
-
 export const saveConfirm = {
 	contentCode: 'saveConfirm',
 	confirm: true,

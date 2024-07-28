@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { ActionData, PageData } from './$types';
+	import type { PageData } from './$types';
 	import ShowHidden from '$lib/components/ShowHidden.svelte';
 	import TabBar from '$lib/components/tabs/TabBar.svelte';
-	import TabBarHelper from '$lib/helpers/TabBarHelper';
+	import TabBarHelper from '$lib/components/tabs/TabBarHelper';
 	import Form1 from './(components)/Form1.svelte';
 	import Form2 from './(components)/Form2.svelte';
 	import Form3 from './(components)/Form3.svelte';

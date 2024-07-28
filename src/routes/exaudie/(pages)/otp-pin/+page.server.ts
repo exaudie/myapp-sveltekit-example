@@ -9,7 +9,7 @@ export const actions = {
 
 		if (otp === '123456') return { message: 'otp valid' };
 
-		return fail(400, { message: 'otp invalid' });
+		return fail(401, { message: 'otp invalid' });
 	}
 };
 

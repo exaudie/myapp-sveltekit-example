@@ -3,22 +3,20 @@
 
 	const dispatch = createEventDispatcher();
 
+	const onClickDocument = (p: { evn: MouseEvent; elm: HTMLElement }) => {
+		const target = p.evn.target as HTMLElement;
+
+		if (p.elm && !p.elm.contains(target) && !p.evn.defaultPrevented) dispatch('ClickOutsite');
+	};
+
 	const clickOutside = (elm: HTMLElement) => {
-		const handleClick = (event: Event) => {
-			const target = event.target as HTMLElement;
+		document.addEventListener('click', (evn) => onClickDocument({ evn, elm }), true);
 
-			if (elm && !elm.contains(target) && !event.defaultPrevented) {
-				dispatch('ClickOutsite');
-			}
+		const destroy = () => {
+			document.removeEventListener('click', (evn) => onClickDocument({ evn, elm }), true);
 		};
 
-		document.addEventListener('click', handleClick, true);
-
-		return {
-			destroy() {
-				document.removeEventListener('click', handleClick, true);
-			}
-		};
+		return { destroy };
 	};
 </script>
 
