@@ -1,27 +1,22 @@
 <script lang="ts">
+	import type { ContentConfirmType } from '$lib/types/ ContentConfirmType';
 	import type { SubmitFunction } from './$types';
-	import type { ActionResult } from '@sveltejs/kit';
 	import { enhance } from '$app/forms';
-	import OtpPin from './(components)/OtpPin.svelte';
+	import { parseErrorMsg } from '$lib/helpers/ContentConfirmHelpers';
 	import LoadingDialog from '$lib/components/loading/LoadingDialog.svelte';
+	import OtpPin from './(components)/OtpPin.svelte';
+	import Timer from '../../../../lib/components/timer/Timer.svelte';
+	import TimerHelper from '$lib/components/timer/TimerHelper';
 
 	let confirmOtpSubmit: HTMLFormElement;
 	let isErrorOtp: boolean = false;
 	let isLoading: boolean = false;
+	let isResend: boolean = false;
 	let otpValue: string[] = [];
+	let contentConfirm: ContentConfirmType;
 
-	const parseErrorMsg = (result: ActionResult) => {
-		switch (result.type) {
-			case 'failure':
-				return result?.data?.message ?? '';
-
-			case 'error':
-				return result?.error?.message ?? '';
-
-			default:
-				return 'Internal Server Error';
-		}
-	};
+	let timerHelper = new TimerHelper().setDuration({ second: 10 }).run();
+	timerHelper.onFinish = () => (isResend = true);
 
 	const confirmOtpEnhance: SubmitFunction = ({ formData }) => {
 		isLoading = true;
@@ -48,6 +43,11 @@
 
 		if (!someAreEmpty) confirmOtpSubmit.requestSubmit();
 	};
+
+	const onResend = () => {
+		timerHelper.run();
+		isResend = false;
+	};
 </script>
 
 <form
@@ -61,7 +61,17 @@
 <LoadingDialog isShow={isLoading} />
 
 <article>
+	<h4>Verifikasi OTP</h4>
+
 	<OtpPin isError={isErrorOtp} on:Input={(evn) => onConfirmOtp(evn)} />
+
+	<div class="resend-timer">
+		<button type="button" class:resend={isResend} on:click={() => (isResend ? onResend() : null)}>
+			Resend Code
+		</button>
+
+		<Timer bind:timerHelper />
+	</div>
 </article>
 
 <style lang="less">
@@ -79,5 +89,20 @@
 		align-items: center;
 		justify-content: center;
 		gap: 1em;
+	}
+
+	.resend-timer {
+		display: flex;
+		gap: 0.5em;
+
+		button {
+			all: unset;
+
+			&.resend {
+				cursor: pointer;
+				color: blue;
+				font-weight: 700;
+			}
+		}
 	}
 </style>
